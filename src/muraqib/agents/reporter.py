@@ -211,8 +211,13 @@ class ReporterAgent(Agent):
                 continue
             if finding.status in (Status.COMPLIANT, Status.PARTIAL, Status.NON_COMPLIANT):
                 assessed += 1
-            if finding.production_grade:
-                production_grade += 1
+                # Only assessed findings may count here. Counting every
+                # production-grade finding, including the not-assessable ones,
+                # produced the report line "47 of 38 assessed controls carry
+                # production-grade evidence" - a numerator drawn from a larger
+                # population than its own denominator.
+                if finding.production_grade:
+                    production_grade += 1
             if not control.critical:
                 continue
             if finding.status is Status.NON_COMPLIANT:

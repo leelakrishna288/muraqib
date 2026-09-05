@@ -194,3 +194,23 @@ class TestAssuranceClaimPermitted:
 
         assert report.assurance_claim.permitted is True, report.assurance_claim.blockers
         assert report.assurance_claim.verdict == "PERMITTED"
+
+
+def test_production_grade_count_never_exceeds_assessed_count():
+    """Regression: the numerator was drawn from a larger population than its
+    own denominator, producing "47 of 38 assessed controls carry production-
+    grade evidence". A not-assessable finding may still carry runtime evidence,
+    but it is not an assessed control."""
+    import yaml
+    from tests.conftest import ROOT
+
+    raw = (ROOT / "examples" / "tenant_assistant_remediated.yaml").read_text(encoding="utf-8")
+    cfg = PlatformConfig.model_validate(yaml.safe_load(raw))
+    ctx = build_context()
+    report = Orchestrator(ctx).run(cfg, list(Framework), run_id=new_run_id())
+    claim = report.assurance_claim
+    assert claim.production_grade_controls <= claim.total_assessed, (
+        f"{claim.production_grade_controls} production-grade findings counted against "
+        f"{claim.total_assessed} assessed controls"
+    )
+    assert claim.total_assessed > 0

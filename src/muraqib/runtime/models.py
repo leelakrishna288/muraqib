@@ -81,7 +81,13 @@ CLASSIFICATION_RANK = {
 class Principal(BaseModel):
     """Who is asking, and on whose behalf."""
 
-    model_config = ConfigDict(frozen=True)
+    # extra="forbid": a misnamed field in a security-relevant payload must be an
+    # error, not a silent default. A demo transaction passing "on_behalf_of"
+    # instead of "delegated_identity" was accepted and quietly evaluated as a
+    # non-delegated principal. It failed closed, which is the safe direction -
+    # but a typo in "authenticated" would fail closed too, and a typo in a field
+    # nobody checks would not fail at all.
+    model_config = ConfigDict(frozen=True, extra="forbid")
 
     subject: str
     authenticated: bool = False
@@ -110,7 +116,7 @@ class Principal(BaseModel):
 
 
 class ModelCall(BaseModel):
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=True, extra="forbid")
 
     name: str
     provider: str = ""
@@ -122,7 +128,7 @@ class ModelCall(BaseModel):
 class RetrievedItem(BaseModel):
     """One piece of context the agent pulled in before the model saw it."""
 
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=True, extra="forbid")
 
     source: str
     owner: str = ""
@@ -132,6 +138,8 @@ class RetrievedItem(BaseModel):
 
 class TransactionContext(BaseModel):
     """Everything a governance decision needs about one request."""
+
+    model_config = ConfigDict(extra="forbid")
 
     transaction_id: str = Field(default_factory=lambda: f"TXN-{uuid.uuid4().hex[:12]}")
     trace_id: str = Field(default_factory=lambda: uuid.uuid4().hex)

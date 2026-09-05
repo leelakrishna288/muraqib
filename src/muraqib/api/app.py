@@ -211,15 +211,10 @@ def create_app() -> FastAPI:
             ledger_verified=ok,
         )
 
-    @app.get("/v1/reports/{run_id}", tags=["assessment"])
-    async def get_report(
-        run_id: str, request: Request, _: Principal = Depends(require_role(ROLE_READER))
-    ) -> AssessmentReport:
-        report = request.app.state.reports.get(run_id)
-        if report is None:
-            raise HTTPException(status.HTTP_404_NOT_FOUND, "run not found in this process")
-        return report
-
+    # Registered BEFORE the bare "/v1/reports/{run_id}" route. Starlette matches
+    # in registration order and "{run_id}" happily captures "MRQ-....html", so
+    # with the bare route first this endpoint was unreachable: every HTML
+    # request 404'd with run_id set to the id plus the extension.
     @app.get("/v1/reports/{run_id}.html", response_class=HTMLResponse, tags=["assessment"])
     async def get_report_html(
         run_id: str, request: Request, _: Principal = Depends(require_role(ROLE_READER))
@@ -228,6 +223,15 @@ def create_app() -> FastAPI:
         if report is None:
             raise HTTPException(status.HTTP_404_NOT_FOUND, "run not found in this process")
         return render_html(report)
+
+    @app.get("/v1/reports/{run_id}", tags=["assessment"])
+    async def get_report(
+        run_id: str, request: Request, _: Principal = Depends(require_role(ROLE_READER))
+    ) -> AssessmentReport:
+        report = request.app.state.reports.get(run_id)
+        if report is None:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "run not found in this process")
+        return report
 
     @app.get(
         "/v1/reports/{run_id}/remediation", response_class=PlainTextResponse, tags=["assessment"]

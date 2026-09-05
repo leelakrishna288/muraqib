@@ -197,3 +197,20 @@ class TestAuth:
         monkeypatch.setenv("MURAQIB_OIDC_JWKS_URI", "")
         with pytest.raises(RuntimeError, match="refusing to start"), TestClient(create_app()):
             pass
+
+
+def test_html_report_route_is_reachable(auth_client_factory=None):
+    """Regression: "/v1/reports/{run_id}" was registered before
+    "/v1/reports/{run_id}.html", and "{run_id}" captures "MRQ-xxx.html", so
+    every HTML request 404'd against a run id that included the extension."""
+    import re
+
+    from muraqib.api.app import create_app
+
+    paths = [r.path for r in create_app().routes if hasattr(r, "path")]
+    html_i = paths.index("/v1/reports/{run_id}.html")
+    bare_i = paths.index("/v1/reports/{run_id}")
+    assert html_i < bare_i, (
+        "the .html route must be registered before the bare route or it is unreachable"
+    )
+    assert re.match(r"^/v1/reports/", paths[html_i])

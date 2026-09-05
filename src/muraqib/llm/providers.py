@@ -108,11 +108,51 @@ _POSITIVE = (
     "verified",
     "configured",
     "enabled",
+    # Evidence prose is not written in past participles only. A control that is
+    # actually running gets described in the present tense - "consent is
+    # captured", "the gate blocks release", "lineage is complete". Leaving these
+    # out did not make the baseline cautious, it made it blind: a run against
+    # fully runtime-verified evidence returned NOT_ASSESSABLE on eight critical
+    # controls whose evidence was perfectly explicit. Every term below still
+    # passes through the negation window, so "not recorded" never counts.
+    "recorded",
+    "established",
+    "captured",
+    "restricted",
+    "gated",
+    "scanned",
+    "purged",
+    "redacted",
+    "tokenised",
+    "tokenized",
+    "versioned",
+    "exercised",
+    "tracked",
+    "screened",
+    "labelled",
+    "labeled",
+    "excluded",
+    "complete",
+    "blocks",
+    "gates",
+    "runs",
+    "operates",
+    "covers",
+    "records",
+    "occurs",
+    "applied",
 )
+
+# A base-form verb expansion (run/runs, log/logs, record/records) was tried here
+# and reverted: "logs" matched the noun in "prompt logs carry no classification
+# labels", turning a NON_COMPLIANT control into PARTIAL. The evaluation harness
+# caught it as an over-claim within one run. The deterministic baseline now
+# abstains on some affirmative phrasings instead - the correct direction of
+# error for a compliance tool, and the reason the LLM router exists.
 
 # Explicit negation phrases. Checked BEFORE positives, and a positive term that
 # falls inside a negation window is discounted.
-_NEGATIVE = (
+_NEGATIVE_BASE = (
     "not implemented",
     "not documented",
     "not tested",
@@ -144,6 +184,31 @@ _NEGATIVE = (
     "do not",
     "database only",
     "primary database only",
+    # A base-form verb is ambiguous between "the gate blocks release" and "the
+    # gate will block release". Adding the stems above without these would let
+    # a roadmap read as a running control.
+    "will be",
+    "will run",
+    "intended to",
+    "intend to",
+    "plan to",
+    "plans to",
+    "roadmap",
+    "aim to",
+    "aims to",
+    "proposed",
+    "in progress",
+    "under way",
+    "underway",
+)
+
+# Every positive term also has a negated form. Hand-listing them drifted out of
+# sync the moment the positive list grew, so derive them instead: the weight-of-
+# evidence rule only works if "recorded" and "not recorded" are both counted.
+_NEGATIVE: tuple[str, ...] = tuple(
+    dict.fromkeys(
+        _NEGATIVE_BASE + tuple(f"not {t}" for t in _POSITIVE) + tuple(f"no {t}" for t in _POSITIVE)
+    )
 )
 
 _NEG_WINDOW = 40  # characters before a positive term that are scanned for a negator

@@ -1,0 +1,387 @@
+# The SAME fictional platform as examples/aldar_tenant_assistant.yaml, after a
+# remediation programme. Nothing about the engine changes between the two runs.
+#
+# The point of keeping both is that a governance tool is only worth anything if
+# its verdict moves when the evidence moves - and moves for the right reason.
+# The first run is BLOCKED on 39 critical-control blockers. This one is not,
+# because the evidence supplied here is runtime-verified or exported from live
+# configuration rather than asserted in a policy document.
+#
+# Run:  muraqib assess examples/tenant_assistant_remediated.yaml
+
+platform_name: "Tenant Services Assistant (fictional example, post-remediation)"
+owner_org: "Example Real Estate Group"
+jurisdiction: ["United Arab Emirates", "Saudi Arabia"]
+purpose: >-
+  Answers tenant questions about leases and service charges, triages maintenance
+  requests, and drafts responses for the customer service team to send.
+deployment: private_cloud
+data_categories: [personal, financial, internal]
+data_residency: "UAE only (primary and disaster recovery both in-region)"
+cross_border_transfer: false
+affects_individuals: true
+automated_decision_making: true
+human_in_the_loop: true
+sources:
+  - "Lease management system (Oracle)"
+  - "Service charge ledger"
+  - "Maintenance ticketing system"
+  - "Policy document library (SharePoint)"
+
+endpoints:
+  - name: tenant_chat
+    url: "https://internal.example/api/v1/chat"
+    method: POST
+    authenticated: true
+    auth_scheme: "OIDC (Microsoft Entra ID)"
+    rate_limited: true
+    logs_requests: true
+    pii_redacted: true
+  - name: maintenance_triage
+    url: "https://internal.example/api/v1/triage"
+    method: POST
+    authenticated: true
+    auth_scheme: "OIDC (Microsoft Entra ID)"
+    rate_limited: true
+    logs_requests: true
+    pii_redacted: true
+
+models:
+  - name: "gpt-4o-mini"
+    provider: "azure_openai"
+    hosting: saas
+    region: "uaenorth"
+    fine_tuned: false
+    training_data_documented: true
+    human_oversight: true
+    explainability_method: "retrieved source citations shown to the agent and to the tenant"
+  - name: "text-embedding-3-small"
+    provider: "azure_openai"
+    hosting: saas
+    region: "uaenorth"
+
+controls_documented:
+
+  # ---------------- EU AI Act ----------------
+  EUAIA.ART5.01:
+    text: >-
+      Every use case is screened against the prohibited-practices list before build starts,
+      and the screening result is recorded in the AI use-case register. The screening gate
+      is enforced in the deployment pipeline and blocks release when the record is absent.
+    maturity: runtime_verified
+    source: "AI use-case register export; pipeline gate run log 2026-08"
+  EUAIA.ART6.01:
+    text: >-
+      A documented high-risk classification determination is completed and signed off for
+      this system, with the reasoning recorded against each Annex III category considered.
+    maturity: config_export
+    source: "classification determination record v3"
+  EUAIA.ART9.01:
+    text: >-
+      A continuous risk management system operates across the lifecycle. Risks are reviewed
+      at each release, residual risk is recorded, and the register is exported from the GRC
+      platform monthly.
+    maturity: runtime_verified
+    source: "GRC risk register export, monthly"
+  EUAIA.ART10.01:
+    text: >-
+      Training, validation and testing data governance is implemented. The retrieval corpus
+      is versioned, its provenance is recorded per document, and quality checks run before
+      any corpus version is promoted.
+    maturity: runtime_verified
+    source: "corpus build pipeline logs; provenance manifest"
+  EUAIA.ART12.01:
+    text: >-
+      Automatic logging is implemented over the system lifetime. Every inference records the
+      model version, corpus version, retrieved document ids, and the decision outcome, with
+      logs retained for the required period.
+    maturity: runtime_verified
+    source: "inference log sample; retention policy export"
+  EUAIA.ART14.01:
+    text: >-
+      Effective human oversight is designed in. A named service-desk agent reviews and
+      approves every automated triage outcome before it takes effect, and the reviewer
+      identity is recorded on each decision.
+    maturity: runtime_verified
+    source: "approval queue export; reviewer audit trail"
+  EUAIA.ART15.01:
+    text: >-
+      Accuracy, robustness and cybersecurity levels are declared and tested. A versioned
+      evaluation set gates every release, and adversarial robustness tests run in the
+      pipeline with recorded pass thresholds.
+    maturity: runtime_verified
+    source: "evaluation harness CI run; robustness suite results"
+
+  # ---------------- GDPR ----------------
+  GDPR.ART5.01:
+    text: >-
+      Purpose limitation and data minimisation are enforced technically. Only the fields
+      required for the declared purpose are retrieved, and a field allow-list is applied
+      before any record reaches a prompt.
+    maturity: runtime_verified
+    source: "field allow-list config; request trace sample"
+  GDPR.ART5.02:
+    text: >-
+      Storage limitation is applied to derived artefacts. Embeddings, prompt logs and cached
+      responses each carry a retention period and are purged by a scheduled job whose runs
+      are logged.
+    maturity: runtime_verified
+    source: "purge job run history"
+  GDPR.ART6.01:
+    text: >-
+      A lawful basis is recorded for each AI processing purpose in the record of processing
+      activities, and the basis is reviewed when a purpose changes.
+    maturity: config_export
+    source: "RoPA export 2026-08"
+  GDPR.ART9.01:
+    text: >-
+      Special category data is excluded at ingestion by a classifier, and safeguards are
+      applied where such data is unavoidable, including restricted access and separate
+      retention.
+    maturity: runtime_verified
+    source: "ingestion classifier logs"
+  GDPR.ART15.01:
+    text: >-
+      Rights fulfilment reaches every AI store. A subject access request resolves against the
+      source systems, the vector index and the response cache, and the coverage is verified
+      by an automated completeness check.
+    maturity: runtime_verified
+    source: "DSAR fulfilment run log; completeness check output"
+  GDPR.ART22.01:
+    text: >-
+      Safeguards for automated decisions are implemented. Maintenance priority is proposed by
+      the system and confirmed by a human reviewer, and a documented route to contest the
+      outcome is published to tenants.
+    maturity: runtime_verified
+    source: "approval queue export; published contest procedure"
+  GDPR.ART28.01:
+    text: >-
+      Model providers are governed as processors under signed data processing agreements, with
+      the sub-processor list reviewed quarterly and change notifications tracked.
+    maturity: config_export
+    source: "DPA register export"
+  GDPR.ART32.01:
+    text: >-
+      Security of processing is implemented and tested. Encryption, access control, logging and
+      backup restoration are all verified, and penetration testing runs annually with findings
+      tracked to closure.
+    maturity: runtime_verified
+    source: "control test evidence pack; pen test report 2026"
+  GDPR.ART35.01:
+    text: >-
+      A data protection impact assessment is completed for this high-risk AI processing, signed
+      by the DPO, and reviewed on material change.
+    maturity: config_export
+    source: "DPIA v2 signed 2026-07"
+  GDPR.ART44.01:
+    text: >-
+      No international transfer occurs. Processing, storage and model inference are all
+      in-region, and the network policy blocks egress to out-of-region endpoints.
+    maturity: runtime_verified
+    source: "egress policy export; network flow logs"
+
+  # ---------------- KSA PDPL ----------------
+  KSA_PDPL.LB.01:
+    text: >-
+      A lawful basis is established and recorded for each processing purpose, and consent is
+      captured with a verifiable timestamp where consent is the basis relied upon.
+    maturity: config_export
+    source: "consent store export"
+  KSA_PDPL.RTS.01:
+    text: >-
+      Rights requests are handled through a tracked workflow with a recorded response clock,
+      and fulfilment covers derived AI artefacts as well as source records.
+    maturity: runtime_verified
+    source: "rights request queue export"
+  KSA_PDPL.XB.01:
+    text: >-
+      Transfer outside the Kingdom is assessed and no such transfer occurs for this system;
+      the assessment is recorded and reviewed annually.
+    maturity: config_export
+    source: "transfer assessment record"
+  KSA_PDPL.SEC.01:
+    text: >-
+      Organisational and technical safeguards are implemented, tested and evidenced, covering
+      access control, encryption, logging, and incident response.
+    maturity: runtime_verified
+    source: "control test evidence pack"
+
+  # ---------------- NDMO ----------------
+  NDMO.DG.01:
+    text: >-
+      A data governance operating model is approved with an executive mandate. The governance
+      forum meets monthly, decisions are recorded, and the mandate is published in the
+      enterprise policy register.
+    maturity: config_export
+    source: "policy register export; forum minutes"
+  NDMO.DG.02: >-
+    Data owners and stewards are assigned for every domain in scope, including maintenance,
+    and the assignments are recorded in the catalog.
+  NDMO.CM.01:
+    text: >-
+      The lease datasets, the ledger, the retrieval corpus and the prompt and response logs are
+      all registered in the enterprise catalog with owners and classifications.
+    maturity: config_export
+    source: "catalog export"
+  NDMO.CM.03:
+    text: >-
+      Lineage is complete from source system to model output. Every embedding records the
+      document version that produced it, and every answer records the embeddings it retrieved.
+    maturity: runtime_verified
+    source: "lineage graph export; answer trace sample"
+  NDMO.DQ.03:
+    text: >-
+      Quality controls run on retrieval data before promotion, covering duplication, staleness
+      and completeness, and a corpus version failing the checks is not promoted.
+    maturity: runtime_verified
+    source: "corpus quality gate run log"
+  NDMO.DC.02:
+    text: >-
+      Retention schedules are published and enforced for source documents and for derived
+      artefacts, with a scheduled purge job for the vector index whose runs are logged.
+    maturity: runtime_verified
+    source: "purge job run history"
+  NDMO.DS.01:
+    text: >-
+      Data sharing agreements are in place for every external recipient, recorded in the
+      agreement register with review dates.
+    maturity: config_export
+    source: "sharing agreement register"
+  NDMO.CL.01:
+    text: >-
+      The corporate classification scheme is applied to all source datasets and the labels are
+      enforced in the catalog.
+    maturity: config_export
+    source: "catalog label export"
+  NDMO.CL.02:
+    text: >-
+      Handling controls are driven by classification. Access, encryption and retention rules
+      are applied automatically from the label rather than configured per system.
+    maturity: runtime_verified
+    source: "policy engine configuration; enforcement logs"
+  NDMO.CL.03:
+    text: >-
+      Classification propagates to derived AI artefacts. Embeddings, prompt logs and cached
+      responses inherit the label of their most restrictive source document, and the
+      inheritance is verified by an automated check on every corpus build.
+    maturity: runtime_verified
+    source: "label inheritance check output"
+  NDMO.PD.01:
+    text: >-
+      Lawful basis and purpose limitation are recorded. The record of processing activities
+      lists AI grounding and inference as distinct processing activities with their own basis.
+    maturity: config_export
+    source: "RoPA export 2026-08"
+  NDMO.PD.02:
+    text: >-
+      Data subject rights are fulfilled across AI artefacts. Erasure re-indexes the vector store
+      and purges cached responses, and completion is verified before the request is closed.
+    maturity: runtime_verified
+    source: "erasure run log; verification check output"
+  NDMO.PD.04:
+    text: >-
+      Minimisation is enforced before model invocation. Identifiers and contact details are
+      tokenised and the redaction step is a mandatory stage in the request path.
+    maturity: runtime_verified
+    source: "redaction stage telemetry"
+  NDMO.PD.05:
+    text: >-
+      Cross-border transfer controls are in place and no transfer occurs. Residency is enforced
+      by policy and verified by network egress monitoring.
+    maturity: runtime_verified
+    source: "egress policy export; flow logs"
+  NDMO.SP.01:
+    text: >-
+      Access is authenticated through Entra ID with MFA enforced, least privilege is applied
+      through a documented RBAC matrix, and access reviews run quarterly with logged outcomes.
+    maturity: runtime_verified
+    source: "sign-in logs; Q3 access review export"
+  NDMO.SP.02:
+    text: >-
+      TLS 1.3 is enforced in transit and all stores are encrypted at rest with customer-managed
+      keys rotated annually.
+    maturity: config_export
+    source: "Key Vault policy export"
+  NDMO.SP.03:
+    text: >-
+      Logging and audit trail are implemented with tamper evidence. Every entry is hash-chained
+      to its predecessor, the chain is verified on read, and logs record the model version and
+      the documents retrieved.
+    maturity: runtime_verified
+    source: "ledger verification output; log sample"
+  NDMO.SP.04: >-
+    SAST, DAST and dependency scanning run on every pipeline execution and findings are
+    remediated against documented SLAs.
+  NDMO.SP.05:
+    text: >-
+      AI-specific threat controls are implemented. Prompt injection, tool invocation and output
+      handling are in the threat model, and an injection test suite runs on every release.
+    maturity: runtime_verified
+    source: "threat model v2; injection suite CI results"
+
+  # ---------------- UAE PDPL ----------------
+  UAE_PDPL.LB.01:
+    text: >-
+      A lawful basis or valid consent is recorded for each purpose, with consent captured and
+      withdrawable through the tenant portal.
+    maturity: config_export
+    source: "consent store export"
+  UAE_PDPL.RTS.01:
+    text: >-
+      Rights fulfilment is implemented end to end and covers derived AI artefacts, with a
+      tracked response clock and verified completion.
+    maturity: runtime_verified
+    source: "rights request queue export"
+  UAE_PDPL.XB.01:
+    text: >-
+      Transfer outside the UAE is assessed and does not occur; residency is enforced technically
+      and monitored.
+    maturity: runtime_verified
+    source: "egress policy export"
+  UAE_PDPL.SEC.01:
+    text: >-
+      Appropriate technical and organisational measures are implemented and tested, covering
+      identity, encryption, logging, backup and incident response.
+    maturity: runtime_verified
+    source: "control test evidence pack"
+
+  # ---------------- SDAIA / NIST / ISO (non-critical, for coverage) ----------------
+  SDAIA.ACC.01:
+    text: >-
+      A named accountable owner is assigned for this AI system and recorded in the use-case
+      register, with the accountability documented in the owner's objectives.
+    maturity: config_export
+    source: "use-case register export"
+  SDAIA.ACC.02:
+    text: >-
+      AI decisions are auditable. Each decision links to the prompt, the retrieved sources, the
+      model version and the human reviewer.
+    maturity: runtime_verified
+    source: "decision audit trail sample"
+  SDAIA.TRAN.01: >-
+    The interface states that the tenant is chatting with an automated assistant on every
+    session, and AI-drafted replies are labelled before an agent sends them.
+  SDAIA.REL.01:
+    text: >-
+      Answer quality is measured against a versioned evaluation set, and a release gate blocks
+      promotion when accuracy falls below the declared threshold.
+    maturity: runtime_verified
+    source: "evaluation harness CI run"
+  SDAIA.PRIV.01:
+    text: >-
+      Privacy is designed in. Redaction runs before model invocation and the privacy review is a
+      mandatory gate before release.
+    maturity: runtime_verified
+    source: "redaction telemetry; release gate log"
+  NIST.GOVERN.01: >-
+    Roles, responsibilities and escalation paths for AI risk are documented and approved, and
+    the governance forum reviews them annually.
+  NIST.MANAGE.02:
+    text: >-
+      Incident response covers AI-specific failures. Runbooks exist for hallucination, injection
+      and model outage, and the runbooks are exercised twice a year.
+    maturity: runtime_verified
+    source: "incident exercise records"
+  ISO42001.C9.01: >-
+    Performance of the AI management system is evaluated through internal audit and management
+    review, and the results are recorded with actions tracked to closure.
