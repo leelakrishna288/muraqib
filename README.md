@@ -145,7 +145,7 @@ pip install -e ".[dev]"
 muraqib frameworks                      # what's loaded
 muraqib search "erasing a customer from the vector index"
 make demo                               # full assessment -> reports/
-make test                               # 232 tests, offline, no keys
+make test                               # 240 tests, offline, no keys
 make eval                               # evaluation gate
 ```
 
@@ -416,7 +416,7 @@ src/muraqib/
   api/                 FastAPI + OIDC auth
   mcp/                 MCP server (JSON-RPC 2.0 over stdio)
   reporting/           Markdown, HTML, remediation plan
-tests/                 232 tests
+tests/                 240 tests
 docs/                  Architecture, security model, sources, threat model
 ```
 

@@ -17,5 +17,9 @@ htmlcov/
 .chroma/
 data/runs/
 data/index/
+# Assessment output. `muraqib assess -o reports` writes here, and 17 generated
+# report files had been committed as if they were source - 41k lines of build
+# output in a repository whose whole subject is knowing what it can prove.
+reports/
 *.log
 .DS_Store
