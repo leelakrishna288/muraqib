@@ -225,6 +225,22 @@ class OfflineProvider(LLMProvider):
 
     def _assess(self, payload: str) -> dict[str, Any]:
         if "<critic_task>" in payload:
+            # Design- or simulation-grade evidence describes intent, not a control
+            # in operation, so a "compliant" verdict resting on it is downgraded
+            # even by the deterministic baseline. This is a rule, not a judgement.
+            low = payload.lower()
+            weak = any(
+                f"declared evidence maturity: {m}" in low for m in ("design", "simulated", "none")
+            )
+            claims_pass = '"status": "compliant"' in low or '"status":"compliant"' in low
+            if weak and claims_pass:
+                return {
+                    "verdict": "downgraded",
+                    "note": (
+                        "Evidence is design- or simulation-grade, which describes intent "
+                        "rather than a control in operation."
+                    ),
+                }
             return {
                 "verdict": "upheld",
                 "note": "Deterministic critic: schema and citation present.",

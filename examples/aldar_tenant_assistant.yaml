@@ -94,12 +94,21 @@ controls_documented:
   NDMO.PD.05: >-
     A transfer impact assessment is planned for Q4. The model endpoint is hosted in the EU
     while primary residency is the UAE.
-  NDMO.SP.01: >-
-    Access is authenticated through Microsoft Entra ID with MFA enforced. An RBAC matrix is
-    documented, reviewed quarterly, and access reviews are logged and retained.
-  NDMO.SP.02: >-
-    TLS 1.3 is enforced in transit and all managed stores are encrypted at rest with
-    customer-managed keys rotated annually.
+  # Evidence may be a bare string (treated as DOCUMENT maturity) or a typed
+  # object. The maturity is what separates "we wrote a policy" from "we can show
+  # it running", and it drives the assurance score and the production claim.
+  NDMO.SP.01:
+    text: >-
+      Access is authenticated through Microsoft Entra ID with MFA enforced. An RBAC matrix is
+      documented, reviewed quarterly, and access reviews are logged and retained.
+    maturity: runtime_verified
+    source: "Entra sign-in logs, Q3 access review export"
+  NDMO.SP.02:
+    text: >-
+      TLS 1.3 is enforced in transit and all managed stores are encrypted at rest with
+      customer-managed keys rotated annually.
+    maturity: config_export
+    source: "Key Vault policy export"
   NDMO.SP.03: >-
     Application logs are retained for 90 days. They do not record which model version
     answered a request or which documents were retrieved.
@@ -115,9 +124,12 @@ controls_documented:
   GDPR.ART28.01: >-
     A data processing agreement is signed with the model provider and the sub-processor
     list is reviewed annually.
-  SDAIA.REL.01: >-
-    Answer quality is spot-checked manually by the service desk. There is no versioned
-    evaluation set and no release gate.
+  SDAIA.REL.01:
+    text: >-
+      Answer quality is spot-checked manually by the service desk. There is no versioned
+      evaluation set and no release gate.
+    maturity: simulated
+    source: "service desk sampling"
   SDAIA.TRAN.01: >-
     The chat interface displays "You are chatting with an automated assistant" on every
     session and AI-drafted replies are labelled before an agent sends them.

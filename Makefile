@@ -38,6 +38,10 @@ demo:      ## Run the bundled example assessment
 	$(PY) -m muraqib.cli assess examples/aldar_tenant_assistant.yaml \
 		--format md --format html --format json --format plan -o reports
 
+govern:    ## Run the two example transactions through the runtime gates
+	-$(PY) -m muraqib.cli govern examples/transaction_allowed.yaml
+	-$(PY) -m muraqib.cli govern examples/transaction_blocked.yaml
+
 serve:     ## Run the API on :8000
 	$(PY) -m muraqib.cli serve --reload
 

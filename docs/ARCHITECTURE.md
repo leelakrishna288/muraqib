@@ -186,6 +186,39 @@ problem in agent stacks; here it is bounded and the number appears in the report
 
 Tamper-**evident**, not tamper-proof; see the README.
 
+## The runtime plane
+
+Added after the assessment side, and deliberately separate: see
+[`RUNTIME_GOVERNANCE.md`](RUNTIME_GOVERNANCE.md). It shares the audit ledger,
+the injection scanner and the PII redactor with the assessor, and shares none of
+its state. The assessor answers a question about a platform; the runtime plane
+answers a question about a request.
+
+The two are joined by one idea, and it is the same idea the citation gate
+enforces: **"could not establish" is a distinct outcome from "failed"**. The
+assessor calls it `not_assessable`; the runtime plane calls it `NOT_EVIDENCED`.
+Both refuse to convert an absence of evidence into a pass, and both refuse to
+convert it into a failure.
+
+## Evidence maturity
+
+A finding now carries how strong its evidence is, on a six-rung ladder from
+runtime-verified down to none. Three numbers come out of an assessment where
+there used to be two:
+
+* **coverage** — of the applicable controls, how many reached a usable verdict;
+* **weighted posture** — of the available control weight, how much is satisfied;
+* **assurance** — the same, discounted by evidence maturity.
+
+A platform can be 90% compliant on paper and 40% assured. That gap is the honest
+finding, and before this existed the tool could not express it.
+
+The **production assurance claim** is stricter still and deliberately binary: it
+is permitted only when every *critical* control is satisfied **and** carries
+production-grade evidence (runtime-verified or a verified configuration export).
+Missing evidence is not a control failure — but it does prevent the claim, which
+is a more precise statement than any percentage.
+
 ## Deliberate non-goals
 
 - **No autonomous remediation.** The tool identifies gaps. Changing a client's

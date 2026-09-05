@@ -1,0 +1,30 @@
+# One request through the governed path. Everything here is permitted.
+principal:
+  subject: "leela@corp.ae"
+  authenticated: true
+  mfa: true
+  roles: ["analyst"]
+  channel: "chat"
+  delegated_identity: true
+  issuer: "https://login.microsoftonline.com/tenant"
+prompt: "Summarise my meetings this week and flag anything needing preparation."
+prompt_redacted: true
+requested_agents: ["summariser"]
+requested_tools: ["calendar_read", "document_search"]
+data_sources: ["calendar", "sharepoint"]
+retrieved:
+  - source: "calendar"
+    owner: "leela@corp.ae"
+    classification: "internal"
+    excerpt: "Thursday - quarterly review with finance"
+  - source: "sharepoint"
+    owner: "leela@corp.ae"
+    classification: "internal"
+    excerpt: "Q3 review pack"
+model:
+  name: "gpt-4o-mini"
+  provider: "azure_openai"
+  deployment: "prod-uae"
+  region: "uae-north"
+response: "You have four meetings. Only Thursday's quarterly review needs preparation."
+record_count: 4

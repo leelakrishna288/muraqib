@@ -64,12 +64,71 @@ def render_markdown(report: AssessmentReport) -> str:
         "Share of available control weight satisfied. Compliant scores full, partial scores half. |"
     )
     a(
+        f"| Assurance score | **{report.overall_assurance_pct:.1f}%** | "
+        "Weighted posture discounted by how strong the evidence actually is. A control "
+        "backed by a policy PDF does not score like one backed by production telemetry. |"
+    )
+    a(
         f"| Risk tier | **{report.risk.tier.value.upper()}** | Deterministic triage tier (see section 2). |"
     )
     a(
         f"| Blocking gaps | **{len(report.blocking_gaps)}** | High-weight failures on binding instruments. |"
     )
     a("")
+
+    if report.assurance_claim is not None:
+        claim = report.assurance_claim
+        a(f"### Production assurance claim: **{claim.verdict}**")
+        a("")
+        a(claim.rationale)
+        a("")
+        if claim.blockers:
+            a("Blockers:")
+            a("")
+            for b in claim.blockers:
+                a(f"- {b}")
+            a("")
+        a(
+            f"_{claim.production_grade_controls} of {claim.total_assessed} assessed controls "
+            "carry production-grade evidence (runtime-verified or verified configuration export)._"
+        )
+        a("")
+
+    if report.evidence_profile:
+        a("### Evidence profile")
+        a("")
+        a("| Maturity | Controls |")
+        a("|---|---:|")
+        order = [
+            "runtime_verified",
+            "config_export",
+            "document",
+            "design",
+            "simulated",
+            "none",
+        ]
+        for key in order:
+            if key in report.evidence_profile:
+                a(f"| {key.replace('_', ' ')} | {report.evidence_profile[key]} |")
+        a("")
+
+    if report.domain_coverage:
+        a("### Assurance domains")
+        a("")
+        a("A single view across every framework in scope. Clients want to know which part of")
+        a("the estate is weak, not which of eight documents mentions it.")
+        a("")
+        a(
+            "| Domain | Controls | Assessed | Coverage | Weighted | Assurance | Critical FAIL | Critical unevidenced |"
+        )
+        a("|---|---:|---:|---:|---:|---:|---:|---:|")
+        for d in report.domain_coverage:
+            a(
+                f"| {d.domain.value.replace('_', ' ')} | {d.total_controls} | {d.assessed} | "
+                f"{d.coverage_pct:.0f}% | {d.weighted_score_pct:.0f}% | {d.assurance_score_pct:.0f}% | "
+                f"{len(d.critical_failures)} | {len(d.critical_unevidenced)} |"
+            )
+        a("")
 
     not_assessable = [f for f in report.findings if f.status is Status.NOT_ASSESSABLE]
     if not_assessable:
@@ -140,6 +199,10 @@ def render_markdown(report: AssessmentReport) -> str:
                 a("")
             if f.recommendation:
                 a(f"**Recommendation:** {f.recommendation}")
+                a("")
+            if f.evidence_maturity.value != "none":
+                src = f" (source: {f.evidence_source})" if f.evidence_source else ""
+                a(f"**Evidence maturity:** {f.evidence_maturity.value.replace('_', ' ')}{src}")
                 a("")
             if f.critic_verdict != "not_reviewed":
                 a(f"**Adversarial review:** {f.critic_verdict} - {f.critic_note}")
@@ -236,6 +299,16 @@ def render_html(report: AssessmentReport) -> str:
     blocking = (
         "".join(f"<li>{esc(g)}</li>" for g in report.blocking_gaps) or "<li>None identified.</li>"
     )
+    domain_rows = (
+        "".join(
+            f"<tr><td>{esc(d.domain.value.replace('_', ' '))}</td><td>{d.total_controls}</td>"
+            f"<td>{d.assessed}</td><td>{d.coverage_pct:.0f}%</td><td>{d.weighted_score_pct:.0f}%</td>"
+            f"<td>{d.assurance_score_pct:.0f}%</td><td>{len(d.critical_failures)}</td>"
+            f"<td>{len(d.critical_unevidenced)}</td></tr>"
+            for d in report.domain_coverage
+        )
+        or "<tr><td colspan='8'>No domain data.</td></tr>"
+    )
 
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -270,9 +343,19 @@ run <code>{esc(report.run_id)}</code> · {report.created_at:%Y-%m-%d %H:%M} UTC 
 <div class="grid">
   <div class="card"><div class="k">Coverage</div><div class="v">{report.overall_coverage_pct:.0f}%</div><div class="s">of applicable controls given a usable verdict</div></div>
   <div class="card"><div class="k">Weighted posture</div><div class="v">{report.overall_weighted_pct:.0f}%</div><div class="s">of available control weight satisfied</div></div>
+  <div class="card"><div class="k">Assurance</div><div class="v">{report.overall_assurance_pct:.0f}%</div><div class="s">posture discounted by evidence strength</div></div>
   <div class="card"><div class="k">Risk tier</div><div class="v">{esc(report.risk.tier.value.upper())}</div><div class="s">deterministic triage</div></div>
   <div class="card"><div class="k">Blocking gaps</div><div class="v">{len(report.blocking_gaps)}</div><div class="s">high weight, binding instruments</div></div>
 </div>
+<div class="note" style="border-left-color:{"#137547" if (report.assurance_claim and report.assurance_claim.permitted) else "#B3261E"}">
+<strong>Production assurance claim: {esc(report.assurance_claim.verdict) if report.assurance_claim else "UNKNOWN"}</strong><br>
+{esc(report.assurance_claim.rationale) if report.assurance_claim else ""}
+{("<br>" + "<br>".join("&bull; " + esc(b) for b in report.assurance_claim.blockers)) if report.assurance_claim and report.assurance_claim.blockers else ""}
+</div>
+<h2>Assurance domains</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Domain</th><th>Controls</th><th>Assessed</th><th>Coverage</th><th>Weighted</th><th>Assurance</th><th>Critical FAIL</th><th>Critical unevidenced</th></tr></thead>
+<tbody>{domain_rows}</tbody></table></div>
 <h2>By framework</h2><div class="grid">{cards}</div>
 <h2>Blocking gaps</h2><ul>{blocking}</ul>
 <h2>Findings</h2>

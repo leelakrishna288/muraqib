@@ -174,3 +174,89 @@ class TestTools:
     def test_verify_ledger_detects_a_missing_file(self, server):
         r = call(server, "verify_audit_ledger", {"path": "/nonexistent/x.jsonl"})
         assert r["result"]["isError"] is True
+
+
+class TestRuntimeTool:
+    def _txn(self, **overrides):
+        base = {
+            "principal": {
+                "subject": "u@corp.ae",
+                "authenticated": True,
+                "mfa": True,
+                "roles": ["analyst"],
+                "channel": "chat",
+                "delegated_identity": True,
+            },
+            "prompt": "Summarise my meetings.",
+            "prompt_redacted": True,
+            "requested_tools": ["calendar_read"],
+            "data_sources": ["calendar"],
+            "retrieved": [
+                {"source": "calendar", "owner": "u@corp.ae", "classification": "internal"}
+            ],
+            "model": {"name": "gpt-4o-mini", "provider": "azure_openai", "region": "uae-north"},
+            "response": "Four meetings.",
+        }
+        base.update(overrides)
+        return base
+
+    def test_permitted_transaction(self, server):
+        d = payload(
+            call(
+                server,
+                "evaluate_transaction",
+                {
+                    "transaction": self._txn(),
+                    "policy_path": "examples/governance_policy.yaml",
+                },
+            )
+        )
+        assert d["verdict"] == "allow"
+        assert d["allowed"] is True
+        assert d["blocked_at"] is None
+        assert d["released_response"] == "Four meetings."
+        assert d["audit_ledger_verified"] is True
+        assert len(d["gates"]) == 6
+
+    def test_blocked_transaction_names_the_gate(self, server):
+        d = payload(
+            call(
+                server,
+                "evaluate_transaction",
+                {
+                    "transaction": self._txn(requested_tools=["ledger_read"]),
+                    "policy_path": "examples/governance_policy.yaml",
+                },
+            )
+        )
+        assert d["verdict"] == "block"
+        assert d["blocked_at"] == "entitlement"
+        assert d["released_response"] is None
+
+    def test_trace_is_returned(self, server):
+        d = payload(
+            call(
+                server,
+                "evaluate_transaction",
+                {
+                    "transaction": self._txn(),
+                    "policy_path": "examples/governance_policy.yaml",
+                },
+            )
+        )
+        assert d["trace"][0].startswith("principal=")
+
+    def test_invalid_transaction_is_a_tool_error(self, server):
+        r = call(server, "evaluate_transaction", {"transaction": {"prompt": "no principal"}})
+        assert r["result"]["isError"] is True
+
+    def test_missing_policy_file_is_a_tool_error(self, server):
+        r = call(
+            server,
+            "evaluate_transaction",
+            {
+                "transaction": self._txn(),
+                "policy_path": "/nope/policy.yaml",
+            },
+        )
+        assert r["result"]["isError"] is True

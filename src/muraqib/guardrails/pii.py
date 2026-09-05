@@ -46,15 +46,22 @@ _RULES: list[tuple[str, re.Pattern[str]]] = [
         ),
     ),
     ("IBAN", re.compile(r"\b[A-Z]{2}\d{2}[A-Z0-9]{11,30}\b")),
-    ("CARD", re.compile(r"\b(?:\d[ -]?){13,19}\b")),
+    # Written so the final character is always a digit; the old form
+    # "(?:\d[ -]?){13,19}" also swallowed the separator after the last digit,
+    # so "card 4111 1111 1111 1111 on file" redacted as "[CARD:..]on file".
+    ("CARD", re.compile(r"\b\d(?:[ -]?\d){12,18}\b")),
     (
         "GOV_ID",
         re.compile(r"\b(?:\d{3}-\d{2}-\d{4}|\d{4}\s?\d{4}\s?\d{4}|784-?\d{4}-?\d{7}-?\d)\b"),
     ),
     (
+        # The trailing guard rejects a following word character and a following
+        # ".digit" (an IP address or a decimal, not a phone number) - but it must
+        # allow a sentence-ending period. Rejecting "." outright let
+        # "+971 50 123 4567." through unmasked, which a runtime DLP run caught.
         "PHONE",
         re.compile(
-            r"(?<![\w.])\+?\d{1,3}[-.\s]?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{3,4}(?![\w.])"
+            r"(?<![\w.])\+?\d{1,3}[-.\s]?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{3,4}(?!\w|\.\d)"
         ),
     ),
     ("IP", re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")),

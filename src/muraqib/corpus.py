@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 from .config import get_settings
-from .models import Control, Framework, FrameworkPack, Obligation
+from .models import AssuranceDomain, Control, Framework, FrameworkPack, Obligation
 
 
 class CorpusError(RuntimeError):
@@ -42,6 +42,10 @@ def _load_pack(path: Path) -> FrameworkPack:
                 intent=" ".join(item.get("intent", "").split()),
                 evidence_hints=item.get("evidence_hints", []),
                 weight=item.get("weight", 1),
+                assurance_domain=AssuranceDomain(
+                    item.get("assurance_domain", AssuranceDomain.CROSS_CUTTING.value)
+                ),
+                critical=bool(item.get("critical", False)),
                 source_url=raw.get("source_url", ""),
                 verbatim_text_included=False,
             )
@@ -114,3 +118,14 @@ class Corpus:
 
     def stats(self) -> dict[str, int]:
         return {p.framework.value: p.control_count for p in self.packs}
+
+    def by_domain(
+        self, frameworks: list[Framework] | None = None
+    ) -> dict[AssuranceDomain, list[Control]]:
+        out: dict[AssuranceDomain, list[Control]] = {d: [] for d in AssuranceDomain}
+        for control in self.controls(frameworks):
+            out[control.assurance_domain].append(control)
+        return out
+
+    def critical_controls(self, frameworks: list[Framework] | None = None) -> list[Control]:
+        return [c for c in self.controls(frameworks) if c.critical]

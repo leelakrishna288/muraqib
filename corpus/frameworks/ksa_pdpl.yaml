@@ -22,6 +22,8 @@ controls:
       obtained where required and withdrawal made as easy as giving it?
     evidence_hints: ["consent records", "purpose register", "withdrawal mechanism"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: KSA_PDPL.NOT.01
     domain: Notice and transparency
     title: Privacy notice provided to data subjects
@@ -30,6 +32,8 @@ controls:
       recipients, retention and their rights, before or at collection?
     evidence_hints: ["privacy notice", "collection point screenshots"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: KSA_PDPL.RTS.01
     domain: Data subject rights
     title: Rights request handling
@@ -38,6 +42,8 @@ controls:
       copy, correct and destroy personal data within the statutory period?
     evidence_hints: ["rights request procedure", "SLA tracking", "identity verification steps"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: KSA_PDPL.MIN.01
     domain: Minimisation and retention
     title: Collection limited and retention bounded
@@ -46,6 +52,8 @@ controls:
       purpose is fulfilled?
     evidence_hints: ["minimisation review", "destruction records", "retention schedule"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: KSA_PDPL.XB.01
     domain: Cross-border transfer
     title: Transfer outside the Kingdom assessed
@@ -56,6 +64,8 @@ controls:
     intent: An overseas LLM endpoint is a cross-border transfer even when no data is "stored".
     evidence_hints: ["transfer risk assessment", "provider hosting region", "contractual safeguards"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: KSA_PDPL.DPO.01
     domain: Accountability
     title: Personal data protection officer appointed where required
@@ -64,6 +74,8 @@ controls:
       contact details and sufficient independence?
     evidence_hints: ["appointment letter", "published contact", "reporting line"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
   - id: KSA_PDPL.ROP.01
     domain: Accountability
     title: Records of processing maintained
@@ -72,6 +84,8 @@ controls:
       and inference activities?
     evidence_hints: ["ROPA", "AI activity entries", "last review date"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: KSA_PDPL.SEC.01
     domain: Security
     title: Organisational and technical safeguards
@@ -80,6 +94,8 @@ controls:
       covering access control, encryption, logging and secure disposal?
     evidence_hints: ["security control set", "encryption config", "access reviews"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: KSA_PDPL.BR.01
     domain: Breach management
     title: Breach notification to the competent authority
@@ -88,6 +104,8 @@ controls:
       serious harm, the affected data subjects, within the required timeframe?
     evidence_hints: ["incident response plan", "notification templates", "exercise report"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: KSA_PDPL.PIA.01
     domain: Impact assessment
     title: Impact assessment for higher-risk processing
@@ -96,3 +114,5 @@ controls:
       including automated profiling and large-scale AI processing?
     evidence_hints: ["impact assessment", "sign-off", "revision after change"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false

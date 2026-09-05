@@ -21,6 +21,8 @@ controls:
       the needs of interested parties identified?
     evidence_hints: ["AIMS scope statement", "context analysis", "interested party register"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C5.01
     domain: "Clause 5 - Leadership"
     title: Leadership commitment and AI policy
@@ -29,6 +31,8 @@ controls:
       demonstrated commitment through resourcing?
     evidence_hints: ["AI policy", "management review minutes", "budget allocation"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C6.01
     domain: "Clause 6 - Planning"
     title: AI risk assessment and treatment
@@ -37,6 +41,8 @@ controls:
       objectives and plans to achieve them?
     evidence_hints: ["risk assessment methodology", "treatment plan", "AI objectives"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C6.02
     domain: "Clause 6 - Planning"
     title: AI system impact assessment
@@ -45,6 +51,8 @@ controls:
       individuals, groups and society?
     evidence_hints: ["AI system impact assessment", "sign-off"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C7.01
     domain: "Clause 7 - Support"
     title: Competence, awareness and documented information
@@ -53,6 +61,8 @@ controls:
       controlled with versioning and retention?
     evidence_hints: ["competence matrix", "document control procedure"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C8.01
     domain: "Clause 8 - Operation"
     title: Operational planning and control across the AI lifecycle
@@ -61,6 +71,8 @@ controls:
       operation) planned, implemented and controlled with records retained?
     evidence_hints: ["lifecycle process definitions", "stage gate records"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C9.01
     domain: "Clause 9 - Performance evaluation"
     title: Monitoring, internal audit and management review
@@ -69,6 +81,8 @@ controls:
       and management reviews held at planned intervals?
     evidence_hints: ["audit programme", "audit reports", "management review records"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false
   - id: ISO42001.C10.01
     domain: "Clause 10 - Improvement"
     title: Nonconformity, corrective action and continual improvement
@@ -77,3 +91,5 @@ controls:
       closure, and improvements demonstrated over time?
     evidence_hints: ["nonconformity log", "CAPA records", "trend analysis"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false

@@ -28,6 +28,8 @@ controls:
     intent: Governance without a named owner and a standing forum degrades to ad-hoc practice.
     evidence_hints: ["governance charter", "RACI matrix", "steering committee minutes", "org chart"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: true
   - id: NDMO.DG.02
     domain: Data Governance
     title: Roles, responsibilities and data stewardship
@@ -36,6 +38,8 @@ controls:
       major data domain used by the platform, with the assignments kept current?
     evidence_hints: ["stewardship register", "role assignment records"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false
   - id: NDMO.DG.03
     domain: Data Governance
     title: Policy set, review cycle and enforcement
@@ -44,6 +48,8 @@ controls:
       review cycle, version history and a documented enforcement/exception process?
     evidence_hints: ["policy register", "exception log", "review dates"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
 
   # --- 2. Data Catalog and Metadata ---
   - id: NDMO.CM.01
@@ -55,6 +61,8 @@ controls:
     intent: An AI system's retrieval corpus and inference logs are datasets; they are the ones most often missed.
     evidence_hints: ["catalog export", "dataset inventory", "RAG corpus registration"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: NDMO.CM.02
     domain: Data Catalog and Metadata
     title: Business and technical metadata completeness
@@ -63,6 +71,8 @@ controls:
       system, refresh frequency and retention period recorded?
     evidence_hints: ["metadata completeness report"]
     weight: 3
+    assurance_domain: data
+    critical: false
   - id: NDMO.CM.03
     domain: Data Catalog and Metadata
     title: Lineage from source to model output
@@ -72,6 +82,8 @@ controls:
     intent: Lineage is what makes an AI finding auditable and a deletion request executable.
     evidence_hints: ["lineage diagram", "pipeline DAG", "embedding provenance records"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
 
   # --- 3. Data Quality ---
   - id: NDMO.DQ.01
@@ -82,6 +94,8 @@ controls:
       consistency, timeliness, uniqueness) with agreed thresholds for critical data elements?
     evidence_hints: ["DQ rule catalog", "threshold definitions"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: NDMO.DQ.02
     domain: Data Quality
     title: Profiling, monitoring and remediation
@@ -90,6 +104,8 @@ controls:
       tracked through to remediation?
     evidence_hints: ["DQ dashboard", "issue tracker export"]
     weight: 3
+    assurance_domain: data
+    critical: false
   - id: NDMO.DQ.03
     domain: Data Quality
     title: Quality controls on AI training and retrieval data
@@ -98,6 +114,8 @@ controls:
       fine-tuning and retrieval-corpus data before it is used by a model?
     evidence_hints: ["corpus validation report", "dataset datasheet", "bias/representativeness review"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
 
   # --- 4. Data Operations ---
   - id: NDMO.DO.01
@@ -108,6 +126,8 @@ controls:
       failure to a named on-call owner?
     evidence_hints: ["orchestration config", "alert routing", "runbook"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
   - id: NDMO.DO.02
     domain: Data Operations
     title: Backup, recovery and tested restoration
@@ -117,6 +137,8 @@ controls:
     intent: Vector indexes are routinely excluded from backup scope because they are treated as derived.
     evidence_hints: ["backup policy", "restore test report", "RTO/RPO definition"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: NDMO.DO.03
     domain: Data Operations
     title: Change management for data assets
@@ -124,6 +146,8 @@ controls:
       Are schema and pipeline changes subject to review, approval and rollback capability?
     evidence_hints: ["change tickets", "CAB records", "migration scripts"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
 
   # --- 5. Document and Content Management ---
   - id: NDMO.DC.01
@@ -134,6 +158,8 @@ controls:
       transcripts) inventoried and classified before ingestion?
     evidence_hints: ["content inventory", "ingestion manifest"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: NDMO.DC.02
     domain: Document and Content Management
     title: Content retention and disposal
@@ -143,6 +169,8 @@ controls:
     intent: Deleting a source document does not delete its embedding unless the pipeline is designed to.
     evidence_hints: ["retention schedule", "embedding deletion procedure", "cache TTL config"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
 
   # --- 6. Data Architecture and Modelling ---
   - id: NDMO.DA.01
@@ -153,6 +181,8 @@ controls:
       integration and the AI-specific components (vector store, feature store, model registry)?
     evidence_hints: ["architecture diagram", "ADRs", "component inventory"]
     weight: 3
+    assurance_domain: ai_platform
+    critical: false
   - id: NDMO.DA.02
     domain: Data Architecture and Modelling
     title: Standards for modelling and naming
@@ -161,6 +191,8 @@ controls:
       published and applied?
     evidence_hints: ["modelling standard", "naming convention doc"]
     weight: 2
+    assurance_domain: cross_cutting
+    critical: false
 
   # --- 7. Reference and Master Data Management ---
   - id: NDMO.MD.01
@@ -171,6 +203,8 @@ controls:
       identified with a defined system of record and survivorship rules?
     evidence_hints: ["MDM entity list", "system of record register"]
     weight: 3
+    assurance_domain: data
+    critical: false
   - id: NDMO.MD.02
     domain: Reference and Master Data Management
     title: Reference data governance
@@ -179,6 +213,8 @@ controls:
       application?
     evidence_hints: ["reference data repository", "version history"]
     weight: 2
+    assurance_domain: data
+    critical: false
 
   # --- 8. Business Intelligence and Analytics ---
   - id: NDMO.BI.01
@@ -189,6 +225,8 @@ controls:
       data sources rather than recomputed inconsistently per consumer?
     evidence_hints: ["metric dictionary", "certified dataset list"]
     weight: 2
+    assurance_domain: cross_cutting
+    critical: false
   - id: NDMO.BI.02
     domain: Business Intelligence and Analytics
     title: Model performance reporting to business owners
@@ -197,6 +235,8 @@ controls:
       defined cadence, not only to the engineering team?
     evidence_hints: ["model performance report", "distribution list", "review cadence"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false
 
   # --- 9. Data Sharing and Interoperability ---
   - id: NDMO.DS.01
@@ -208,6 +248,8 @@ controls:
     intent: Sending a prompt containing customer data to a SaaS model provider is a data transfer.
     evidence_hints: ["DSA register", "DPA with model provider", "vendor contract clauses"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: NDMO.DS.02
     domain: Data Sharing and Interoperability
     title: Interoperability standards for exchange
@@ -216,6 +258,8 @@ controls:
       and backward-compatibility rules?
     evidence_hints: ["OpenAPI specs", "schema registry", "versioning policy"]
     weight: 2
+    assurance_domain: data
+    critical: false
   - id: NDMO.DS.03
     domain: Data Sharing and Interoperability
     title: Third-party and sub-processor register
@@ -224,6 +268,8 @@ controls:
       platform data, including model and embedding providers, with review dates?
     evidence_hints: ["sub-processor register", "vendor risk assessments"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
 
   # --- 10. Data Value Realization ---
   - id: NDMO.DV.01
@@ -234,6 +280,8 @@ controls:
       realised value tracked after go-live?
     evidence_hints: ["business case", "benefits tracking report"]
     weight: 2
+    assurance_domain: cross_cutting
+    critical: false
 
   # --- 11. Open Data ---
   - id: NDMO.OD.01
@@ -244,6 +292,8 @@ controls:
       carrying licence, quality and update-frequency metadata?
     evidence_hints: ["open data catalog entry", "licence statement"]
     weight: 1
+    assurance_domain: data
+    critical: false
 
   # --- 12. Freedom of Information ---
   - id: NDMO.FI.01
@@ -254,6 +304,8 @@ controls:
       covering data held in or generated by the platform?
     evidence_hints: ["FOI procedure", "request log", "response SLA"]
     weight: 2
+    assurance_domain: cross_cutting
+    critical: false
 
   # --- 13. Data Classification ---
   - id: NDMO.CL.01
@@ -264,6 +316,8 @@ controls:
       internal, confidential, top secret) according to the national classification scheme?
     evidence_hints: ["classification register", "labelling evidence"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: NDMO.CL.02
     domain: Data Classification
     title: Classification-driven handling controls
@@ -273,6 +327,8 @@ controls:
     intent: A classification scheme with identical handling for every tier is decoration.
     evidence_hints: ["access matrix by tier", "encryption config", "DLP rules"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: NDMO.CL.03
     domain: Data Classification
     title: Classification propagates to derived AI artefacts
@@ -282,6 +338,8 @@ controls:
     intent: This is the single most commonly failed control in AI platform assessments.
     evidence_hints: ["embedding metadata schema", "log classification labels"]
     weight: 5
+    assurance_domain: data
+    critical: true
 
   # --- 14. Personal Data Protection ---
   - id: NDMO.PD.01
@@ -293,6 +351,8 @@ controls:
     intent: Re-using operational personal data to train or ground a model is a new purpose.
     evidence_hints: ["ROPA", "consent records", "purpose statements"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: NDMO.PD.02
     domain: Personal Data Protection
     title: Data subject rights, including for AI artefacts
@@ -301,6 +361,8 @@ controls:
       period for data held in retrieval corpora, prompt logs and model caches?
     evidence_hints: ["DSR runbook", "deletion propagation test", "SLA evidence"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: NDMO.PD.03
     domain: Personal Data Protection
     title: Privacy impact assessment
@@ -309,6 +371,8 @@ controls:
       material changes to model, data sources or purpose?
     evidence_hints: ["PIA/DPIA document", "sign-off", "revision history"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: NDMO.PD.04
     domain: Personal Data Protection
     title: Minimisation before model invocation
@@ -317,6 +381,8 @@ controls:
       sent to an external model provider?
     evidence_hints: ["redaction middleware", "tokenisation service", "prompt scrubbing tests"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: NDMO.PD.05
     domain: Personal Data Protection
     title: Cross-border transfer controls
@@ -325,6 +391,8 @@ controls:
       is the transfer assessed, documented and subject to the required safeguards?
     evidence_hints: ["transfer impact assessment", "provider region config", "contractual safeguards"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: NDMO.PD.06
     domain: Personal Data Protection
     title: Breach detection and notification
@@ -334,6 +402,8 @@ controls:
       model output disclosure?
     evidence_hints: ["IR plan", "tabletop exercise report", "notification templates"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
 
   # --- 15. Data Security and Protection ---
   - id: NDMO.SP.01
@@ -344,6 +414,8 @@ controls:
       with MFA, authorised by least-privilege roles, and reviewed periodically?
     evidence_hints: ["IdP config", "RBAC matrix", "access review records", "MFA enforcement"]
     weight: 5
+    assurance_domain: identity
+    critical: true
   - id: NDMO.SP.02
     domain: Data Security and Protection
     title: Encryption in transit and at rest
@@ -352,6 +424,8 @@ controls:
       object storage and log sinks, with managed key rotation?
     evidence_hints: ["TLS config", "KMS key policy", "rotation schedule"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: NDMO.SP.03
     domain: Data Security and Protection
     title: Logging, audit trail and tamper evidence
@@ -361,6 +435,8 @@ controls:
     intent: Most agent stacks cannot answer "who asked the model what, and what did it see".
     evidence_hints: ["audit log schema", "immutability control", "retention config"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: true
   - id: NDMO.SP.04
     domain: Data Security and Protection
     title: Vulnerability and dependency management
@@ -369,6 +445,8 @@ controls:
       scanning and remediated within defined SLAs?
     evidence_hints: ["scan reports", "SLA policy", "remediation tickets"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: NDMO.SP.05
     domain: Data Security and Protection
     title: AI-specific threat controls
@@ -378,3 +456,5 @@ controls:
     intent: Treats untrusted content reaching a model as an application security problem, which is what it is.
     evidence_hints: ["threat model", "injection test suite", "tool allowlist", "output encoding"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true

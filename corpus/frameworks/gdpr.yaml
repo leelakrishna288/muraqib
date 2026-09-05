@@ -15,6 +15,8 @@ controls:
       necessary placed into prompts, retrieval corpora and training sets?
     evidence_hints: ["ROPA", "minimisation review", "prompt payload audit"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: GDPR.ART5.02
     domain: Principles (Art. 5)
     title: Storage limitation for derived AI artefacts
@@ -23,6 +25,8 @@ controls:
       period rather than retained indefinitely?
     evidence_hints: ["retention schedule", "log TTL config", "vector index purge job"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: GDPR.ART6.01
     domain: Lawfulness (Art. 6)
     title: Lawful basis for AI processing
@@ -31,6 +35,8 @@ controls:
       grounding or inference, and does it cover that specific use?
     evidence_hints: ["lawful basis assessment", "legitimate interests assessment (LIA)"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: GDPR.ART9.01
     domain: Special categories (Art. 9)
     title: Special category data safeguards
@@ -40,6 +46,8 @@ controls:
     intent: LLM systems frequently infer special-category data that was never deliberately collected.
     evidence_hints: ["Art. 9 condition record", "inference risk assessment", "output filters"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: GDPR.ART13.01
     domain: Transparency (Arts. 13-14)
     title: Privacy notice covers AI processing
@@ -48,6 +56,8 @@ controls:
       and the categories of recipients such as model providers?
     evidence_hints: ["privacy notice text", "recipient list", "notice version history"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: GDPR.ART15.01
     domain: Data subject rights (Arts. 15-22)
     title: Rights fulfilment across AI stores
@@ -57,6 +67,8 @@ controls:
     intent: Erasure that does not reach the embedding index is not erasure.
     evidence_hints: ["DSR runbook", "erasure propagation test", "re-index procedure"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: GDPR.ART22.01
     domain: Automated decision-making (Art. 22)
     title: Safeguards for solely automated decisions
@@ -66,6 +78,8 @@ controls:
       to express a view and to contest?
     evidence_hints: ["ADM inventory", "human review route", "contest procedure"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: GDPR.ART25.01
     domain: Data protection by design (Art. 25)
     title: Privacy by design and by default
@@ -74,6 +88,8 @@ controls:
       including pseudonymisation before model invocation?
     evidence_hints: ["design records", "pseudonymisation service", "default settings review"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: GDPR.ART28.01
     domain: Processors (Art. 28)
     title: Model providers governed as processors
@@ -82,6 +98,8 @@ controls:
       agreement, with sub-processor changes notified?
     evidence_hints: ["DPA with provider", "sub-processor list", "audit rights clause"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: GDPR.ART30.01
     domain: Records (Art. 30)
     title: Records of processing include AI activities
@@ -90,6 +108,8 @@ controls:
       as distinct processing activities?
     evidence_hints: ["ROPA extract", "AI activity entries"]
     weight: 3
+    assurance_domain: ai_platform
+    critical: false
   - id: GDPR.ART32.01
     domain: Security (Art. 32)
     title: Security of processing
@@ -98,6 +118,8 @@ controls:
       proportionate to the risk?
     evidence_hints: ["security control set", "pen test report", "encryption config"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: GDPR.ART33.01
     domain: Breach (Arts. 33-34)
     title: Breach notification within 72 hours
@@ -106,6 +128,8 @@ controls:
       affected individuals without undue delay where required?
     evidence_hints: ["IR plan", "notification template", "exercise report"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: GDPR.ART35.01
     domain: DPIA (Art. 35)
     title: DPIA for high-risk AI processing
@@ -114,6 +138,8 @@ controls:
       to result in high risk, including large-scale profiling or automated decisions?
     evidence_hints: ["DPIA document", "consultation record", "DPO opinion"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: true
   - id: GDPR.ART44.01
     domain: Transfers (Arts. 44-49)
     title: International transfer mechanism
@@ -123,3 +149,5 @@ controls:
       impact assessment?
     evidence_hints: ["SCCs", "TIA", "endpoint region configuration"]
     weight: 5
+    assurance_domain: data
+    critical: true

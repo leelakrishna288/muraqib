@@ -18,6 +18,8 @@ controls:
       resourced, with legal/regulatory requirements mapped?
     evidence_hints: ["AI policy", "accountability map", "regulatory register"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.GOVERN.02
     domain: GOVERN
     title: Workforce competency and AI literacy
@@ -26,6 +28,8 @@ controls:
       their role in the AI lifecycle?
     evidence_hints: ["training records", "role competency matrix"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.GOVERN.03
     domain: GOVERN
     title: Third-party and supply-chain AI risk
@@ -35,6 +39,8 @@ controls:
     intent: Silent model-version changes by a SaaS provider are an uncontrolled change to your system.
     evidence_hints: ["vendor risk assessment", "model version pinning", "deprecation runbook"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MAP.01
     domain: MAP
     title: Context, intended purpose and affected parties established
@@ -43,6 +49,8 @@ controls:
       documented, including foreseeable misuse?
     evidence_hints: ["context statement", "stakeholder map", "misuse analysis"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MAP.02
     domain: MAP
     title: System capabilities, limitations and assumptions documented
@@ -51,6 +59,8 @@ controls:
       and communicated to users?
     evidence_hints: ["model card", "assumptions register"]
     weight: 4
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MAP.03
     domain: MAP
     title: Risks and benefits mapped for all components
@@ -59,6 +69,8 @@ controls:
       sources, tools the agent can invoke, and downstream consumers?
     evidence_hints: ["component risk map", "tool inventory", "data flow diagram"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false
   - id: NIST.MEASURE.01
     domain: MEASURE
     title: Metrics selected and applied
@@ -67,6 +79,8 @@ controls:
       before and after deployment?
     evidence_hints: ["metric definitions", "pre/post deployment results"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MEASURE.02
     domain: MEASURE
     title: Trustworthiness characteristics evaluated
@@ -75,6 +89,8 @@ controls:
       and fairness each evaluated rather than assumed?
     evidence_hints: ["evaluation report per characteristic", "test coverage matrix"]
     weight: 5
+    assurance_domain: ai_platform
+    critical: false
   - id: NIST.MEASURE.03
     domain: MEASURE
     title: Feedback from operators and affected parties collected
@@ -83,6 +99,8 @@ controls:
       individuals about system performance and harm?
     evidence_hints: ["feedback channel", "triage process", "action log"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MANAGE.01
     domain: MANAGE
     title: Risks prioritised, responded to and documented
@@ -91,6 +109,8 @@ controls:
       accept) and a named owner for each?
     evidence_hints: ["risk register with owners", "treatment decisions"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MANAGE.02
     domain: MANAGE
     title: Incident response and recovery for AI failures
@@ -99,6 +119,8 @@ controls:
       model degradation, prompt injection and tool misuse, with a rollback path?
     evidence_hints: ["AI incident runbook", "rollback procedure", "kill switch"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: false
   - id: NIST.MANAGE.03
     domain: MANAGE
     title: Continuous monitoring and decommissioning
@@ -107,3 +129,5 @@ controls:
       retraining, replacement or decommissioning?
     evidence_hints: ["drift monitoring", "retrain trigger thresholds", "decommission plan"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false

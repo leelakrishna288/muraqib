@@ -1,0 +1,49 @@
+# Runtime governance policy.
+#
+# Every rule here is enforced by a gate in muraqib.runtime.gates. Nothing is
+# advisory. If a setting exists in this file, something checks it.
+
+version: "1.0"
+name: "Gulf enterprise baseline"
+
+# NOT_EVIDENCED stops the transaction. A gate that could not establish the fact
+# it needed has not approved anything. Turning this off is a recorded decision.
+fail_closed: true
+
+identity:
+  require_authentication: true
+  require_mfa: true
+  # Without delegated (on-behalf-of) identity, downstream systems see a shared
+  # service principal and per-user authorisation becomes unenforceable.
+  require_delegated_identity: true
+  allowed_channels: ["web", "chat", "api"]
+
+# Deny by default. A principal whose roles match nothing here can invoke nothing.
+entitlements:
+  analyst:
+    agents: ["summariser", "search"]
+    tools: ["document_search", "calendar_read"]
+    sources: ["sharepoint", "calendar", "mailbox"]
+  finance:
+    agents: ["summariser", "financial_analyst"]
+    tools: ["document_search", "ledger_read"]
+    sources: ["sharepoint", "ledger"]
+  admin:
+    agents: ["*"]
+    tools: ["*"]
+    sources: ["*"]
+
+residency:
+  allowed_regions: ["uae-north", "uae-central", "saudi-east"]
+  allow_cross_border: false
+  approved_models: ["gpt-4o-mini", "claude-haiku-4-5", "llama3.1:8b"]
+  approved_providers: ["azure_openai", "anthropic", "ollama"]
+  require_prompt_redaction: true
+  block_classifications_cross_border: ["confidential", "restricted"]
+
+dlp:
+  mask_pii: true
+  block_on_secrets: true
+  max_records: 500          # bulk-extraction threshold; 0 disables the check
+  block_classifications: ["restricted"]
+  blocked_phrases: []

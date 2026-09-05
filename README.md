@@ -1,23 +1,44 @@
 # Muraqib
 
-**An agentic AI-governance assessment system.** It takes a description of an AI
-platform, retrieves the controls that apply to it from eight governance
-instruments, judges each one against the evidence supplied, adversarially
-reviews its own optimistic findings, and produces a coverage report, a risk
-tier and a de-duplicated remediation plan — with a tamper-evident audit trail
-of every step.
+**An agentic AI-governance system with two halves.**
+
+**Assessment** takes a description of an AI platform, retrieves the controls
+that apply to it from eight governance instruments, judges each one against the
+evidence supplied, adversarially reviews its own optimistic findings, and
+produces a coverage report, an *assurance* score, a risk tier and a
+de-duplicated remediation plan.
+
+**Runtime governance** decides whether one specific transaction is permitted,
+right now, through six fail-closed gates — identity, entitlement, source
+authorization, pre-inference, output DLP, release.
+
+Both write to the same tamper-evident audit trail.
 
 *Muraqib* (مُراقِب) is Arabic for *monitor* or *auditor*.
+
+**Assessment — "is this platform governed?"**
 
 ```
                                                    ┌─────────────┐
  platform config ──▶ intake ──▶ risk ──▶ retrieval ─▶│  assessor   │─▶ critic ─▶ reporter ─▶ report
    (untrusted)         │         │          │        └─────────────┘     │           │
-                       │         │          │              │            │           ├─ coverage + posture
-              injection scan   4-tier    hybrid       schema gate    can only     ├─ blocking gaps
-              PII redaction  determin-   BM25 +       citation gate  downgrade,   ├─ remediation plan
-              tag stripping    istic     vectors                     never        └─ audit ledger
-                                                                     upgrade
+                       │         │          │              │            │           ├─ coverage · posture · assurance
+              injection scan   4-tier    hybrid       schema gate    can only     ├─ production assurance claim
+              PII redaction  determin-   BM25 +       citation gate  downgrade,   ├─ assurance domain rollup
+              tag stripping    istic     vectors                     never        ├─ remediation plan
+                                                                     upgrade      └─ audit ledger
+```
+
+**Runtime governance — "is *this transaction* permitted, right now?"**
+
+```
+ request ─▶ identity ─▶ entitlement ─▶ source auth ─▶ pre-inference ─▶ output DLP ─▶ release ─▶ response
+              │             │              │                │               │            │
+        authn · MFA    agents/tools   source AND      residency ·      allow · warn   response id
+        delegated      deny by        object-level    approved model   mask · block   provenance
+        identity       default        ownership       redaction ·                     release decision
+                                                      injection
+                       ── any BLOCK stops the journey; later gates never run ──
 ```
 
 **It runs with no API key, no network and no cost.** The default engine is a
@@ -53,6 +74,8 @@ Four mechanisms enforce that:
 | **Adversarial critic** — a second pass reviews optimistic findings and can only downgrade, never upgrade | Over-claiming on thin evidence. The asymmetry is deliberate: nobody over-claims their way into a false *non-compliant*. |
 | **Two separate numbers** — *coverage* (how much we could assess) and *weighted posture* (how much is satisfied) | The single-number compliance dashboard. 40% coverage with a 95% score has not been assessed; it has been guessed at. |
 | **Report leads with what it could not assess** | Burying blind spots. Section 1 of every report lists every control with no usable verdict, before any score. |
+| **Evidence maturity ladder** — runtime-verified > config export > document > design > simulated > none | A policy PDF scoring the same as production telemetry. The *assurance* score discounts weak evidence; the raw posture score does not. |
+| **Production assurance claim**, separate from the score | "We scored 74%" being mistaken for "the platform is assured". A critical control that is unevidenced does not fail — but it does block the claim. |
 
 ---
 
@@ -147,16 +170,40 @@ Anthropic, OpenAI, Azure OpenAI, Gemini, Groq and **Ollama** (fully local — th
 shape sovereign-hosting requirements actually ask for) are all supported behind
 one interface. Every run is bounded by a hard call ceiling and a USD ceiling.
 
+### Govern a live transaction
+
+```bash
+muraqib govern examples/transaction_allowed.yaml
+muraqib govern examples/transaction_blocked.yaml   # exits 1
+```
+
+```
+TXN-9dac8e8f47bd  policy Gulf enterprise baseline v1.0
+verdict: ALLOW
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳──────────────────────────────────────┓
+│ identity             │ allow   │ Authenticated, MFA satisfied, ...    │
+│ entitlement          │ allow   │ All requested components entitled    │
+│ source_authorization │ allow   │ All sources permitted, objects owned │
+│ pre_inference        │ allow   │ Approved model and region, minimised │
+│ output_protection    │ allow   │ No sensitive content in response     │
+│ release              │ allow   │ Released with provenance recorded    │
+└──────────────────────┴─────────┴──────────────────────────────────────┘
+trace: principal=… → identity=allow → … → response=RSP-e0cc68bf58fb
+```
+
+The policy lives in [`examples/governance_policy.yaml`](examples/governance_policy.yaml)
+and every rule in it is enforced by a gate. Nothing there is advisory.
+
 ### Run as an MCP server
 
 ```bash
 muraqib-mcp        # JSON-RPC 2.0 over stdio
 ```
 
-Six tools — `list_frameworks`, `search_controls`, `get_control`,
-`classify_risk`, `assess_platform`, `verify_audit_ledger` — usable from Claude
-Desktop, Cursor, VS Code or any MCP client. Config in
-[`examples/mcp_client_config.json`](examples/mcp_client_config.json).
+Seven tools — `list_frameworks`, `search_controls`, `get_control`,
+`classify_risk`, `assess_platform`, `evaluate_transaction`,
+`verify_audit_ledger` — usable from Claude Desktop, Cursor, VS Code or any MCP
+client. Config in [`examples/mcp_client_config.json`](examples/mcp_client_config.json).
 
 ### Run as a service
 
@@ -165,6 +212,31 @@ docker compose up          # http://localhost:8000/docs
 ```
 
 ---
+
+## The runtime governance plane
+
+Six gates, fixed order, fail closed. The order is not arbitrary: you cannot
+authorise an unknown principal, an unpermitted tool should never reach the data
+layer, the model must not see documents the user could not open, and you cannot
+DLP-scan a response you have not generated yet.
+
+| Gate | Decides | Notable behaviour |
+|---|---|---|
+| **identity** | authentication, MFA, delegated (on-behalf-of) identity, approved channel | Without delegated identity, downstream systems see a shared service principal and per-user authorisation is unenforceable — so it blocks |
+| **entitlement** | which agents and tools this principal may invoke | Deny by default. A principal whose roles match no entitlement can invoke nothing |
+| **source authorization** | source permission *and* per-object ownership | The one that catches real incidents: the SharePoint site is permitted, the document belongs to someone else |
+| **pre-inference** | residency, approved model and provider, prompt minimisation, injection | Confidential context never leaves the approved region even when cross-border processing is switched on |
+| **output protection** | DLP over the response | `ALLOW` / `WARN` / `MASK` / `BLOCK` — PII is masked, credentials and bulk extraction are blocked |
+| **release** | final decision, response id, provenance | Produces the record an auditor asks for |
+
+**BLOCK always stops the journey.** `NOT_EVIDENCED` — the gate could not
+establish the fact it needed — stops it too under `fail_closed: true`, which is
+the default. That is the same distinction the assessment side draws between
+"this failed" and "we could not tell", and it is deliberate in both places.
+
+Every gate result, with reasons and timing, goes to the hash-chained ledger. The
+principal is recorded as a salted digest, never as an email address — there is a
+test asserting the raw subject never appears.
 
 ## How it works
 
@@ -335,6 +407,15 @@ its own first principle.
 - **The audit ledger is tamper-evident, not tamper-proof.**
 - **The eval golden set is 10 hand-labelled cases** — enough to catch
   regressions, not enough to certify accuracy. It is designed to be extended.
+- **The identity assurance domain has one control.** These are data-protection
+  and AI-governance instruments, not IAM standards. That is a true finding about
+  the corpus rather than a bug, and it means a serious identity review needs a
+  dedicated IAM assessment alongside this one.
+- **The runtime plane enforces the policy it is given.** It does not discover
+  your entitlements, classify your data or verify that the attributes in a
+  transaction are truthful — it decides on what it is told. Wiring it to real
+  identity, catalog and telemetry sources is the integration work, and until
+  that is done its verdicts are only as good as its inputs.
 
 ---
 

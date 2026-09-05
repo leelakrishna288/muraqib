@@ -15,7 +15,7 @@ from ..graph.state import RunState
 from ..guardrails.schema import SchemaGate
 from ..llm.base import ChatMessage, ProviderError
 from ..llm.router import BudgetExceeded
-from ..models import Confidence, Finding, Obligation, Status
+from ..models import Confidence, EvidenceMaturity, Finding, Obligation, Status
 from .base import Agent
 from .prompts import CRITIC_SYSTEM, critic_user_prompt
 
@@ -76,7 +76,10 @@ class CriticAgent(Agent):
         return pack.obligation is Obligation.BINDING_LAW and finding.status is Status.COMPLIANT
 
     def _review(self, state: RunState, finding: Finding, question: str):  # noqa: ANN202
-        evidence = state.config.controls_documented.get(finding.control_id, "")
+        declared = state.config.evidence_for(finding.control_id)
+        evidence = declared.text if declared else ""
+        if declared and declared.maturity is not EvidenceMaturity.NONE:
+            evidence = f"[declared evidence maturity: {declared.maturity.value}]\n{evidence}"
         evidence = self.ctx.redactor.redact(evidence).text if evidence else ""
         prompt = critic_user_prompt(
             control_id=finding.control_id,

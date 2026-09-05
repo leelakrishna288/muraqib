@@ -54,6 +54,81 @@ class Obligation(str, Enum):
     CERTIFIABLE_STANDARD = "certifiable_standard"
 
 
+class EvidenceMaturity(str, Enum):
+    """How strong the evidence behind a finding actually is.
+
+    A control backed by a policy PDF and a control backed by production
+    telemetry are not the same control, and scoring them identically is how
+    compliance programmes convince themselves they are further along than they
+    are. The ladder runs strongest to weakest.
+    """
+
+    RUNTIME_VERIFIED = "runtime_verified"  # observed in production logs / telemetry
+    CONFIG_EXPORT = "config_export"  # verified configuration export from the live system
+    DOCUMENT = "document"  # policy, procedure or signed record
+    DESIGN = "design"  # design intent, not yet built
+    SIMULATED = "simulated"  # POC or synthetic demonstration
+    NONE = "none"  # asserted, unevidenced
+
+
+# Multiplier applied to a finding's score. Design and simulated evidence can
+# still describe a real control, but they cannot support a production assurance
+# claim, so they are discounted rather than discarded.
+MATURITY_WEIGHT: dict[EvidenceMaturity, float] = {
+    EvidenceMaturity.RUNTIME_VERIFIED: 1.00,
+    EvidenceMaturity.CONFIG_EXPORT: 0.85,
+    EvidenceMaturity.DOCUMENT: 0.60,
+    EvidenceMaturity.DESIGN: 0.35,
+    EvidenceMaturity.SIMULATED: 0.25,
+    EvidenceMaturity.NONE: 0.00,
+}
+
+# Evidence at or above this rung can support a production assurance claim.
+PRODUCTION_GRADE = {EvidenceMaturity.RUNTIME_VERIFIED, EvidenceMaturity.CONFIG_EXPORT}
+
+
+class AssuranceDomain(str, Enum):
+    """Cross-framework rollup.
+
+    Clients do not want eight separate framework reports; they want to know
+    which part of their estate is weak. Every control maps to exactly one
+    domain, so a single view spans NDMO, GDPR, the EU AI Act and the rest.
+    """
+
+    IDENTITY = "identity"  # who is asking, and what may they reach
+    DATA = "data"  # what data exists, how it is classified and handled
+    AI_PLATFORM = "ai_platform"  # models, agents, tools, retrieval, output
+    CROSS_CUTTING = "cross_cutting"  # governance, accountability, assurance, incident handling
+
+
+class EvidenceItem(BaseModel):
+    """One piece of declared evidence, with its provenance and maturity."""
+
+    model_config = ConfigDict(frozen=True)
+
+    text: str
+    maturity: EvidenceMaturity = EvidenceMaturity.NONE
+    source: str = ""
+
+    @classmethod
+    def parse(cls, raw: Any) -> EvidenceItem:
+        """Accept either a bare string (legacy, treated as DOCUMENT) or a dict.
+
+        A bare string is deliberately DOCUMENT, not RUNTIME_VERIFIED: an
+        unlabelled assertion is a claim on paper until someone says otherwise.
+        """
+        if isinstance(raw, str):
+            return cls(text=raw, maturity=EvidenceMaturity.DOCUMENT)
+        if isinstance(raw, dict):
+            maturity = raw.get("maturity", "document")
+            try:
+                m = EvidenceMaturity(str(maturity).lower())
+            except ValueError:
+                m = EvidenceMaturity.DOCUMENT
+            return cls(text=str(raw.get("text", "")), maturity=m, source=str(raw.get("source", "")))
+        return cls(text=str(raw), maturity=EvidenceMaturity.DOCUMENT)
+
+
 class Control(BaseModel):
     """A single assessable control.
 
@@ -73,6 +148,14 @@ class Control(BaseModel):
     intent: str = Field(default="", description="Why the control exists, in our words")
     evidence_hints: list[str] = Field(default_factory=list)
     weight: int = Field(default=1, ge=1, le=5)
+    assurance_domain: AssuranceDomain = AssuranceDomain.CROSS_CUTTING
+    critical: bool = Field(
+        default=False,
+        description=(
+            "A critical control cannot be left unevidenced without blocking a "
+            "production assurance claim, and cannot fail without blocking go-live."
+        ),
+    )
     source_url: str = ""
     verbatim_text_included: bool = Field(
         default=False,
@@ -174,10 +257,19 @@ class PlatformConfig(BaseModel):
     sources: list[str] = Field(default_factory=list)
     endpoints: list[Endpoint] = Field(default_factory=list)
     models: list[ModelSpec] = Field(default_factory=list)
-    controls_documented: dict[str, str] = Field(
+    controls_documented: dict[str, Any] = Field(
         default_factory=dict,
-        description="Optional client-declared evidence, keyed by control id.",
+        description=(
+            "Client-declared evidence keyed by control id. Each value is either a "
+            "bare string (treated as DOCUMENT maturity) or an object with "
+            "{text, maturity, source} - see EvidenceItem."
+        ),
     )
+
+    def evidence_for(self, control_id: str) -> EvidenceItem | None:
+        raw = self.controls_documented.get(control_id)
+        return None if raw is None else EvidenceItem.parse(raw)
+
     notes: str = ""
 
     @field_validator("platform_name")
@@ -248,10 +340,25 @@ class Finding(BaseModel):
     citations: list[Citation] = Field(default_factory=list)
     critic_verdict: Literal["upheld", "downgraded", "not_reviewed"] = "not_reviewed"
     critic_note: str = ""
+    evidence_maturity: EvidenceMaturity = EvidenceMaturity.NONE
+    evidence_source: str = ""
 
     @property
     def score(self) -> float:
         return STATUS_SCORE[self.status]
+
+    @property
+    def assurance_score(self) -> float:
+        """Score discounted by how strong the evidence actually is.
+
+        This is the number that separates "we have a policy about it" from
+        "we can show it running".
+        """
+        return STATUS_SCORE[self.status] * MATURITY_WEIGHT[self.evidence_maturity]
+
+    @property
+    def production_grade(self) -> bool:
+        return self.evidence_maturity in PRODUCTION_GRADE
 
     @property
     def counts_toward_coverage(self) -> bool:
@@ -289,6 +396,41 @@ class FrameworkCoverage(BaseModel):
     not_assessable: int = 0
     coverage_pct: float = 0.0
     weighted_score_pct: float = 0.0
+    assurance_score_pct: float = 0.0
+
+
+class DomainCoverage(BaseModel):
+    """One assurance domain, rolled up across every framework in scope."""
+
+    domain: AssuranceDomain
+    total_controls: int = 0
+    assessed: int = 0
+    not_assessable: int = 0
+    coverage_pct: float = 0.0
+    weighted_score_pct: float = 0.0
+    assurance_score_pct: float = 0.0
+    critical_failures: list[str] = Field(default_factory=list)
+    critical_unevidenced: list[str] = Field(default_factory=list)
+
+
+class AssuranceClaim(BaseModel):
+    """Whether the evidence supports a production assurance claim.
+
+    Deliberately separate from the compliance score. Missing evidence is not a
+    control failure - but a critical control with no production-grade evidence
+    does prevent you from claiming the platform is assured, which is a
+    different and more honest statement than "we scored 74%".
+    """
+
+    permitted: bool
+    blockers: list[str] = Field(default_factory=list)
+    rationale: str = ""
+    production_grade_controls: int = 0
+    total_assessed: int = 0
+
+    @property
+    def verdict(self) -> str:
+        return "PERMITTED" if self.permitted else "BLOCKED"
 
 
 class TokenUsage(BaseModel):
@@ -315,8 +457,12 @@ class AssessmentReport(BaseModel):
     risk: RiskAssessment
     findings: list[Finding] = Field(default_factory=list)
     coverage: list[FrameworkCoverage] = Field(default_factory=list)
+    domain_coverage: list[DomainCoverage] = Field(default_factory=list)
     overall_coverage_pct: float = 0.0
     overall_weighted_pct: float = 0.0
+    overall_assurance_pct: float = 0.0
+    assurance_claim: AssuranceClaim | None = None
+    evidence_profile: dict[str, int] = Field(default_factory=dict)
     blocking_gaps: list[str] = Field(default_factory=list)
     usage: TokenUsage = Field(default_factory=TokenUsage)
     model_used: str = ""

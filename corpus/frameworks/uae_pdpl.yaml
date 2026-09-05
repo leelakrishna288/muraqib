@@ -23,6 +23,8 @@ controls:
       consent recorded, specific and withdrawable?
     evidence_hints: ["consent log", "basis assessment"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: UAE_PDPL.RTS.01
     domain: Data subject rights
     title: Rights fulfilment
@@ -31,6 +33,8 @@ controls:
       objection to automated processing be fulfilled, including for AI-derived data?
     evidence_hints: ["rights procedure", "erasure propagation to vector store"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: UAE_PDPL.XB.01
     domain: Cross-border transfer
     title: Transfer outside the UAE
@@ -39,6 +43,8 @@ controls:
       covered by contractual safeguards or an applicable exception?
     evidence_hints: ["transfer register", "contract clauses", "hosting region evidence"]
     weight: 5
+    assurance_domain: data
+    critical: true
   - id: UAE_PDPL.SEC.01
     domain: Security
     title: Appropriate technical and organisational measures
@@ -47,6 +53,8 @@ controls:
       pseudonymisation, access control and integrity monitoring?
     evidence_hints: ["security standard", "control evidence"]
     weight: 5
+    assurance_domain: cross_cutting
+    critical: true
   - id: UAE_PDPL.BR.01
     domain: Breach management
     title: Breach notification
@@ -55,6 +63,8 @@ controls:
       data breach without undue delay where the criteria are met?
     evidence_hints: ["IR plan", "notification workflow"]
     weight: 4
+    assurance_domain: data
+    critical: false
   - id: UAE_PDPL.DPO.01
     domain: Accountability
     title: Data protection officer where required
@@ -63,6 +73,8 @@ controls:
       data protection officer been appointed and registered?
     evidence_hints: ["appointment record", "registration evidence"]
     weight: 3
+    assurance_domain: cross_cutting
+    critical: false
   - id: UAE_PDPL.ADM.01
     domain: Automated processing
     title: Automated decision-making safeguards
@@ -71,3 +83,5 @@ controls:
       human review?
     evidence_hints: ["objection route", "human review procedure"]
     weight: 4
+    assurance_domain: ai_platform
+    critical: false

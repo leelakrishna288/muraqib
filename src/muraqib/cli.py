@@ -175,6 +175,18 @@ def assess(
     table.add_row("Risk tier", report.risk.tier.value.upper())
     table.add_row("Coverage", f"{report.overall_coverage_pct:.1f}%")
     table.add_row("Weighted posture", f"{report.overall_weighted_pct:.1f}%")
+    table.add_row("Assurance score", f"{report.overall_assurance_pct:.1f}%")
+    if report.assurance_claim is not None:
+        colour = "green" if report.assurance_claim.permitted else "red"
+        table.add_row(
+            "Production assurance",
+            f"[{colour}]{report.assurance_claim.verdict}[/]"
+            + (
+                f" ({len(report.assurance_claim.blockers)} blockers)"
+                if report.assurance_claim.blockers
+                else ""
+            ),
+        )
     table.add_row("Blocking gaps", str(len(report.blocking_gaps)))
     table.add_row("Model calls", str(report.usage.calls))
     table.add_row("Estimated cost", f"${report.usage.estimated_cost_usd:.4f}")
@@ -185,6 +197,70 @@ def assess(
 
     if not ok:
         raise typer.Exit(3)
+
+
+@app.command()
+def govern(
+    transaction: Path = typer.Argument(
+        ..., exists=True, readable=True, help="Transaction YAML/JSON"
+    ),
+    policy: Path = typer.Option(
+        Path("examples/governance_policy.yaml"), "--policy", "-p", exists=True
+    ),
+    ledger_out: Path = typer.Option(None, "--ledger", help="Write the decision ledger here"),
+) -> None:
+    """Evaluate one transaction against the runtime governance policy."""
+    from .observability.audit import AuditLedger as _Ledger
+    from .runtime import GovernanceEngine, TransactionContext, load_policy
+
+    raw = transaction.read_text(encoding="utf-8")
+    data = json.loads(raw) if transaction.suffix.lower() == ".json" else yaml.safe_load(raw)
+    ctx = TransactionContext.model_validate(data)
+    pol = load_policy(policy)
+    ledger = _Ledger(run_id=ctx.transaction_id, path=ledger_out)
+    decision = GovernanceEngine(pol, ledger=ledger).evaluate(ctx)
+
+    colour = {
+        "allow": "green",
+        "warn": "yellow",
+        "mask": "yellow",
+        "block": "red",
+        "not_evidenced": "magenta",
+        "not_run": "dim",
+    }
+    console.print(
+        f"\n[bold]{ctx.transaction_id}[/bold]  policy [dim]{pol.name} v{pol.version}[/dim]"
+    )
+    console.print(
+        f"verdict: [{colour[decision.verdict.value]}]{decision.verdict.value.upper()}[/]"
+        + (f"   stopped at: [red]{decision.blocked_at.value}[/]" if decision.blocked_at else "")
+    )
+
+    table = Table(show_header=True)
+    for col in ("Gate", "Verdict", "Reason", "ms"):
+        table.add_column(col, overflow="fold")
+    for g in decision.gates:
+        table.add_row(
+            g.gate.value,
+            f"[{colour[g.verdict.value]}]{g.verdict.value}[/]",
+            g.reasons[0] if g.reasons else "",
+            f"{g.duration_ms:.2f}",
+        )
+    console.print(table)
+
+    if decision.released_response:
+        console.print(
+            f"\nreleased [dim]({decision.response_id})[/dim]: {decision.released_response}"
+        )
+        if decision.provenance:
+            console.print(f"provenance: {', '.join(decision.provenance)}")
+    else:
+        console.print("\n[red]nothing released[/red]")
+
+    ok, detail = ledger.verify()
+    console.print(f"\naudit ledger: {'verified' if ok else 'FAILED'} - {detail}")
+    console.print(f"trace: {' -> '.join(decision.trace())}")
+    raise typer.Exit(0 if decision.allowed else 1)
 
 
 @app.command("verify-ledger")

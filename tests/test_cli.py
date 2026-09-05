@@ -155,3 +155,51 @@ def test_evaluate_passes_on_the_bundled_golden_set():
     result = runner.invoke(app, ["evaluate"])
     assert result.exit_code == 0, result.stdout
     assert "Over-claim rate" in result.stdout
+
+
+class TestGovernCommand:
+    def test_permitted_transaction_exits_zero_and_releases(self):
+        result = runner.invoke(
+            app,
+            [
+                "govern",
+                "examples/transaction_allowed.yaml",
+                "--policy",
+                "examples/governance_policy.yaml",
+            ],
+        )
+        assert result.exit_code == 0, result.stdout
+        assert "ALLOW" in result.stdout
+        assert "released" in result.stdout
+        assert "verified" in result.stdout
+
+    def test_blocked_transaction_exits_nonzero_and_releases_nothing(self):
+        result = runner.invoke(
+            app,
+            [
+                "govern",
+                "examples/transaction_blocked.yaml",
+                "--policy",
+                "examples/governance_policy.yaml",
+            ],
+        )
+        assert result.exit_code == 1
+        assert "BLOCK" in result.stdout
+        assert "nothing released" in result.stdout
+        assert "source_authorization" in result.stdout
+
+    def test_ledger_is_written_and_verifies(self, tmp_path):
+        ledger = tmp_path / "txn.ledger.jsonl"
+        runner.invoke(
+            app,
+            [
+                "govern",
+                "examples/transaction_allowed.yaml",
+                "--policy",
+                "examples/governance_policy.yaml",
+                "--ledger",
+                str(ledger),
+            ],
+        )
+        assert ledger.exists()
+        assert runner.invoke(app, ["verify-ledger", str(ledger)]).exit_code == 0

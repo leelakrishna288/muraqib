@@ -1,0 +1,25 @@
+# The same shape of request, but the retrieval returned another user's document.
+# Source-level permission does not grant object-level access, so the journey stops.
+principal:
+  subject: "leela@corp.ae"
+  authenticated: true
+  mfa: true
+  roles: ["analyst"]
+  channel: "chat"
+  delegated_identity: true
+  issuer: "https://login.microsoftonline.com/tenant"
+prompt: "Summarise the compensation review pack."
+prompt_redacted: true
+requested_tools: ["document_search"]
+data_sources: ["sharepoint"]
+retrieved:
+  - source: "sharepoint"
+    owner: "hr.director@corp.ae"
+    classification: "restricted"
+    excerpt: "Band 6 salary schedule and individual adjustments"
+model:
+  name: "gpt-4o-mini"
+  provider: "azure_openai"
+  region: "uae-north"
+response: "The Band 6 salary schedule shows..."
+record_count: 1

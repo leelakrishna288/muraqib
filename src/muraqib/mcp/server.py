@@ -129,6 +129,31 @@ TOOLS: list[dict[str, Any]] = [
         },
     },
     {
+        "name": "evaluate_transaction",
+        "description": (
+            "Evaluate ONE runtime transaction against the governance policy. Six gates run "
+            "fail-closed in order - identity, entitlement, source authorization, "
+            "pre-inference (residency, approved model, prompt minimisation, injection), "
+            "output protection (DLP: allow/warn/mask/block), release. Returns the verdict, "
+            "every gate result with reasons, the gate the journey stopped at, and a full "
+            "reconstruction trace. Use this to answer 'is this specific request permitted "
+            "right now', as opposed to assess_platform which answers 'is this platform "
+            "governed' once."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "transaction": {"type": "object", "description": "TransactionContext object."},
+                "policy_path": {
+                    "type": "string",
+                    "description": "Optional path to a governance policy YAML. Defaults to the built-in baseline.",
+                },
+            },
+            "required": ["transaction"],
+            "additionalProperties": False,
+        },
+    },
+    {
         "name": "verify_audit_ledger",
         "description": (
             "Verify the hash chain of a Muraqib audit ledger file and report whether it has "
@@ -161,6 +186,7 @@ class MuraqibMCPServer:
             "get_control": self._get_control,
             "classify_risk": self._classify_risk,
             "assess_platform": self._assess_platform,
+            "evaluate_transaction": self._evaluate_transaction,
             "verify_audit_ledger": self._verify_ledger,
         }
 
@@ -299,6 +325,56 @@ class MuraqibMCPServer:
         }
         return payload
 
+    def _evaluate_transaction(self, args: dict[str, Any]) -> dict[str, Any]:
+        from ..observability.audit import AuditLedger  # noqa: PLC0415
+        from ..runtime import (  # noqa: PLC0415
+            GovernanceEngine,
+            GovernancePolicy,
+            TransactionContext,
+            load_policy,
+        )
+
+        try:
+            ctx = TransactionContext.model_validate(args.get("transaction") or {})
+        except Exception as exc:  # noqa: BLE001
+            raise ToolError(f"invalid transaction: {exc}") from exc
+
+        policy_path = args.get("policy_path")
+        try:
+            policy = load_policy(policy_path) if policy_path else GovernancePolicy.default()
+        except Exception as exc:  # noqa: BLE001
+            raise ToolError(f"could not load policy: {exc}") from exc
+
+        ledger = AuditLedger(run_id=ctx.transaction_id)
+        decision = GovernanceEngine(policy, ledger=ledger).evaluate(ctx)
+        return {
+            "transaction_id": decision.transaction_id,
+            "verdict": decision.verdict.value,
+            "allowed": decision.allowed,
+            "blocked_at": decision.blocked_at.value if decision.blocked_at else None,
+            "masked": decision.masked,
+            "gates": [
+                {
+                    "gate": g.gate.value,
+                    "verdict": g.verdict.value,
+                    "reasons": g.reasons,
+                    "duration_ms": g.duration_ms,
+                }
+                for g in decision.gates
+            ],
+            "released_response": decision.released_response,
+            "response_id": decision.response_id,
+            "provenance": decision.provenance,
+            "trace": decision.trace(),
+            "policy": {
+                "name": policy.name,
+                "version": policy.version,
+                "fail_closed": policy.fail_closed,
+            },
+            "audit_ledger_verified": decision.ledger_verified,
+            "disclaimer": decision.disclaimer,
+        }
+
     def _verify_ledger(self, args: dict[str, Any]) -> dict[str, Any]:
         from pathlib import Path  # noqa: PLC0415
 
@@ -329,11 +405,16 @@ class MuraqibMCPServer:
                     "capabilities": {"tools": {"listChanged": False}},
                     "serverInfo": {"name": "muraqib", "version": __version__},
                     "instructions": (
-                        "Muraqib assesses AI platforms for governance readiness against NDMO, "
-                        "SDAIA AI Ethics, KSA PDPL, UAE PDPL, the EU AI Act, GDPR, NIST AI RMF "
-                        "and ISO/IEC 42001. Results are a gap analysis, never a certification "
-                        "or legal advice. Check each framework's legal_status before calling it "
-                        "a legal requirement - several are non-binding guidance."
+                        "Muraqib does two things. (1) Assessment: it assesses AI platforms for "
+                        "governance readiness against NDMO, SDAIA AI Ethics, KSA PDPL, UAE PDPL, "
+                        "the EU AI Act, GDPR, NIST AI RMF and ISO/IEC 42001. (2) Runtime "
+                        "governance: evaluate_transaction decides whether one specific request is "
+                        "permitted right now, through six fail-closed gates. Results are a gap "
+                        "analysis or a policy decision, never a certification or legal advice. "
+                        "Check each framework's legal_status before calling it a legal "
+                        "requirement - several are non-binding guidance. Note that "
+                        "'not_assessable' and 'not_evidenced' mean the evidence did not settle "
+                        "the question; they are not the same as a failure."
                     ),
                 },
             )

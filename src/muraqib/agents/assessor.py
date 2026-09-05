@@ -13,7 +13,7 @@ from ..graph.state import RunState
 from ..guardrails.schema import SchemaGate, SchemaViolation
 from ..llm.base import ChatMessage, ProviderError
 from ..llm.router import BudgetExceeded
-from ..models import Citation, Confidence, Control, Finding, Status
+from ..models import Citation, Confidence, Control, EvidenceMaturity, Finding, Status
 from .base import Agent
 from .intake import IntakeAgent
 from .prompts import ASSESSOR_SYSTEM, assessor_user_prompt
@@ -68,9 +68,13 @@ class AssessorAgent(Agent):
             c.as_document() for c in (ctx.corpus.control(i) for i in neighbour_ids) if c is not None
         )
 
-        raw_evidence = state.config.controls_documented.get(control.id, "")
+        declared = state.config.evidence_for(control.id)
+        raw_evidence = declared.text if declared else ""
+        maturity = declared.maturity if declared and raw_evidence.strip() else EvidenceMaturity.NONE
         evidence = ctx.redactor.redact(raw_evidence).text if raw_evidence else ""
         evidence = ctx.scanner.sanitise(evidence)
+        if declared and declared.source:
+            evidence = f"{evidence}\n[evidence source: {ctx.redactor.redact(declared.source).text}]"
 
         prompt = assessor_user_prompt(
             control_id=control.id,
@@ -80,6 +84,7 @@ class AssessorAgent(Agent):
             question=control.question,
             intent=control.intent,
             evidence_hints=control.evidence_hints,
+            evidence_maturity=maturity.value,
             retrieved_block=retrieved_block,
             facts_block=facts,
             client_evidence=evidence,
@@ -112,6 +117,8 @@ class AssessorAgent(Agent):
             evidence=parsed.evidence,
             gaps=parsed.gaps,
             recommendation=parsed.recommendation.strip(),
+            evidence_maturity=maturity,
+            evidence_source=(declared.source if declared else ""),
             citations=[
                 Citation(
                     control_id=c.control_id or control.id,
