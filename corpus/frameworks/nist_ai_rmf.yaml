@@ -1,0 +1,109 @@
+framework: NIST_AI_RMF
+official_name: "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0)"
+issuing_body: "National Institute of Standards and Technology (NIST), United States"
+jurisdiction: "United States (voluntary; used internationally as a reference)"
+obligation: non_binding_guidance
+status_note: >-
+  Voluntary framework released 26 January 2023. Organised into four functions:
+  GOVERN, MAP, MEASURE, MANAGE. Companion documents include the AI RMF Playbook
+  and NIST AI 600-1 (Generative AI Profile, July 2024).
+source_url: "https://www.nist.gov/itl/ai-risk-management-framework"
+licence_note: "US Government work; not subject to copyright in the United States. Freely reusable."
+controls:
+  - id: NIST.GOVERN.01
+    domain: GOVERN
+    title: Policies, processes and accountability structures
+    question: >-
+      Are AI risk management policies, roles and accountability structures documented and
+      resourced, with legal/regulatory requirements mapped?
+    evidence_hints: ["AI policy", "accountability map", "regulatory register"]
+    weight: 5
+  - id: NIST.GOVERN.02
+    domain: GOVERN
+    title: Workforce competency and AI literacy
+    question: >-
+      Do the people building and operating the system have documented training appropriate to
+      their role in the AI lifecycle?
+    evidence_hints: ["training records", "role competency matrix"]
+    weight: 3
+  - id: NIST.GOVERN.03
+    domain: GOVERN
+    title: Third-party and supply-chain AI risk
+    question: >-
+      Are risks from third-party models, datasets and software identified, and is there a
+      process for when a supplier changes or deprecates a model?
+    intent: Silent model-version changes by a SaaS provider are an uncontrolled change to your system.
+    evidence_hints: ["vendor risk assessment", "model version pinning", "deprecation runbook"]
+    weight: 5
+  - id: NIST.MAP.01
+    domain: MAP
+    title: Context, intended purpose and affected parties established
+    question: >-
+      Are the intended purpose, deployment context, and the individuals or groups affected
+      documented, including foreseeable misuse?
+    evidence_hints: ["context statement", "stakeholder map", "misuse analysis"]
+    weight: 4
+  - id: NIST.MAP.02
+    domain: MAP
+    title: System capabilities, limitations and assumptions documented
+    question: >-
+      Are the system's capabilities, known limitations and operating assumptions written down
+      and communicated to users?
+    evidence_hints: ["model card", "assumptions register"]
+    weight: 4
+  - id: NIST.MAP.03
+    domain: MAP
+    title: Risks and benefits mapped for all components
+    question: >-
+      Have risks been mapped for each component including third-party models, retrieval
+      sources, tools the agent can invoke, and downstream consumers?
+    evidence_hints: ["component risk map", "tool inventory", "data flow diagram"]
+    weight: 4
+  - id: NIST.MEASURE.01
+    domain: MEASURE
+    title: Metrics selected and applied
+    question: >-
+      Are quantitative and qualitative metrics defined for the risks identified, and applied
+      before and after deployment?
+    evidence_hints: ["metric definitions", "pre/post deployment results"]
+    weight: 5
+  - id: NIST.MEASURE.02
+    domain: MEASURE
+    title: Trustworthiness characteristics evaluated
+    question: >-
+      Are validity, reliability, safety, security, accountability, explainability, privacy
+      and fairness each evaluated rather than assumed?
+    evidence_hints: ["evaluation report per characteristic", "test coverage matrix"]
+    weight: 5
+  - id: NIST.MEASURE.03
+    domain: MEASURE
+    title: Feedback from operators and affected parties collected
+    question: >-
+      Are mechanisms in place to collect and act on feedback from operators and affected
+      individuals about system performance and harm?
+    evidence_hints: ["feedback channel", "triage process", "action log"]
+    weight: 3
+  - id: NIST.MANAGE.01
+    domain: MANAGE
+    title: Risks prioritised, responded to and documented
+    question: >-
+      Are identified risks prioritised, with a documented response (mitigate, transfer, avoid,
+      accept) and a named owner for each?
+    evidence_hints: ["risk register with owners", "treatment decisions"]
+    weight: 5
+  - id: NIST.MANAGE.02
+    domain: MANAGE
+    title: Incident response and recovery for AI failures
+    question: >-
+      Is there an incident response plan covering AI-specific failures such as harmful output,
+      model degradation, prompt injection and tool misuse, with a rollback path?
+    evidence_hints: ["AI incident runbook", "rollback procedure", "kill switch"]
+    weight: 5
+  - id: NIST.MANAGE.03
+    domain: MANAGE
+    title: Continuous monitoring and decommissioning
+    question: >-
+      Is the deployed system monitored for drift and degradation, with defined criteria for
+      retraining, replacement or decommissioning?
+    evidence_hints: ["drift monitoring", "retrain trigger thresholds", "decommission plan"]
+    weight: 4

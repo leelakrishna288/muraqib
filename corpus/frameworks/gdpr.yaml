@@ -1,0 +1,125 @@
+framework: GDPR
+official_name: "Regulation (EU) 2016/679 (General Data Protection Regulation)"
+issuing_body: "European Parliament and Council of the European Union"
+jurisdiction: "European Union / European Economic Area (extraterritorial per Art. 3)"
+obligation: binding_law
+status_note: "Applicable since 25 May 2018."
+source_url: "https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng"
+licence_note: "EUR-Lex reuse policy applies. Article numbers are factual references."
+controls:
+  - id: GDPR.ART5.01
+    domain: Principles (Art. 5)
+    title: Purpose limitation and data minimisation
+    question: >-
+      Is personal data processed only for the specified purposes, with the minimum data
+      necessary placed into prompts, retrieval corpora and training sets?
+    evidence_hints: ["ROPA", "minimisation review", "prompt payload audit"]
+    weight: 5
+  - id: GDPR.ART5.02
+    domain: Principles (Art. 5)
+    title: Storage limitation for derived AI artefacts
+    question: >-
+      Are prompt logs, model responses, embeddings and caches subject to a defined retention
+      period rather than retained indefinitely?
+    evidence_hints: ["retention schedule", "log TTL config", "vector index purge job"]
+    weight: 5
+  - id: GDPR.ART6.01
+    domain: Lawfulness (Art. 6)
+    title: Lawful basis for AI processing
+    question: >-
+      Is a lawful basis identified and recorded for using personal data in model training,
+      grounding or inference, and does it cover that specific use?
+    evidence_hints: ["lawful basis assessment", "legitimate interests assessment (LIA)"]
+    weight: 5
+  - id: GDPR.ART9.01
+    domain: Special categories (Art. 9)
+    title: Special category data safeguards
+    question: >-
+      Where health, biometric, religious, political or similar special-category data may be
+      processed or inferred, is an Art. 9 condition identified and additional safeguards applied?
+    intent: LLM systems frequently infer special-category data that was never deliberately collected.
+    evidence_hints: ["Art. 9 condition record", "inference risk assessment", "output filters"]
+    weight: 5
+  - id: GDPR.ART13.01
+    domain: Transparency (Arts. 13-14)
+    title: Privacy notice covers AI processing
+    question: >-
+      Does the privacy notice describe AI processing, including any automated decision-making
+      and the categories of recipients such as model providers?
+    evidence_hints: ["privacy notice text", "recipient list", "notice version history"]
+    weight: 4
+  - id: GDPR.ART15.01
+    domain: Data subject rights (Arts. 15-22)
+    title: Rights fulfilment across AI stores
+    question: >-
+      Can subject access, rectification, erasure, restriction, portability and objection be
+      fulfilled for data held in vector stores, logs, caches and fine-tuned weights?
+    intent: Erasure that does not reach the embedding index is not erasure.
+    evidence_hints: ["DSR runbook", "erasure propagation test", "re-index procedure"]
+    weight: 5
+  - id: GDPR.ART22.01
+    domain: Automated decision-making (Art. 22)
+    title: Safeguards for solely automated decisions
+    question: >-
+      Where decisions producing legal or similarly significant effects are made solely by
+      automated means, are the Art. 22 conditions met with a right to human intervention,
+      to express a view and to contest?
+    evidence_hints: ["ADM inventory", "human review route", "contest procedure"]
+    weight: 5
+  - id: GDPR.ART25.01
+    domain: Data protection by design (Art. 25)
+    title: Privacy by design and by default
+    question: >-
+      Are technical and organisational measures implemented by design and by default,
+      including pseudonymisation before model invocation?
+    evidence_hints: ["design records", "pseudonymisation service", "default settings review"]
+    weight: 4
+  - id: GDPR.ART28.01
+    domain: Processors (Art. 28)
+    title: Model providers governed as processors
+    question: >-
+      Is every model, embedding and vector-store provider bound by a compliant processor
+      agreement, with sub-processor changes notified?
+    evidence_hints: ["DPA with provider", "sub-processor list", "audit rights clause"]
+    weight: 5
+  - id: GDPR.ART30.01
+    domain: Records (Art. 30)
+    title: Records of processing include AI activities
+    question: >-
+      Does the record of processing activities include AI training, grounding and inference
+      as distinct processing activities?
+    evidence_hints: ["ROPA extract", "AI activity entries"]
+    weight: 3
+  - id: GDPR.ART32.01
+    domain: Security (Art. 32)
+    title: Security of processing
+    question: >-
+      Are encryption, pseudonymisation, availability and regular testing of measures in place
+      proportionate to the risk?
+    evidence_hints: ["security control set", "pen test report", "encryption config"]
+    weight: 5
+  - id: GDPR.ART33.01
+    domain: Breach (Arts. 33-34)
+    title: Breach notification within 72 hours
+    question: >-
+      Is there a tested capability to notify the supervisory authority within 72 hours and
+      affected individuals without undue delay where required?
+    evidence_hints: ["IR plan", "notification template", "exercise report"]
+    weight: 4
+  - id: GDPR.ART35.01
+    domain: DPIA (Art. 35)
+    title: DPIA for high-risk AI processing
+    question: >-
+      Has a data protection impact assessment been carried out where the processing is likely
+      to result in high risk, including large-scale profiling or automated decisions?
+    evidence_hints: ["DPIA document", "consultation record", "DPO opinion"]
+    weight: 5
+  - id: GDPR.ART44.01
+    domain: Transfers (Arts. 44-49)
+    title: International transfer mechanism
+    question: >-
+      Where personal data is transferred outside the EEA, including to a model API endpoint,
+      is an adequacy decision, SCCs or another Chapter V mechanism in place with a transfer
+      impact assessment?
+    evidence_hints: ["SCCs", "TIA", "endpoint region configuration"]
+    weight: 5

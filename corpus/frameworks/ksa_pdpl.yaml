@@ -1,0 +1,98 @@
+framework: KSA_PDPL
+official_name: "Personal Data Protection Law (PDPL), Royal Decree No. M/19 dated 9/2/1443H, as amended by Royal Decree No. M/148 dated 5/9/1444H"
+issuing_body: "Saudi Data & AI Authority (SDAIA)"
+jurisdiction: "Saudi Arabia"
+obligation: binding_law
+status_note: >-
+  In force. Effective 14 September 2023, with full enforcement from 14 September 2024.
+  Accompanied by the Implementing Regulations and the Regulations on Personal Data
+  Transfer outside the Kingdom. This is the instrument with actual enforcement teeth
+  in KSA - SDAIA's AI Ethics Principles are guidance, this is law.
+source_url: "https://sdaia.gov.sa/en/SDAIA/about/Documents/Personal%20Data%20English%20V2-23April2023-%20Reviewed-.pdf"
+licence_note: >-
+  Muraqib ships thematic assessment questions written by us and scoped to PDPL
+  subject areas. Control ids are Muraqib assessment items, not statutory article
+  numbers. Consult the official text for article-level obligations.
+controls:
+  - id: KSA_PDPL.LB.01
+    domain: Lawful basis and consent
+    title: Lawful basis established for each purpose
+    question: >-
+      Is a lawful basis identified and recorded for each processing purpose, with consent
+      obtained where required and withdrawal made as easy as giving it?
+    evidence_hints: ["consent records", "purpose register", "withdrawal mechanism"]
+    weight: 5
+  - id: KSA_PDPL.NOT.01
+    domain: Notice and transparency
+    title: Privacy notice provided to data subjects
+    question: >-
+      Are data subjects given a privacy notice covering purpose, categories collected,
+      recipients, retention and their rights, before or at collection?
+    evidence_hints: ["privacy notice", "collection point screenshots"]
+    weight: 4
+  - id: KSA_PDPL.RTS.01
+    domain: Data subject rights
+    title: Rights request handling
+    question: >-
+      Can the organisation receive, verify and fulfil rights to be informed, access, obtain a
+      copy, correct and destroy personal data within the statutory period?
+    evidence_hints: ["rights request procedure", "SLA tracking", "identity verification steps"]
+    weight: 5
+  - id: KSA_PDPL.MIN.01
+    domain: Minimisation and retention
+    title: Collection limited and retention bounded
+    question: >-
+      Is collection limited to the minimum necessary, and is personal data destroyed once the
+      purpose is fulfilled?
+    evidence_hints: ["minimisation review", "destruction records", "retention schedule"]
+    weight: 4
+  - id: KSA_PDPL.XB.01
+    domain: Cross-border transfer
+    title: Transfer outside the Kingdom assessed
+    question: >-
+      Where personal data is transferred outside Saudi Arabia - including to a model or
+      embedding API hosted abroad - has the transfer been assessed against the Transfer
+      Regulations with the required safeguards and, where applicable, a risk assessment?
+    intent: An overseas LLM endpoint is a cross-border transfer even when no data is "stored".
+    evidence_hints: ["transfer risk assessment", "provider hosting region", "contractual safeguards"]
+    weight: 5
+  - id: KSA_PDPL.DPO.01
+    domain: Accountability
+    title: Personal data protection officer appointed where required
+    question: >-
+      Where required, has a personal data protection officer been appointed with published
+      contact details and sufficient independence?
+    evidence_hints: ["appointment letter", "published contact", "reporting line"]
+    weight: 3
+  - id: KSA_PDPL.ROP.01
+    domain: Accountability
+    title: Records of processing maintained
+    question: >-
+      Is a record of processing activities maintained and kept current, including AI training
+      and inference activities?
+    evidence_hints: ["ROPA", "AI activity entries", "last review date"]
+    weight: 4
+  - id: KSA_PDPL.SEC.01
+    domain: Security
+    title: Organisational and technical safeguards
+    question: >-
+      Are safeguards implemented proportionate to the sensitivity of the personal data,
+      covering access control, encryption, logging and secure disposal?
+    evidence_hints: ["security control set", "encryption config", "access reviews"]
+    weight: 5
+  - id: KSA_PDPL.BR.01
+    domain: Breach management
+    title: Breach notification to the competent authority
+    question: >-
+      Is there a tested process to notify the competent authority and, where there is
+      serious harm, the affected data subjects, within the required timeframe?
+    evidence_hints: ["incident response plan", "notification templates", "exercise report"]
+    weight: 4
+  - id: KSA_PDPL.PIA.01
+    domain: Impact assessment
+    title: Impact assessment for higher-risk processing
+    question: >-
+      Has an impact assessment been carried out for processing likely to cause higher risk,
+      including automated profiling and large-scale AI processing?
+    evidence_hints: ["impact assessment", "sign-off", "revision after change"]
+    weight: 4

@@ -1,0 +1,123 @@
+# Example platform configuration.
+#
+# This is a FICTIONAL platform used to demonstrate Muraqib end to end. It is not
+# based on, and does not describe, any real organisation's system. Replace it
+# with a real configuration before drawing any conclusions.
+#
+# Run:  muraqib assess examples/aldar_tenant_assistant.yaml --format md --format html
+
+platform_name: "Tenant Services Assistant (fictional example)"
+owner_org: "Example Real Estate Group"
+jurisdiction: ["United Arab Emirates", "Saudi Arabia"]
+purpose: >-
+  Answers tenant questions about leases and service charges, triages maintenance
+  requests, and drafts responses for the customer service team to send.
+deployment: private_cloud
+data_categories: [personal, financial, internal]
+data_residency: "UAE (primary), EU (disaster recovery)"
+cross_border_transfer: true
+affects_individuals: true
+automated_decision_making: true
+human_in_the_loop: false
+sources:
+  - "Lease management system (Oracle)"
+  - "Service charge ledger"
+  - "Maintenance ticketing system"
+  - "Policy document library (SharePoint)"
+
+endpoints:
+  - name: tenant_chat
+    url: "https://internal.example/api/v1/chat"
+    method: POST
+    authenticated: true
+    auth_scheme: "OIDC (Microsoft Entra ID)"
+    rate_limited: true
+    logs_requests: true
+    pii_redacted: false
+  - name: maintenance_triage
+    url: "https://internal.example/api/v1/triage"
+    method: POST
+    authenticated: true
+    auth_scheme: "OIDC (Microsoft Entra ID)"
+    rate_limited: false
+    logs_requests: true
+    pii_redacted: false
+
+models:
+  - name: "gpt-4o-mini"
+    provider: "azure_openai"
+    hosting: saas
+    region: "swedencentral"
+    fine_tuned: false
+    training_data_documented: false
+    human_oversight: false
+    explainability_method: "retrieved source citations shown to the agent"
+  - name: "text-embedding-3-small"
+    provider: "azure_openai"
+    hosting: saas
+    region: "swedencentral"
+
+# Evidence the client has declared, keyed by control id. Anything not listed
+# here is correctly reported as "not assessable" rather than guessed at - which
+# is why the coverage figure on this example is deliberately low.
+controls_documented:
+  NDMO.DG.01: >-
+    A data governance charter is documented and approved by the executive committee.
+    The data governance forum meets monthly and minutes are retained in SharePoint.
+  NDMO.DG.02: >-
+    Data owners and stewards are assigned for the lease and service-charge domains.
+    The maintenance domain has no assigned steward yet.
+  NDMO.CM.01: >-
+    The lease and ledger datasets are registered in the enterprise catalog. The
+    retrieval corpus and the prompt/response logs are not registered.
+  NDMO.CM.03: >-
+    Lineage is documented from source systems to the warehouse. Lineage stops at the
+    embedding step; there is no record of which document version produced an embedding.
+  NDMO.CL.01: >-
+    All source datasets are classified under the corporate scheme and labels are applied
+    in the catalog.
+  NDMO.CL.03: >-
+    Not implemented. Embeddings, prompt logs and cached responses carry no classification
+    labels and inherit nothing from their source documents.
+  NDMO.DC.02: >-
+    Retention schedules are published for source documents. Embeddings are never deleted
+    and there is no purge job for the vector index.
+  NDMO.PD.01: >-
+    A record of processing activities exists and is reviewed annually. It does not yet list
+    AI grounding or inference as processing activities.
+  NDMO.PD.02: >-
+    Erasure requests are executed against the lease system and the warehouse only. The
+    vector index is not re-indexed and cached responses are not purged.
+  NDMO.PD.04: >-
+    No redaction or tokenisation is applied before tenant data is placed in a prompt and
+    sent to the model provider.
+  NDMO.PD.05: >-
+    A transfer impact assessment is planned for Q4. The model endpoint is hosted in the EU
+    while primary residency is the UAE.
+  NDMO.SP.01: >-
+    Access is authenticated through Microsoft Entra ID with MFA enforced. An RBAC matrix is
+    documented, reviewed quarterly, and access reviews are logged and retained.
+  NDMO.SP.02: >-
+    TLS 1.3 is enforced in transit and all managed stores are encrypted at rest with
+    customer-managed keys rotated annually.
+  NDMO.SP.03: >-
+    Application logs are retained for 90 days. They do not record which model version
+    answered a request or which documents were retrieved.
+  NDMO.SP.04: >-
+    SAST, DAST and dependency scanning run on every pipeline execution and findings are
+    remediated against documented SLAs.
+  NDMO.SP.05: >-
+    Not addressed. Prompt injection, tool invocation and output handling are not in the
+    threat model and no injection test suite exists.
+  GDPR.ART22.01: >-
+    Maintenance priority is assigned automatically with no human review step and no
+    published route to contest the outcome.
+  GDPR.ART28.01: >-
+    A data processing agreement is signed with the model provider and the sub-processor
+    list is reviewed annually.
+  SDAIA.REL.01: >-
+    Answer quality is spot-checked manually by the service desk. There is no versioned
+    evaluation set and no release gate.
+  SDAIA.TRAN.01: >-
+    The chat interface displays "You are chatting with an automated assistant" on every
+    session and AI-drafted replies are labelled before an agent sends them.

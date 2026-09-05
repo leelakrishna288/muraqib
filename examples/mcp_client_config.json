@@ -1,0 +1,23 @@
+{
+  "_comment": [
+    "Register Muraqib as an MCP server with any MCP client.",
+    "Claude Desktop: ~/Library/Application Support/Claude/claude_desktop_config.json (macOS)",
+    "                %APPDATA%\\Claude\\claude_desktop_config.json (Windows)",
+    "Cursor / VS Code / Windsurf: see each client's MCP settings.",
+    "Replace /absolute/path/to/muraqib with the path to your clone.",
+    "The default offline engine needs no API key; add one only to use a hosted model."
+  ],
+  "mcpServers": {
+    "muraqib": {
+      "command": "python3",
+      "args": ["-m", "muraqib.mcp.server"],
+      "env": {
+        "PYTHONPATH": "/absolute/path/to/muraqib/src",
+        "MURAQIB_CORPUS_DIR": "/absolute/path/to/muraqib/corpus",
+        "MURAQIB_DATA_DIR": "/absolute/path/to/muraqib/data",
+        "MURAQIB_PROVIDER": "offline",
+        "MURAQIB_LOG_LEVEL": "WARNING"
+      }
+    }
+  }
+}

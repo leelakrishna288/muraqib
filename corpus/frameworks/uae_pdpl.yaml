@@ -1,0 +1,73 @@
+framework: UAE_PDPL
+official_name: "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data"
+issuing_body: "UAE Data Office (established under Federal Decree-Law No. 44 of 2021)"
+jurisdiction: "United Arab Emirates (federal; DIFC and ADGM operate separate regimes)"
+obligation: binding_law
+status_note: >-
+  Issued 26 September 2021, effective 2 January 2022. IMPORTANT: the Executive
+  Regulations have still not been issued as of September 2026, so several
+  enforcement mechanisms remain incomplete. The UAE has no binding horizontal AI
+  law; the UAE Charter for the Development and Use of Artificial Intelligence
+  (June 2024, 12 principles) is non-binding. Entities in DIFC or ADGM are subject
+  to DIFC Data Protection Law No. 5 of 2020 or ADGM regulations instead.
+source_url: "https://u.ae/en/about-the-uae/digital-uae/data/data-protection-laws"
+licence_note: >-
+  Muraqib ships thematic assessment questions written by us. Control ids are
+  Muraqib assessment items, not statutory article numbers.
+controls:
+  - id: UAE_PDPL.LB.01
+    domain: Lawful basis and consent
+    title: Lawful basis or valid consent
+    question: >-
+      Is processing based on consent or another permitted basis under the Decree-Law, with
+      consent recorded, specific and withdrawable?
+    evidence_hints: ["consent log", "basis assessment"]
+    weight: 5
+  - id: UAE_PDPL.RTS.01
+    domain: Data subject rights
+    title: Rights fulfilment
+    question: >-
+      Can rights to information, access, correction, erasure, restriction, portability and
+      objection to automated processing be fulfilled, including for AI-derived data?
+    evidence_hints: ["rights procedure", "erasure propagation to vector store"]
+    weight: 5
+  - id: UAE_PDPL.XB.01
+    domain: Cross-border transfer
+    title: Transfer outside the UAE
+    question: >-
+      Where personal data is transferred outside the UAE, is it to an adequate jurisdiction or
+      covered by contractual safeguards or an applicable exception?
+    evidence_hints: ["transfer register", "contract clauses", "hosting region evidence"]
+    weight: 5
+  - id: UAE_PDPL.SEC.01
+    domain: Security
+    title: Appropriate technical and organisational measures
+    question: >-
+      Are measures implemented appropriate to the risk, including encryption,
+      pseudonymisation, access control and integrity monitoring?
+    evidence_hints: ["security standard", "control evidence"]
+    weight: 5
+  - id: UAE_PDPL.BR.01
+    domain: Breach management
+    title: Breach notification
+    question: >-
+      Is there a process to notify the UAE Data Office and affected individuals of a personal
+      data breach without undue delay where the criteria are met?
+    evidence_hints: ["IR plan", "notification workflow"]
+    weight: 4
+  - id: UAE_PDPL.DPO.01
+    domain: Accountability
+    title: Data protection officer where required
+    question: >-
+      Where the criteria are met (high-risk, large-scale, or sensitive data processing), has a
+      data protection officer been appointed and registered?
+    evidence_hints: ["appointment record", "registration evidence"]
+    weight: 3
+  - id: UAE_PDPL.ADM.01
+    domain: Automated processing
+    title: Automated decision-making safeguards
+    question: >-
+      Where automated processing produces legal effects, can the individual object and obtain
+      human review?
+    evidence_hints: ["objection route", "human review procedure"]
+    weight: 4

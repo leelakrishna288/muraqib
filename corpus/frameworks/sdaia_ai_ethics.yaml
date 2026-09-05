@@ -1,0 +1,154 @@
+framework: SDAIA_AI_ETHICS
+official_name: "AI Ethics Principles (Version 2.0)"
+issuing_body: "Saudi Data & AI Authority (SDAIA)"
+jurisdiction: "Saudi Arabia"
+obligation: non_binding_guidance
+status_note: >-
+  IMPORTANT: these are principles and controls issued as guidance, NOT statute.
+  Saudi Arabia has no binding horizontal AI law as of September 2026; enforcement
+  teeth come from the Personal Data Protection Law (Royal Decree M/19), not from
+  AI-specific legislation. Muraqib never describes these principles as "law".
+  The principles define seven areas and four risk tiers.
+source_url: "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf"
+licence_note: >-
+  Free to download, no explicit redistribution grant. Muraqib ships the principle
+  NAMES (which are factual identifiers) and its own paraphrased assessment
+  questions. No verbatim control text is redistributed.
+controls:
+  - id: SDAIA.FAIR.01
+    domain: Fairness
+    title: Bias identification across affected groups
+    question: >-
+      Has the system been tested for disparate performance across relevant demographic or
+      regional groups, with results documented and thresholds agreed?
+    evidence_hints: ["fairness evaluation report", "subgroup metrics", "test dataset composition"]
+    weight: 5
+  - id: SDAIA.FAIR.02
+    domain: Fairness
+    title: Bias mitigation and re-testing
+    question: >-
+      Where disparate performance was found, were mitigations applied and the system
+      re-tested, with residual risk accepted by a named owner?
+    evidence_hints: ["mitigation log", "re-test results", "risk acceptance record"]
+    weight: 4
+  - id: SDAIA.PRIV.01
+    domain: Privacy and Security
+    title: Privacy by design in the AI lifecycle
+    question: >-
+      Were privacy controls designed into data collection, training, inference and logging
+      rather than added after deployment?
+    evidence_hints: ["design review", "DPIA", "data flow diagram"]
+    weight: 5
+  - id: SDAIA.PRIV.02
+    domain: Privacy and Security
+    title: Security controls proportionate to risk tier
+    question: >-
+      Are security controls (access, encryption, monitoring, secrets handling) proportionate
+      to the assessed risk tier of the system?
+    evidence_hints: ["risk tier record", "control mapping", "secrets management config"]
+    weight: 4
+  - id: SDAIA.HUM.01
+    domain: Humanity
+    title: Human agency preserved
+    question: >-
+      Can an affected individual obtain human review of a decision that materially affects
+      them, and is that route published to them?
+    evidence_hints: ["appeal process", "user-facing notice", "review SLA"]
+    weight: 5
+  - id: SDAIA.HUM.02
+    domain: Humanity
+    title: No manipulative or exploitative design
+    question: >-
+      Has the system been reviewed to confirm it does not exploit vulnerabilities of specific
+      groups or use manipulative techniques to influence behaviour?
+    evidence_hints: ["design ethics review", "dark-pattern assessment"]
+    weight: 4
+  - id: SDAIA.SOC.01
+    domain: Social and Environmental Benefits
+    title: Stated societal benefit and harm assessment
+    question: >-
+      Is the intended societal benefit documented alongside an assessment of foreseeable
+      harms, including to non-users?
+    evidence_hints: ["impact assessment", "stakeholder analysis"]
+    weight: 3
+  - id: SDAIA.SOC.02
+    domain: Social and Environmental Benefits
+    title: Environmental cost considered
+    question: >-
+      Is the compute/energy cost of training and serving the system measured or estimated and
+      considered in design decisions?
+    evidence_hints: ["compute usage report", "model size rationale", "inference cost tracking"]
+    weight: 2
+  - id: SDAIA.REL.01
+    domain: Reliability and Safety
+    title: Accuracy measured against a held-out benchmark
+    question: >-
+      Is model accuracy or task success measured against a documented, version-controlled
+      evaluation set before each release?
+    evidence_hints: ["eval harness", "golden dataset", "release gate results"]
+    weight: 5
+  - id: SDAIA.REL.02
+    domain: Reliability and Safety
+    title: Failure modes, fallback and graceful degradation
+    question: >-
+      Are failure modes enumerated with defined fallback behaviour when the model is
+      unavailable, low-confidence, or out of distribution?
+    evidence_hints: ["failure mode analysis", "fallback config", "circuit breaker"]
+    weight: 4
+  - id: SDAIA.REL.03
+    domain: Reliability and Safety
+    title: Hallucination and grounding controls
+    question: >-
+      Are generated outputs constrained to grounded sources, with ungrounded outputs
+      suppressed, flagged, or routed to human review?
+    intent: A governance system that lets an ungrounded claim through is itself a governance failure.
+    evidence_hints: ["citation enforcement", "grounding rate metric", "abstention policy"]
+    weight: 5
+  - id: SDAIA.TRAN.01
+    domain: Transparency and Explainability
+    title: Disclosure of AI interaction
+    question: >-
+      Are individuals told when they are interacting with an AI system or receiving
+      AI-generated content?
+    evidence_hints: ["UI disclosure", "content labelling", "synthetic media marking"]
+    weight: 4
+  - id: SDAIA.TRAN.02
+    domain: Transparency and Explainability
+    title: Explanation of material decisions
+    question: >-
+      Can the system produce an explanation of a material decision that is meaningful to the
+      affected individual, not only to engineers?
+    evidence_hints: ["explanation samples", "explainability method", "user testing of explanations"]
+    weight: 4
+  - id: SDAIA.TRAN.03
+    domain: Transparency and Explainability
+    title: Model and data documentation published internally
+    question: >-
+      Are model cards / system datasheets maintained covering intended use, limitations,
+      training data provenance and known failure modes?
+    evidence_hints: ["model card", "datasheet", "limitations section"]
+    weight: 3
+  - id: SDAIA.ACC.01
+    domain: Accountability and Responsibility
+    title: Named accountable owner for the AI system
+    question: >-
+      Is a single accountable executive owner named for the system, distinct from the
+      delivery team?
+    evidence_hints: ["accountability register", "sign-off record"]
+    weight: 5
+  - id: SDAIA.ACC.02
+    domain: Accountability and Responsibility
+    title: Auditability of AI decisions
+    question: >-
+      Is there a retained, tamper-evident record sufficient to reconstruct why the system
+      produced a specific output at a specific time?
+    evidence_hints: ["decision log", "prompt/response retention", "model version pinning"]
+    weight: 5
+  - id: SDAIA.ACC.03
+    domain: Accountability and Responsibility
+    title: Incident reporting and redress
+    question: >-
+      Is there a route for affected parties to raise an AI-related complaint, and a defined
+      internal process to investigate and remediate?
+    evidence_hints: ["complaints channel", "incident register", "remediation records"]
+    weight: 4

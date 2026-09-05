@@ -1,0 +1,380 @@
+framework: NDMO
+official_name: "National Data Management and Personal Data Protection Standards"
+issuing_body: "National Data Management Office (NDMO), operating under the Saudi Data & AI Authority (SDAIA)"
+jurisdiction: "Saudi Arabia"
+obligation: binding_law
+status_note: >-
+  The NDMO standards are mandatory for government entities in the Kingdom and
+  are widely adopted as the de-facto benchmark by regulated private-sector
+  organisations. The published standard is structured as 15 domains, 77 controls
+  and 191 compliance specifications.
+source_url: "https://sdaia.gov.sa/ndmo/Files/PoliciesEn001.pdf"
+licence_note: >-
+  The official NDMO standard is published free of charge but carries no explicit
+  redistribution grant. Muraqib therefore ships DOMAIN TAXONOMY and its OWN
+  paraphrased assessment questions only. Control identifiers below are Muraqib
+  assessment items scoped to an NDMO domain (format NDMO.<DOMAIN>.<n>); they are
+  NOT official NDMO control numbers. Always cite the official PDF for
+  authoritative wording. See docs/COMPLIANCE_SOURCES.md.
+controls:
+  # --- 1. Data Governance ---
+  - id: NDMO.DG.01
+    domain: Data Governance
+    title: Data governance operating model and mandate
+    question: >-
+      Is there a documented data governance operating model with a named accountable
+      owner, a governance body that meets on a defined cadence, and a written mandate
+      approved by executive management?
+    intent: Governance without a named owner and a standing forum degrades to ad-hoc practice.
+    evidence_hints: ["governance charter", "RACI matrix", "steering committee minutes", "org chart"]
+    weight: 5
+  - id: NDMO.DG.02
+    domain: Data Governance
+    title: Roles, responsibilities and data stewardship
+    question: >-
+      Are data owner, data steward and data custodian roles formally assigned for each
+      major data domain used by the platform, with the assignments kept current?
+    evidence_hints: ["stewardship register", "role assignment records"]
+    weight: 4
+  - id: NDMO.DG.03
+    domain: Data Governance
+    title: Policy set, review cycle and enforcement
+    question: >-
+      Does a published data policy set exist covering the platform's data, with a defined
+      review cycle, version history and a documented enforcement/exception process?
+    evidence_hints: ["policy register", "exception log", "review dates"]
+    weight: 3
+
+  # --- 2. Data Catalog and Metadata ---
+  - id: NDMO.CM.01
+    domain: Data Catalog and Metadata
+    title: Enterprise data catalog coverage
+    question: >-
+      Are all datasets consumed or produced by the platform (including model training,
+      fine-tuning, retrieval corpora and inference logs) registered in a data catalog?
+    intent: An AI system's retrieval corpus and inference logs are datasets; they are the ones most often missed.
+    evidence_hints: ["catalog export", "dataset inventory", "RAG corpus registration"]
+    weight: 4
+  - id: NDMO.CM.02
+    domain: Data Catalog and Metadata
+    title: Business and technical metadata completeness
+    question: >-
+      For each registered dataset, are business definitions, technical schema, source
+      system, refresh frequency and retention period recorded?
+    evidence_hints: ["metadata completeness report"]
+    weight: 3
+  - id: NDMO.CM.03
+    domain: Data Catalog and Metadata
+    title: Lineage from source to model output
+    question: >-
+      Can end-to-end lineage be traced from originating source systems through any
+      transformation, embedding or fine-tuning step to the data surfaced in a model response?
+    intent: Lineage is what makes an AI finding auditable and a deletion request executable.
+    evidence_hints: ["lineage diagram", "pipeline DAG", "embedding provenance records"]
+    weight: 5
+
+  # --- 3. Data Quality ---
+  - id: NDMO.DQ.01
+    domain: Data Quality
+    title: Data quality dimensions and thresholds
+    question: >-
+      Are measurable data quality rules defined (completeness, accuracy, validity,
+      consistency, timeliness, uniqueness) with agreed thresholds for critical data elements?
+    evidence_hints: ["DQ rule catalog", "threshold definitions"]
+    weight: 4
+  - id: NDMO.DQ.02
+    domain: Data Quality
+    title: Profiling, monitoring and remediation
+    question: >-
+      Is data quality measured on a recurring schedule, with breaches raised as issues and
+      tracked through to remediation?
+    evidence_hints: ["DQ dashboard", "issue tracker export"]
+    weight: 3
+  - id: NDMO.DQ.03
+    domain: Data Quality
+    title: Quality controls on AI training and retrieval data
+    question: >-
+      Are quality and representativeness checks applied specifically to training,
+      fine-tuning and retrieval-corpus data before it is used by a model?
+    evidence_hints: ["corpus validation report", "dataset datasheet", "bias/representativeness review"]
+    weight: 5
+
+  # --- 4. Data Operations ---
+  - id: NDMO.DO.01
+    domain: Data Operations
+    title: Pipeline scheduling, monitoring and alerting
+    question: >-
+      Are data pipelines that feed the platform scheduled, monitored, and alerting on
+      failure to a named on-call owner?
+    evidence_hints: ["orchestration config", "alert routing", "runbook"]
+    weight: 3
+  - id: NDMO.DO.02
+    domain: Data Operations
+    title: Backup, recovery and tested restoration
+    question: >-
+      Are backups taken for platform data stores (including vector indexes) with a
+      documented RTO/RPO and a restoration test performed within the last 12 months?
+    intent: Vector indexes are routinely excluded from backup scope because they are treated as derived.
+    evidence_hints: ["backup policy", "restore test report", "RTO/RPO definition"]
+    weight: 4
+  - id: NDMO.DO.03
+    domain: Data Operations
+    title: Change management for data assets
+    question: >-
+      Are schema and pipeline changes subject to review, approval and rollback capability?
+    evidence_hints: ["change tickets", "CAB records", "migration scripts"]
+    weight: 3
+
+  # --- 5. Document and Content Management ---
+  - id: NDMO.DC.01
+    domain: Document and Content Management
+    title: Unstructured content inventory
+    question: >-
+      Is unstructured content ingested by the platform (documents, email, tickets, chat
+      transcripts) inventoried and classified before ingestion?
+    evidence_hints: ["content inventory", "ingestion manifest"]
+    weight: 4
+  - id: NDMO.DC.02
+    domain: Document and Content Management
+    title: Content retention and disposal
+    question: >-
+      Are retention and disposal schedules defined and enforced for ingested content and
+      for derived artefacts such as embeddings and cached model responses?
+    intent: Deleting a source document does not delete its embedding unless the pipeline is designed to.
+    evidence_hints: ["retention schedule", "embedding deletion procedure", "cache TTL config"]
+    weight: 5
+
+  # --- 6. Data Architecture and Modelling ---
+  - id: NDMO.DA.01
+    domain: Data Architecture and Modelling
+    title: Target data architecture documented
+    question: >-
+      Is there a current, approved data architecture covering storage, movement,
+      integration and the AI-specific components (vector store, feature store, model registry)?
+    evidence_hints: ["architecture diagram", "ADRs", "component inventory"]
+    weight: 3
+  - id: NDMO.DA.02
+    domain: Data Architecture and Modelling
+    title: Standards for modelling and naming
+    question: >-
+      Are data modelling conventions, naming standards and reference architecture patterns
+      published and applied?
+    evidence_hints: ["modelling standard", "naming convention doc"]
+    weight: 2
+
+  # --- 7. Reference and Master Data Management ---
+  - id: NDMO.MD.01
+    domain: Reference and Master Data Management
+    title: Master data entities identified and mastered
+    question: >-
+      Are critical master data entities (customer, citizen, employee, product, location)
+      identified with a defined system of record and survivorship rules?
+    evidence_hints: ["MDM entity list", "system of record register"]
+    weight: 3
+  - id: NDMO.MD.02
+    domain: Reference and Master Data Management
+    title: Reference data governance
+    question: >-
+      Are reference/code lists centrally governed and versioned rather than duplicated per
+      application?
+    evidence_hints: ["reference data repository", "version history"]
+    weight: 2
+
+  # --- 8. Business Intelligence and Analytics ---
+  - id: NDMO.BI.01
+    domain: Business Intelligence and Analytics
+    title: Governed metric and report definitions
+    question: >-
+      Are analytical metrics and reports defined once, governed, and traceable to certified
+      data sources rather than recomputed inconsistently per consumer?
+    evidence_hints: ["metric dictionary", "certified dataset list"]
+    weight: 2
+  - id: NDMO.BI.02
+    domain: Business Intelligence and Analytics
+    title: Model performance reporting to business owners
+    question: >-
+      Are AI/model performance and error rates reported to accountable business owners on a
+      defined cadence, not only to the engineering team?
+    evidence_hints: ["model performance report", "distribution list", "review cadence"]
+    weight: 4
+
+  # --- 9. Data Sharing and Interoperability ---
+  - id: NDMO.DS.01
+    domain: Data Sharing and Interoperability
+    title: Data sharing agreements
+    question: >-
+      Is every outbound data flow (including to third-party model providers) covered by a
+      data sharing agreement or contract specifying purpose, scope and permitted processing?
+    intent: Sending a prompt containing customer data to a SaaS model provider is a data transfer.
+    evidence_hints: ["DSA register", "DPA with model provider", "vendor contract clauses"]
+    weight: 5
+  - id: NDMO.DS.02
+    domain: Data Sharing and Interoperability
+    title: Interoperability standards for exchange
+    question: >-
+      Are published interface standards and schemas used for data exchange, with versioning
+      and backward-compatibility rules?
+    evidence_hints: ["OpenAPI specs", "schema registry", "versioning policy"]
+    weight: 2
+  - id: NDMO.DS.03
+    domain: Data Sharing and Interoperability
+    title: Third-party and sub-processor register
+    question: >-
+      Is a register maintained of all third parties and sub-processors that receive
+      platform data, including model and embedding providers, with review dates?
+    evidence_hints: ["sub-processor register", "vendor risk assessments"]
+    weight: 4
+
+  # --- 10. Data Value Realization ---
+  - id: NDMO.DV.01
+    domain: Data Value Realization
+    title: Defined value case and measurement
+    question: >-
+      Is the platform's intended business value stated with measurable indicators, and is
+      realised value tracked after go-live?
+    evidence_hints: ["business case", "benefits tracking report"]
+    weight: 2
+
+  # --- 11. Open Data ---
+  - id: NDMO.OD.01
+    domain: Open Data
+    title: Open data eligibility assessment
+    question: >-
+      Have datasets been assessed for open-data eligibility, with published datasets
+      carrying licence, quality and update-frequency metadata?
+    evidence_hints: ["open data catalog entry", "licence statement"]
+    weight: 1
+
+  # --- 12. Freedom of Information ---
+  - id: NDMO.FI.01
+    domain: Freedom of Information
+    title: Information request handling
+    question: >-
+      Is there a defined process to identify, retrieve and respond to information requests
+      covering data held in or generated by the platform?
+    evidence_hints: ["FOI procedure", "request log", "response SLA"]
+    weight: 2
+
+  # --- 13. Data Classification ---
+  - id: NDMO.CL.01
+    domain: Data Classification
+    title: Classification scheme applied
+    question: >-
+      Is every dataset used by the platform assigned a classification level (e.g. public,
+      internal, confidential, top secret) according to the national classification scheme?
+    evidence_hints: ["classification register", "labelling evidence"]
+    weight: 5
+  - id: NDMO.CL.02
+    domain: Data Classification
+    title: Classification-driven handling controls
+    question: >-
+      Do access, encryption, transfer and retention controls differ by classification level,
+      and are those differences enforced technically rather than by policy alone?
+    intent: A classification scheme with identical handling for every tier is decoration.
+    evidence_hints: ["access matrix by tier", "encryption config", "DLP rules"]
+    weight: 5
+  - id: NDMO.CL.03
+    domain: Data Classification
+    title: Classification propagates to derived AI artefacts
+    question: >-
+      Do embeddings, fine-tuned model weights, prompt logs and cached responses inherit the
+      classification of their source data?
+    intent: This is the single most commonly failed control in AI platform assessments.
+    evidence_hints: ["embedding metadata schema", "log classification labels"]
+    weight: 5
+
+  # --- 14. Personal Data Protection ---
+  - id: NDMO.PD.01
+    domain: Personal Data Protection
+    title: Lawful basis and purpose limitation
+    question: >-
+      Is a lawful basis recorded for each processing purpose, and is personal data used for
+      AI training or retrieval covered by that recorded purpose?
+    intent: Re-using operational personal data to train or ground a model is a new purpose.
+    evidence_hints: ["ROPA", "consent records", "purpose statements"]
+    weight: 5
+  - id: NDMO.PD.02
+    domain: Personal Data Protection
+    title: Data subject rights, including for AI artefacts
+    question: >-
+      Can access, correction, deletion and objection rights be fulfilled within the statutory
+      period for data held in retrieval corpora, prompt logs and model caches?
+    evidence_hints: ["DSR runbook", "deletion propagation test", "SLA evidence"]
+    weight: 5
+  - id: NDMO.PD.03
+    domain: Personal Data Protection
+    title: Privacy impact assessment
+    question: >-
+      Has a privacy impact assessment been completed for the platform, and repeated after
+      material changes to model, data sources or purpose?
+    evidence_hints: ["PIA/DPIA document", "sign-off", "revision history"]
+    weight: 4
+  - id: NDMO.PD.04
+    domain: Personal Data Protection
+    title: Minimisation before model invocation
+    question: >-
+      Is personal data minimised, masked or tokenised before being placed in a prompt or
+      sent to an external model provider?
+    evidence_hints: ["redaction middleware", "tokenisation service", "prompt scrubbing tests"]
+    weight: 5
+  - id: NDMO.PD.05
+    domain: Personal Data Protection
+    title: Cross-border transfer controls
+    question: >-
+      Where personal data leaves the jurisdiction (including via a model API hosted abroad),
+      is the transfer assessed, documented and subject to the required safeguards?
+    evidence_hints: ["transfer impact assessment", "provider region config", "contractual safeguards"]
+    weight: 5
+  - id: NDMO.PD.06
+    domain: Personal Data Protection
+    title: Breach detection and notification
+    question: >-
+      Is there a tested procedure to detect, assess and notify a personal data breach within
+      the statutory timeframe, covering AI-specific vectors such as prompt-log leakage and
+      model output disclosure?
+    evidence_hints: ["IR plan", "tabletop exercise report", "notification templates"]
+    weight: 4
+
+  # --- 15. Data Security and Protection ---
+  - id: NDMO.SP.01
+    domain: Data Security and Protection
+    title: Identity, authentication and least privilege
+    question: >-
+      Is access to the platform and its data stores authenticated via enterprise identity
+      with MFA, authorised by least-privilege roles, and reviewed periodically?
+    evidence_hints: ["IdP config", "RBAC matrix", "access review records", "MFA enforcement"]
+    weight: 5
+  - id: NDMO.SP.02
+    domain: Data Security and Protection
+    title: Encryption in transit and at rest
+    question: >-
+      Is data encrypted in transit and at rest across all stores, including vector indexes,
+      object storage and log sinks, with managed key rotation?
+    evidence_hints: ["TLS config", "KMS key policy", "rotation schedule"]
+    weight: 5
+  - id: NDMO.SP.03
+    domain: Data Security and Protection
+    title: Logging, audit trail and tamper evidence
+    question: >-
+      Are security-relevant events logged with a tamper-evident audit trail retained for the
+      required period, including who invoked which model with which data?
+    intent: Most agent stacks cannot answer "who asked the model what, and what did it see".
+    evidence_hints: ["audit log schema", "immutability control", "retention config"]
+    weight: 5
+  - id: NDMO.SP.04
+    domain: Data Security and Protection
+    title: Vulnerability and dependency management
+    question: >-
+      Are application and dependency vulnerabilities identified through SAST/DAST/SCA
+      scanning and remediated within defined SLAs?
+    evidence_hints: ["scan reports", "SLA policy", "remediation tickets"]
+    weight: 4
+  - id: NDMO.SP.05
+    domain: Data Security and Protection
+    title: AI-specific threat controls
+    question: >-
+      Are prompt injection, insecure tool invocation, training-data poisoning and model
+      output handling addressed as named threats with implemented mitigations?
+    intent: Treats untrusted content reaching a model as an application security problem, which is what it is.
+    evidence_hints: ["threat model", "injection test suite", "tool allowlist", "output encoding"]
+    weight: 5

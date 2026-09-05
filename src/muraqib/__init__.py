@@ -1,0 +1,4 @@
+"""Muraqib - agentic AI governance & compliance readiness assessment."""
+
+__version__ = "1.0.0"
+__all__ = ["__version__"]

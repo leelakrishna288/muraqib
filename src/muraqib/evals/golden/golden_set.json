@@ -1,0 +1,211 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "created": "2026-09-05",
+    "purpose": "Hand-labelled regression set for Muraqib's assessment engine.",
+    "labelling_note": "Expected statuses were assigned by reading the declared evidence against the control's assessment question. Cases with no declared evidence are labelled not_assessable on purpose - abstention is the correct behaviour, and measuring it stops the engine drifting toward confident guessing.",
+    "how_to_extend": "Add a case with a platform config, a control id and the status a careful human reviewer would assign. Keep the ratio of not_assessable and non_compliant cases high; over-claiming is the failure mode that matters."
+  },
+  "cases": [
+    {
+      "id": "gov-charter-present",
+      "control_id": "NDMO.DG.01",
+      "expected_status": "compliant",
+      "note": "Charter documented, board approved, standing committee with retained minutes.",
+      "platform": {
+        "platform_name": "Eval Platform A",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["Saudi Arabia"],
+        "deployment": "private_cloud",
+        "data_categories": ["personal"],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
+          "NDMO.CL.03": "Not implemented. Embeddings and prompt logs carry no classification labels.",
+          "NDMO.SP.01": "Entra ID SSO is enforced with MFA; the RBAC matrix is reviewed quarterly and access reviews are logged.",
+          "NDMO.PD.04": "No redaction is applied before prompts are sent to the model provider."
+        }
+      }
+    },
+    {
+      "id": "classification-not-propagated",
+      "control_id": "NDMO.CL.03",
+      "expected_status": "non_compliant",
+      "note": "Explicitly stated as not implemented.",
+      "platform": {
+        "platform_name": "Eval Platform A",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["Saudi Arabia"],
+        "deployment": "private_cloud",
+        "data_categories": ["personal"],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
+          "NDMO.CL.03": "Not implemented. Embeddings and prompt logs carry no classification labels.",
+          "NDMO.SP.01": "Entra ID SSO is enforced with MFA; the RBAC matrix is reviewed quarterly and access reviews are logged.",
+          "NDMO.PD.04": "No redaction is applied before prompts are sent to the model provider."
+        }
+      }
+    },
+    {
+      "id": "identity-controls-present",
+      "control_id": "NDMO.SP.01",
+      "expected_status": "compliant",
+      "note": "SSO + MFA + RBAC + logged reviews.",
+      "platform": {
+        "platform_name": "Eval Platform A",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["Saudi Arabia"],
+        "deployment": "private_cloud",
+        "data_categories": ["personal"],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
+          "NDMO.CL.03": "Not implemented. Embeddings and prompt logs carry no classification labels.",
+          "NDMO.SP.01": "Entra ID SSO is enforced with MFA; the RBAC matrix is reviewed quarterly and access reviews are logged.",
+          "NDMO.PD.04": "No redaction is applied before prompts are sent to the model provider."
+        }
+      }
+    },
+    {
+      "id": "no-minimisation-before-model",
+      "control_id": "NDMO.PD.04",
+      "expected_status": "non_compliant",
+      "note": "Explicitly no redaction before model invocation.",
+      "platform": {
+        "platform_name": "Eval Platform A",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["Saudi Arabia"],
+        "deployment": "private_cloud",
+        "data_categories": ["personal"],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
+          "NDMO.CL.03": "Not implemented. Embeddings and prompt logs carry no classification labels.",
+          "NDMO.SP.01": "Entra ID SSO is enforced with MFA; the RBAC matrix is reviewed quarterly and access reviews are logged.",
+          "NDMO.PD.04": "No redaction is applied before prompts are sent to the model provider."
+        }
+      }
+    },
+    {
+      "id": "abstain-no-evidence-quality",
+      "control_id": "NDMO.DQ.01",
+      "expected_status": "not_assessable",
+      "note": "No evidence supplied. Abstention is the correct answer.",
+      "platform": {
+        "platform_name": "Eval Platform A",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["Saudi Arabia"],
+        "deployment": "private_cloud",
+        "data_categories": ["personal"],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
+          "NDMO.CL.03": "Not implemented. Embeddings and prompt logs carry no classification labels.",
+          "NDMO.SP.01": "Entra ID SSO is enforced with MFA; the RBAC matrix is reviewed quarterly and access reviews are logged.",
+          "NDMO.PD.04": "No redaction is applied before prompts are sent to the model provider."
+        }
+      }
+    },
+    {
+      "id": "abstain-no-evidence-lineage",
+      "control_id": "NDMO.CM.03",
+      "expected_status": "not_assessable",
+      "note": "No evidence supplied.",
+      "platform": {
+        "platform_name": "Eval Platform A",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["Saudi Arabia"],
+        "deployment": "private_cloud",
+        "data_categories": ["personal"],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
+          "NDMO.CL.03": "Not implemented. Embeddings and prompt logs carry no classification labels.",
+          "NDMO.SP.01": "Entra ID SSO is enforced with MFA; the RBAC matrix is reviewed quarterly and access reviews are logged.",
+          "NDMO.PD.04": "No redaction is applied before prompts are sent to the model provider."
+        }
+      }
+    },
+    {
+      "id": "gdpr-transfer-partial",
+      "control_id": "GDPR.ART44.01",
+      "expected_status": "partial",
+      "note": "SCCs signed but the transfer impact assessment is only planned.",
+      "platform": {
+        "platform_name": "Eval Platform B",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["European Union"],
+        "deployment": "saas",
+        "data_categories": ["personal"],
+        "cross_border_transfer": true,
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART44.01": "SCCs are signed with the model provider; the transfer impact assessment is planned for Q4.",
+          "GDPR.ART15.01": "Erasure requests are executed against the primary database only; the vector index is not re-indexed.",
+          "GDPR.ART30.01": "The record of processing activities is maintained and reviewed annually, and AI inference is listed as a processing activity."
+        }
+      }
+    },
+    {
+      "id": "gdpr-erasure-incomplete",
+      "control_id": "GDPR.ART15.01",
+      "expected_status": "non_compliant",
+      "note": "Erasure does not propagate to the vector index.",
+      "platform": {
+        "platform_name": "Eval Platform B",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["European Union"],
+        "deployment": "saas",
+        "data_categories": ["personal"],
+        "cross_border_transfer": true,
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART44.01": "SCCs are signed with the model provider; the transfer impact assessment is planned for Q4.",
+          "GDPR.ART15.01": "Erasure requests are executed against the primary database only; the vector index is not re-indexed.",
+          "GDPR.ART30.01": "The record of processing activities is maintained and reviewed annually, and AI inference is listed as a processing activity."
+        }
+      }
+    },
+    {
+      "id": "gdpr-ropa-present",
+      "control_id": "GDPR.ART30.01",
+      "expected_status": "compliant",
+      "note": "ROPA maintained and reviewed, AI activity listed.",
+      "platform": {
+        "platform_name": "Eval Platform B",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["European Union"],
+        "deployment": "saas",
+        "data_categories": ["personal"],
+        "cross_border_transfer": true,
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART44.01": "SCCs are signed with the model provider; the transfer impact assessment is planned for Q4.",
+          "GDPR.ART15.01": "Erasure requests are executed against the primary database only; the vector index is not re-indexed.",
+          "GDPR.ART30.01": "The record of processing activities is maintained and reviewed annually, and AI inference is listed as a processing activity."
+        }
+      }
+    },
+    {
+      "id": "gdpr-abstain-dpia",
+      "control_id": "GDPR.ART35.01",
+      "expected_status": "not_assessable",
+      "note": "No evidence supplied for the DPIA control.",
+      "platform": {
+        "platform_name": "Eval Platform B",
+        "owner_org": "Eval Org",
+        "jurisdiction": ["European Union"],
+        "deployment": "saas",
+        "data_categories": ["personal"],
+        "cross_border_transfer": true,
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART44.01": "SCCs are signed with the model provider; the transfer impact assessment is planned for Q4.",
+          "GDPR.ART15.01": "Erasure requests are executed against the primary database only; the vector index is not re-indexed.",
+          "GDPR.ART30.01": "The record of processing activities is maintained and reviewed annually, and AI inference is listed as a processing activity."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+framework: ISO_IEC_42001
+official_name: "ISO/IEC 42001:2023 - Information technology - Artificial intelligence - Management system"
+issuing_body: "ISO/IEC JTC 1/SC 42"
+jurisdiction: "International (certifiable management system standard)"
+obligation: certifiable_standard
+status_note: >-
+  Published 18 December 2023. Certifiable AI management system (AIMS) standard,
+  structured on the ISO harmonised structure (clauses 4-10) with Annex A controls.
+source_url: "https://www.iso.org/standard/42001"
+licence_note: >-
+  ISO/IEC 42001 is copyrighted and sold by ISO. Muraqib references CLAUSE NUMBERS
+  ONLY - which are factual identifiers - and asks its own questions. No text from
+  the standard is reproduced or redistributed. Purchase the standard for
+  authoritative wording.
+controls:
+  - id: ISO42001.C4.01
+    domain: "Clause 4 - Context of the organization"
+    title: AIMS scope and interested parties defined
+    question: >-
+      Is the scope of the AI management system documented, with internal/external issues and
+      the needs of interested parties identified?
+    evidence_hints: ["AIMS scope statement", "context analysis", "interested party register"]
+    weight: 4
+  - id: ISO42001.C5.01
+    domain: "Clause 5 - Leadership"
+    title: Leadership commitment and AI policy
+    question: >-
+      Has top management established an AI policy, assigned roles and responsibilities, and
+      demonstrated commitment through resourcing?
+    evidence_hints: ["AI policy", "management review minutes", "budget allocation"]
+    weight: 5
+  - id: ISO42001.C6.01
+    domain: "Clause 6 - Planning"
+    title: AI risk assessment and treatment
+    question: >-
+      Is there a documented AI risk assessment process and a risk treatment plan with
+      objectives and plans to achieve them?
+    evidence_hints: ["risk assessment methodology", "treatment plan", "AI objectives"]
+    weight: 5
+  - id: ISO42001.C6.02
+    domain: "Clause 6 - Planning"
+    title: AI system impact assessment
+    question: >-
+      Is an impact assessment performed for AI systems considering consequences for
+      individuals, groups and society?
+    evidence_hints: ["AI system impact assessment", "sign-off"]
+    weight: 5
+  - id: ISO42001.C7.01
+    domain: "Clause 7 - Support"
+    title: Competence, awareness and documented information
+    question: >-
+      Are competence requirements defined, awareness maintained, and documented information
+      controlled with versioning and retention?
+    evidence_hints: ["competence matrix", "document control procedure"]
+    weight: 3
+  - id: ISO42001.C8.01
+    domain: "Clause 8 - Operation"
+    title: Operational planning and control across the AI lifecycle
+    question: >-
+      Are AI lifecycle processes (design, data, development, verification, deployment,
+      operation) planned, implemented and controlled with records retained?
+    evidence_hints: ["lifecycle process definitions", "stage gate records"]
+    weight: 5
+  - id: ISO42001.C9.01
+    domain: "Clause 9 - Performance evaluation"
+    title: Monitoring, internal audit and management review
+    question: >-
+      Are AIMS performance indicators monitored, internal audits conducted on a programme,
+      and management reviews held at planned intervals?
+    evidence_hints: ["audit programme", "audit reports", "management review records"]
+    weight: 4
+  - id: ISO42001.C10.01
+    domain: "Clause 10 - Improvement"
+    title: Nonconformity, corrective action and continual improvement
+    question: >-
+      Are nonconformities recorded with root-cause analysis, corrective actions tracked to
+      closure, and improvements demonstrated over time?
+    evidence_hints: ["nonconformity log", "CAPA records", "trend analysis"]
+    weight: 4

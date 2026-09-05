@@ -1,0 +1,127 @@
+framework: EU_AI_ACT
+official_name: "Regulation (EU) 2024/1689 (Artificial Intelligence Act), as amended by Regulation (EU) 2026/1744 (Digital Omnibus)"
+issuing_body: "European Parliament and Council of the European Union"
+jurisdiction: "European Union (extraterritorial where output is used in the Union)"
+obligation: binding_law
+status_note: >-
+  In force since 1 August 2024. Applicability is staged. As amended by the Digital
+  Omnibus (Regulation (EU) 2026/1744, in force 27 July 2026): prohibitions (Art. 5)
+  and AI literacy (Art. 4) apply since 2 Feb 2025; GPAI obligations (Arts. 51-56)
+  since 2 Aug 2025; transparency (Art. 50(2)) from 2 Dec 2026; Annex III high-risk
+  obligations DEFERRED to 2 Dec 2027; Annex I high-risk DEFERRED to 2 Aug 2028;
+  public-authority deployers 2 Aug 2030. Any material stating that Annex III
+  high-risk obligations apply from 2 August 2026 is out of date.
+source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+licence_note: >-
+  EUR-Lex content is reusable under the Commission's reuse policy with source
+  acknowledgement. Article numbers cited are factual references.
+controls:
+  - id: EUAIA.ART5.01
+    domain: Prohibited practices (Art. 5)
+    title: Screening against prohibited AI practices
+    question: >-
+      Has the system been screened against the Article 5 prohibitions (subliminal or
+      manipulative techniques, exploitation of vulnerabilities, social scoring, certain
+      biometric categorisation, untargeted facial-image scraping, emotion inference in
+      workplace/education, and predictive policing based solely on profiling)?
+    evidence_hints: ["Art. 5 screening record", "legal review memo"]
+    weight: 5
+  - id: EUAIA.ART6.01
+    domain: Risk classification (Art. 6)
+    title: High-risk classification determination
+    question: >-
+      Has a documented determination been made as to whether the system falls under
+      Annex I or Annex III high-risk categories, with the reasoning retained?
+    evidence_hints: ["classification memo", "Annex III mapping", "legal sign-off"]
+    weight: 5
+  - id: EUAIA.ART9.01
+    domain: Risk management (Art. 9)
+    title: Continuous risk management system
+    question: >-
+      Is there a risk management system running across the whole lifecycle that identifies,
+      estimates, evaluates and mitigates foreseeable risks, and is it re-run on change?
+    evidence_hints: ["risk register", "review cadence", "post-change reassessments"]
+    weight: 5
+  - id: EUAIA.ART10.01
+    domain: Data governance (Art. 10)
+    title: Training, validation and testing data governance
+    question: >-
+      Are training, validation and testing datasets relevant, sufficiently representative,
+      and examined for biases, with gaps and shortcomings documented?
+    evidence_hints: ["dataset documentation", "bias examination report", "representativeness analysis"]
+    weight: 5
+  - id: EUAIA.ART11.01
+    domain: Technical documentation (Art. 11)
+    title: Technical documentation maintained
+    question: >-
+      Is technical documentation drawn up before placing on the market and kept up to date,
+      sufficient to demonstrate conformity?
+    evidence_hints: ["technical file", "Annex IV mapping", "version history"]
+    weight: 4
+  - id: EUAIA.ART12.01
+    domain: Record-keeping (Art. 12)
+    title: Automatic logging over system lifetime
+    question: >-
+      Does the system automatically record events (logs) over its lifetime at a level
+      enabling traceability of its functioning?
+    evidence_hints: ["logging design", "retention period", "traceability demo"]
+    weight: 5
+  - id: EUAIA.ART13.01
+    domain: Transparency to deployers (Art. 13)
+    title: Instructions for use
+    question: >-
+      Are deployers given instructions for use covering capabilities, limitations, expected
+      accuracy, foreseeable misuse and required human oversight measures?
+    evidence_hints: ["instructions for use", "limitations statement"]
+    weight: 4
+  - id: EUAIA.ART14.01
+    domain: Human oversight (Art. 14)
+    title: Effective human oversight designed in
+    question: >-
+      Are oversight measures built in so a competent human can understand the output,
+      remain aware of automation bias, decide not to use the output, and intervene or stop
+      the system?
+    evidence_hints: ["oversight design", "stop control", "operator training records"]
+    weight: 5
+  - id: EUAIA.ART15.01
+    domain: Accuracy, robustness, cybersecurity (Art. 15)
+    title: Accuracy, robustness and cybersecurity levels
+    question: >-
+      Are appropriate levels of accuracy, robustness and cybersecurity achieved and declared,
+      including resilience to data poisoning, model poisoning, adversarial examples and
+      confidentiality attacks?
+    evidence_hints: ["accuracy declaration", "adversarial test results", "security assessment"]
+    weight: 5
+  - id: EUAIA.ART50.01
+    domain: Transparency obligations (Art. 50)
+    title: Disclosure and synthetic content marking
+    question: >-
+      Are individuals informed they are interacting with an AI system, and is synthetic
+      audio/image/video/text marked in a machine-readable way as artificially generated?
+    intent: Art. 50(2) machine-readable marking obligations apply from 2 December 2026.
+    evidence_hints: ["disclosure notice", "provenance metadata (e.g. C2PA)", "watermarking"]
+    weight: 4
+  - id: EUAIA.ART53.01
+    domain: GPAI obligations (Arts. 51-56)
+    title: GPAI provider obligations where applicable
+    question: >-
+      If the organisation places a general-purpose AI model on the market, is technical
+      documentation, a training-content summary and a copyright policy in place?
+    evidence_hints: ["GPAI documentation", "training data summary", "copyright policy"]
+    weight: 3
+  - id: EUAIA.ART72.01
+    domain: Post-market monitoring (Art. 72)
+    title: Post-market monitoring plan
+    question: >-
+      Is there a post-market monitoring system that actively collects and reviews
+      performance data from deployed use?
+    evidence_hints: ["monitoring plan", "production metrics review"]
+    weight: 4
+  - id: EUAIA.ART73.01
+    domain: Serious incident reporting (Art. 73)
+    title: Serious incident detection and reporting
+    question: >-
+      Is there a process to detect and report serious incidents and malfunctions to the
+      relevant market surveillance authority within the required timeframe?
+    evidence_hints: ["incident procedure", "regulator contact list", "notification templates"]
+    weight: 4

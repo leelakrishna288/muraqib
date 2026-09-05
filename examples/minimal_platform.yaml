@@ -1,0 +1,6 @@
+# The smallest useful configuration. Everything else is optional.
+platform_name: "My AI Assistant"
+data_categories: [personal]
+affects_individuals: true
+controls_documented:
+  NDMO.SP.01: "SSO with MFA is enforced and access reviews are logged quarterly."
