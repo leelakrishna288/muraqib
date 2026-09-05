@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 596" width="980" height="596" font-family="ui-sans-serif,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" role="img" aria-label="Muraqib runtime governance plane: six fail-closed gates on every request">
+  <rect width="980" height="596" fill="#fbfbfd"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9aa0b4"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d9534f"/></marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3d7a4a"/></marker>
+  </defs>
+
+  <text x="32" y="44" font-size="21" font-weight="700" fill="#16161d">Runtime governance plane — six fail-closed gates</text>
+  <text x="32" y="68" font-size="13.5" fill="#5b5b6b">Evaluated on every live request. Any gate blocks and the journey stops; every gate after it records <tspan font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#8a8a99">not_run</tspan>.</text>
+
+  <text x="32" y="104" font-size="11.5" fill="#6b6b7b">request in — principal, prompt, requested tools, retrieved content, model</text>
+  <path d="M32 112 H948" stroke="#dcdfe8" stroke-width="1.2" fill="none"/>
+
+  <g font-size="12" font-weight="600" fill="#16161d">
+    <rect x="32"  y="126" width="145" height="60" rx="8" fill="#fff" stroke="#c9cddb"/><text x="104.5" y="150" text-anchor="middle">1 · identity</text><text x="104.5" y="168" font-size="10.2" font-weight="400" text-anchor="middle" fill="#6b6b7b">on-behalf-of, MFA</text>
+    <rect x="185" y="126" width="145" height="60" rx="8" fill="#fff" stroke="#c9cddb"/><text x="257.5" y="150" text-anchor="middle">2 · entitlement</text><text x="257.5" y="168" font-size="10.2" font-weight="400" text-anchor="middle" fill="#6b6b7b">agents, tools</text>
+    <rect x="338" y="126" width="145" height="60" rx="8" fill="#fff" stroke="#c9cddb"/><text x="410.5" y="150" text-anchor="middle">3 · source auth</text><text x="410.5" y="168" font-size="10.2" font-weight="400" text-anchor="middle" fill="#6b6b7b">per object, not per source</text>
+    <rect x="491" y="126" width="145" height="60" rx="8" fill="#fff" stroke="#c9cddb"/><text x="563.5" y="150" text-anchor="middle">4 · pre-inference</text><text x="563.5" y="168" font-size="10.2" font-weight="400" text-anchor="middle" fill="#6b6b7b">residency, injection</text>
+    <rect x="644" y="126" width="145" height="60" rx="8" fill="#fff" stroke="#c9cddb"/><text x="716.5" y="150" text-anchor="middle">5 · output DLP</text><text x="716.5" y="168" font-size="10.2" font-weight="400" text-anchor="middle" fill="#6b6b7b">sensitive content</text>
+    <rect x="797" y="126" width="151" height="60" rx="8" fill="#fff" stroke="#c9cddb"/><text x="872.5" y="150" text-anchor="middle">6 · release</text><text x="872.5" y="168" font-size="10.2" font-weight="400" text-anchor="middle" fill="#6b6b7b">provenance recorded</text>
+  </g>
+  <g stroke="#9aa0b4" stroke-width="1.6" fill="none" marker-end="url(#a)">
+    <path d="M177 156h2"/><path d="M330 156h2"/><path d="M483 156h2"/><path d="M636 156h2"/><path d="M789 156h2"/>
+  </g>
+
+  <g stroke="#d9534f" stroke-width="1.4" fill="none" stroke-dasharray="4 3" marker-end="url(#r)">
+    <path d="M104.5 186v34"/><path d="M257.5 186v34"/><path d="M410.5 186v34"/><path d="M563.5 186v34"/><path d="M716.5 186v34"/><path d="M872.5 186v34"/>
+  </g>
+  <rect x="32" y="224" width="916" height="42" rx="8" fill="#fdeceb" stroke="#e8b4b1"/>
+  <text x="490" y="250" font-size="12.5" font-weight="600" text-anchor="middle" fill="#8f2b27">BLOCK — journey stops · nothing released · every later gate records not_run</text>
+
+  <path d="M948 156 h14 a8 8 0 0 1 8 8 v130 a8 8 0 0 1 -8 8 H40" stroke="#3d7a4a" stroke-width="1.6" fill="none" marker-end="url(#g)"/>
+  <text x="52" y="322" font-size="12" font-weight="600" fill="#3d7a4a">ALLOW → released to the authenticated principal, with provenance</text>
+
+  <rect x="32" y="340" width="916" height="72" rx="8" fill="#f2f0fb" stroke="#cdc6ee"/>
+  <text x="52" y="364" font-size="13" font-weight="700" fill="#3d3475">Hash-chained audit ledger</text>
+  <text x="52" y="384" font-size="11.5" fill="#5a5285">Every gate decision — allow or block — is appended and chained.</text>
+  <text x="52" y="401" font-size="11.5" fill="#5a5285">Change one value in one entry and verification fails: <tspan font-family="ui-monospace,monospace" font-size="11">TAMPERED — entry 11 has been modified</tspan>.</text>
+
+  <text x="32" y="446" font-size="13" font-weight="700" fill="#16161d">Five shipped scenarios, each pinned by a test</text>
+  <rect x="32" y="458" width="916" height="118" rx="8" fill="#fff" stroke="#dcdfe8"/>
+  <g font-size="11.5" fill="#3c3c48">
+    <text x="52" y="480" font-weight="600">Analyst reads a document they own</text><text x="660" y="480" fill="#3d7a4a" font-weight="700">ALLOW</text><text x="756" y="480" fill="#8a8a99">all six gates pass</text>
+    <text x="52" y="500" font-weight="600">Shared service principal, no on-behalf-of identity</text><text x="660" y="500" fill="#b4342f" font-weight="700">BLOCK</text><text x="756" y="500" fill="#6b6b7b" font-family="ui-monospace,monospace" font-size="10.5">identity</text>
+    <text x="52" y="520" font-weight="600">Same analyst reaches for HR's salary schedule</text><text x="660" y="520" fill="#b4342f" font-weight="700">BLOCK</text><text x="756" y="520" fill="#6b6b7b" font-family="ui-monospace,monospace" font-size="10.5">source_authorization</text>
+    <text x="52" y="540" font-weight="600">Prompt injection inside retrieved content</text><text x="660" y="540" fill="#b4342f" font-weight="700">BLOCK</text><text x="756" y="540" fill="#6b6b7b" font-family="ui-monospace,monospace" font-size="10.5">pre_inference</text>
+    <text x="52" y="560" font-weight="600">Model hosted outside the permitted region</text><text x="660" y="560" fill="#b4342f" font-weight="700">BLOCK</text><text x="756" y="560" fill="#6b6b7b" font-family="ui-monospace,monospace" font-size="10.5">pre_inference</text>
+  </g>
+</svg>

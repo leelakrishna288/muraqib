@@ -50,6 +50,22 @@ deterministic rule-based assessor; hosted or local models are opt-in.
 
 ---
 
+## Architecture at a glance
+
+**Assessment** — six nodes, a model at exactly two of them.
+
+![Assessment pipeline](docs/diagrams/assessment-pipeline.svg)
+
+**Runtime governance** — six fail-closed gates on every live request.
+
+![Runtime governance plane](docs/diagrams/runtime-governance-plane.svg)
+
+**System context** — four interfaces over one engine.
+
+![System context](docs/diagrams/system-context.svg)
+
+---
+
 ## Why this exists
 
 Organisations deploying AI in the Gulf and the EU have to answer the same

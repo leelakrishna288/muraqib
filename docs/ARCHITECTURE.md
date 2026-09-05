@@ -1,5 +1,26 @@
 # Architecture
 
+## Diagrams
+
+Source SVG lives in [`docs/diagrams/`](diagrams/) alongside PNG renders. The
+LangGraph executor can also emit its own topology, generated from the graph that
+actually runs rather than drawn by hand:
+
+```bash
+pip install -e ".[graph]"
+python -c "from muraqib.config import Settings; \
+from muraqib.graph.orchestrator import build_context, get_orchestrator; \
+s = Settings(); s.orchestrator = 'langgraph'; \
+print(get_orchestrator(build_context(s)).draw_mermaid())"
+```
+
+![Assessment pipeline](diagrams/assessment-pipeline.svg)
+
+![Runtime governance plane](diagrams/runtime-governance-plane.svg)
+
+![System context](diagrams/system-context.svg)
+
+
 ## The shape of the problem
 
 An AI-governance assessment is a mapping exercise with a hard constraint: the

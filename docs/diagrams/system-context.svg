@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 480" width="980" height="480" font-family="ui-sans-serif,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" role="img" aria-label="Muraqib system context: four interfaces over one engine">
+  <rect width="980" height="480" fill="#fbfbfd"/>
+  <defs><marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9aa0b4"/></marker></defs>
+  <text x="32" y="44" font-size="21" font-weight="700" fill="#16161d">System context — four interfaces, one engine</text>
+  <text x="32" y="68" font-size="13.5" fill="#5b5b6b">The same assessment and the same governance plane, reachable four ways. No interface has its own copy of the logic.</text>
+
+  <g font-size="12.5" font-weight="600" fill="#16161d">
+    <rect x="32" y="100" width="200" height="54" rx="8" fill="#fff" stroke="#c9cddb"/><text x="132" y="123" text-anchor="middle">CLI</text><text x="132" y="141" font-size="10.5" font-weight="400" text-anchor="middle" fill="#6b6b7b">muraqib assess · govern</text>
+    <rect x="32" y="166" width="200" height="54" rx="8" fill="#fff" stroke="#c9cddb"/><text x="132" y="189" text-anchor="middle">HTTP API</text><text x="132" y="207" font-size="10.5" font-weight="400" text-anchor="middle" fill="#6b6b7b">FastAPI + OIDC, 3 roles</text>
+    <rect x="32" y="232" width="200" height="54" rx="8" fill="#fff" stroke="#c9cddb"/><text x="132" y="255" text-anchor="middle">MCP server</text><text x="132" y="273" font-size="10.5" font-weight="400" text-anchor="middle" fill="#6b6b7b">JSON-RPC 2.0, 7 tools</text>
+    <rect x="32" y="298" width="200" height="54" rx="8" fill="#fff" stroke="#c9cddb"/><text x="132" y="321" text-anchor="middle">Python library</text><text x="132" y="339" font-size="10.5" font-weight="400" text-anchor="middle" fill="#6b6b7b">import muraqib</text>
+  </g>
+  <g stroke="#9aa0b4" stroke-width="1.6" fill="none" marker-end="url(#s)">
+    <path d="M232 127h60"/><path d="M232 193h60"/><path d="M232 259h60"/><path d="M232 325h60"/>
+  </g>
+
+  <rect x="300" y="100" width="240" height="252" rx="10" fill="#f2f0fb" stroke="#cdc6ee"/>
+  <text x="420" y="128" font-size="14" font-weight="700" text-anchor="middle" fill="#3d3475">Orchestrator</text>
+  <text x="420" y="149" font-size="11" text-anchor="middle" fill="#5a5285">six nodes · checkpointed · resumable</text>
+  <rect x="320" y="166" width="200" height="46" rx="7" fill="#fff" stroke="#cdc6ee"/>
+  <text x="420" y="185" font-size="11.5" font-weight="600" text-anchor="middle" fill="#3d3475">built-in executor</text>
+  <text x="420" y="201" font-size="10" text-anchor="middle" fill="#6a5fa0">default · zero dependencies</text>
+  <rect x="320" y="222" width="200" height="46" rx="7" fill="#fff" stroke="#cdc6ee"/>
+  <text x="420" y="241" font-size="11.5" font-weight="600" text-anchor="middle" fill="#3d3475">LangGraph executor</text>
+  <text x="420" y="257" font-size="10" text-anchor="middle" fill="#6a5fa0">compiled StateGraph</text>
+  <text x="420" y="292" font-size="10.5" text-anchor="middle" fill="#5a5285">CI asserts the two produce</text>
+  <text x="420" y="307" font-size="10.5" text-anchor="middle" fill="#5a5285">identical findings across all</text>
+  <text x="420" y="322" font-size="10.5" text-anchor="middle" fill="#5a5285">121 controls</text>
+
+  <g stroke="#9aa0b4" stroke-width="1.6" fill="none" marker-end="url(#s)"><path d="M540 168h60"/><path d="M540 226h60"/><path d="M540 284h60"/></g>
+
+  <g font-size="12.5" font-weight="600" fill="#16161d">
+    <rect x="608" y="100" width="340" height="56" rx="8" fill="#fff" stroke="#c9cddb"/><text x="628" y="123">Corpus — 8 YAML packs, 121 controls</text><text x="628" y="141" font-size="10.2" font-weight="400" fill="#6b6b7b">domain taxonomy from the standards; the item numbering is ours</text>
+    <rect x="608" y="166" width="340" height="56" rx="8" fill="#fff" stroke="#c9cddb"/><text x="628" y="189">Hybrid retrieval — BM25 + dense</text><text x="628" y="207" font-size="10.5" font-weight="400" fill="#6b6b7b">recall@5 floor enforced in CI; fusion must beat either half</text>
+    <rect x="608" y="232" width="340" height="56" rx="8" fill="#fff" stroke="#c9cddb"/><text x="628" y="255">Model router — budget + retry</text><text x="628" y="273" font-size="10.5" font-weight="400" fill="#6b6b7b">offline deterministic engine by default: no key, no cost</text>
+    <rect x="608" y="298" width="340" height="54" rx="8" fill="#f2f0fb" stroke="#cdc6ee"/><text x="628" y="321" fill="#3d3475">Hash-chained audit ledger</text><text x="628" y="339" font-size="10.5" font-weight="400" fill="#5a5285">tamper-evident: one edited entry breaks the chain</text>
+  </g>
+
+  <rect x="32" y="378" width="916" height="74" rx="8" fill="#eaf4ee" stroke="#a9cfba"/>
+  <text x="52" y="402" font-size="13" font-weight="700" fill="#1f5c39">Verified live, this build</text>
+  <text x="52" y="423" font-size="11.5" fill="#2d6b48">240 tests · 88% coverage · ruff, mypy strict and bandit clean · 18 eval cases at 100% status accuracy and 0% over-claim</text>
+  <text x="52" y="441" font-size="11.5" fill="#2d6b48">Identical findings under both executors. The example platforms are fictional: this is a gap analysis, not a certification and not legal advice.</text>
+</svg>
