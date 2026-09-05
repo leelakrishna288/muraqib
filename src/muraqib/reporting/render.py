@@ -122,11 +122,12 @@ def render_markdown(report: AssessmentReport) -> str:
             "| Domain | Controls | Assessed | Coverage | Weighted | Assurance | Critical FAIL | Critical unevidenced |"
         )
         a("|---|---:|---:|---:|---:|---:|---:|---:|")
-        for d in report.domain_coverage:
+        for dom in report.domain_coverage:
             a(
-                f"| {d.domain.value.replace('_', ' ')} | {d.total_controls} | {d.assessed} | "
-                f"{d.coverage_pct:.0f}% | {d.weighted_score_pct:.0f}% | {d.assurance_score_pct:.0f}% | "
-                f"{len(d.critical_failures)} | {len(d.critical_unevidenced)} |"
+                f"| {dom.domain.value.replace('_', ' ')} | {dom.total_controls} | {dom.assessed} | "
+                f"{dom.coverage_pct:.0f}% | {dom.weighted_score_pct:.0f}% | "
+                f"{dom.assurance_score_pct:.0f}% | "
+                f"{len(dom.critical_failures)} | {len(dom.critical_unevidenced)} |"
             )
         a("")
 
@@ -147,8 +148,8 @@ def render_markdown(report: AssessmentReport) -> str:
     a("")
     a(f"**{report.risk.tier.value.upper()}** - assigned deterministically, not by a model.")
     a("")
-    for d in report.risk.drivers:
-        a(f"- {d}")
+    for driver in report.risk.drivers:
+        a(f"- {driver}")
     a("")
     a(f"_{report.risk.rationale}_")
     a("")

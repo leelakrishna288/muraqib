@@ -26,7 +26,7 @@ COPY --chown=muraqib:muraqib corpus ./corpus
 ENV PATH="/opt/venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    MURAQIB_CORPUS_DIR=/app/corpus \
+    MURAQIB_CORPUS_DIR=/app/corpus/frameworks \
     MURAQIB_DATA_DIR=/app/data \
     MURAQIB_PROVIDER=offline
 

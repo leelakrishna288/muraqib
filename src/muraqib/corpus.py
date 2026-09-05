@@ -71,10 +71,23 @@ def _load_all(corpus_dir: str) -> tuple[FrameworkPack, ...]:
     directory = Path(corpus_dir)
     if not directory.is_dir():
         raise CorpusError(f"corpus directory not found: {directory}")
-    packs = [_load_pack(p) for p in sorted(directory.glob("*.yaml"))]
-    if not packs:
-        raise CorpusError(f"no framework yaml files in {directory}")
-    return tuple(packs)
+
+    files = sorted(directory.glob("*.yaml"))
+    # Pointing at the repository's "corpus/" rather than "corpus/frameworks/" is
+    # the obvious mistake, and it cost a container build: the service started,
+    # found no packs and died with a message that did not say where it looked.
+    if not files and (directory / "frameworks").is_dir():
+        directory = directory / "frameworks"
+        files = sorted(directory.glob("*.yaml"))
+
+    if not files:
+        raise CorpusError(
+            f"no framework yaml files found in {directory} "
+            f"(also tried {Path(corpus_dir) / 'frameworks'}). "
+            "Set MURAQIB_CORPUS_DIR to the directory containing the framework "
+            "yaml files."
+        )
+    return tuple(_load_pack(p) for p in files)
 
 
 class Corpus:

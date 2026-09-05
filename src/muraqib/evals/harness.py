@@ -127,13 +127,12 @@ def run_evaluation(path: Path | None = None) -> EvalResult:
 
     for group in by_platform.values():
         config = PlatformConfig.model_validate(group["platform"])
-        frameworks = sorted(
-            {
-                corpus.control(c["control_id"]).framework
-                for c in group["cases"]
-                if corpus.control(c["control_id"])
-            }
-        )  # type: ignore[union-attr]
+        framework_set: set[Framework] = set()
+        for case in group["cases"]:
+            control = corpus.control(case["control_id"])
+            if control is not None:
+                framework_set.add(control.framework)
+        frameworks = sorted(framework_set)
         sub_id = new_run_id()
         sub_ctx = build_context(settings, run_id=sub_id, corpus=corpus)
         report = Orchestrator(sub_ctx, checkpoint=False).run(

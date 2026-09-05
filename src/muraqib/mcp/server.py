@@ -232,24 +232,25 @@ class MuraqibMCPServer:
         top_k = int(args.get("top_k", 8))
         fw_filter = {str(f).upper() for f in args.get("frameworks") or []} or None
         chunks = self.retriever.retrieve(query, top_k=top_k, framework_filter=fw_filter)
+        results = []
+        for chunk in chunks:
+            control = self.corpus.control(chunk.control_id)
+            results.append(
+                {
+                    "control_id": chunk.control_id,
+                    "framework": chunk.metadata.get("framework"),
+                    "domain": chunk.metadata.get("domain"),
+                    "title": control.title if control else "",
+                    "assurance_domain": control.assurance_domain.value if control else "",
+                    "critical": control.critical if control else False,
+                    "score": chunk.score,
+                    "lexical_score": chunk.lexical_score,
+                    "vector_score": chunk.vector_score,
+                }
+            )
         return {
             "query": query,
-            "results": [
-                {
-                    "control_id": c.control_id,
-                    "framework": c.metadata.get("framework"),
-                    "domain": c.metadata.get("domain"),
-                    "title": (
-                        self.corpus.control(c.control_id).title
-                        if self.corpus.control(c.control_id)
-                        else ""
-                    ),
-                    "score": c.score,
-                    "lexical_score": c.lexical_score,
-                    "vector_score": c.vector_score,
-                }
-                for c in chunks
-            ],
+            "results": results,
             "retrieval": {
                 "embedder": self.retriever.embedder.backend,
                 "alpha": self.retriever.alpha,

@@ -61,7 +61,14 @@ jobs:
       - name: SAST (bandit)
         run: bandit -r src/muraqib -ll -f screen
       - name: Dependency audit (pip-audit)
-        run: pip-audit --strict || echo "::warning::pip-audit reported findings - review before release"
+        # Audit the resolved third-party dependency set, not the environment.
+        # Auditing the environment made pip-audit report muraqib itself as
+        # "not found on PyPI", which is a false positive - and a security job
+        # that always warns is a security job everyone learns to ignore.
+        run: |
+          pip freeze --exclude-editable > /tmp/requirements.lock
+          cat /tmp/requirements.lock
+          pip-audit -r /tmp/requirements.lock --strict
 
   docker:
     name: container build
@@ -70,7 +77,23 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build image
         run: docker build -t muraqib:ci .
-      - name: Smoke test the image
+      - name: Corpus loads inside the image
+        # This is the check that would have caught MURAQIB_CORPUS_DIR pointing one
+        # directory too high: the service started, found no framework packs and
+        # died, and only the health check noticed.
+        run: |
+          docker run --rm muraqib:ci muraqib frameworks | tee /dev/stderr | grep -q "Total controls: 121"
+      - name: Runtime governance gates work inside the image
+        run: |
+          docker run --rm muraqib:ci python -c "
+          from muraqib.runtime import GovernanceEngine, GovernancePolicy
+          from muraqib.runtime.models import Principal, TransactionContext
+          d = GovernanceEngine(GovernancePolicy.default()).evaluate(
+              TransactionContext(principal=Principal(subject='x'), prompt='hi'))
+          assert d.verdict.value == 'block', d.verdict
+          print('unauthenticated request blocked at', d.blocked_at.value)
+          "
+      - name: Smoke test the service
         run: |
           docker run -d --name muraqib-ci -p 8000:8000 muraqib:ci
           for i in $(seq 1 30); do
@@ -78,4 +101,6 @@ jobs:
             sleep 2
           done
           curl -fs http://localhost:8000/health | tee /dev/stderr | grep -q '"status":"ok"'
+          curl -fs http://localhost:8000/health | grep -q '"controls":121'
+          docker logs muraqib-ci
           docker rm -f muraqib-ci

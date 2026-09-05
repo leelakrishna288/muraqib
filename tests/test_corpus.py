@@ -62,3 +62,24 @@ def test_ndmo_covers_all_fifteen_domains(corpus):
 def test_missing_directory_raises(tmp_path):
     with pytest.raises(CorpusError):
         Corpus.load(tmp_path / "nope")
+
+
+class TestCorpusDirectoryResolution:
+    """Regression: the container set MURAQIB_CORPUS_DIR one directory too high,
+    so the service started, loaded zero framework packs and died. The loader now
+    accepts either the frameworks directory or its parent, and says where it
+    looked when it finds nothing."""
+
+    def test_exact_frameworks_directory_loads(self):
+        assert len(Corpus.load("corpus/frameworks").all_controls()) == 121
+
+    def test_parent_directory_also_loads(self):
+        assert len(Corpus.load("corpus").all_controls()) == 121
+
+    def test_empty_directory_names_both_paths_it_tried(self, tmp_path):
+        with pytest.raises(CorpusError) as exc:
+            Corpus.load(tmp_path)
+        message = str(exc.value)
+        assert str(tmp_path) in message
+        assert "frameworks" in message
+        assert "MURAQIB_CORPUS_DIR" in message
