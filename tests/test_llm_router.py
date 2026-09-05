@@ -68,6 +68,124 @@ class TestOfflineProvider:
         )
         assert json.loads(r.text)["status"] == "non_compliant"
 
+    # -- phrase patterns ------------------------------------------------
+    #
+    # These pin the fix for the last production-assurance blocker: the baseline
+    # was blind to present-tense evidence because its vocabulary was all past
+    # participles. A base-form verb list was tried first and reverted (the eval
+    # harness measured over-claim 0% -> 16.7%); phrase patterns replaced it.
+    # Every case below is a case the token list gets wrong.
+
+    @staticmethod
+    def _status(evidence: str) -> str:
+        import json
+
+        p = OfflineProvider("offline")
+        r = p.complete(
+            [
+                ChatMessage(
+                    "user",
+                    f"<control_id>X</control_id><client_evidence>{evidence}</client_evidence>",
+                )
+            ]
+        )
+        return str(json.loads(r.text)["status"])
+
+    def test_present_tense_evidence_is_no_longer_invisible(self):
+        """NDMO.DQ.03 - the control that blocked production assurance.
+
+        Zero past participles, so the token list scored it 0/0 and returned
+        NOT_ASSESSABLE against evidence that plainly describes a running gate.
+        """
+        assert (
+            self._status(
+                "Quality controls run on retrieval data before promotion, covering "
+                "duplication, staleness and completeness, and a corpus version failing "
+                "the checks is not promoted."
+            )
+            == "partial"
+        )
+
+    def test_pattern_only_evidence_never_reaches_compliant(self):
+        """Grammatical role inferred from a neighbour is weaker than an explicit
+        claim, so pattern-only evidence is capped at partial by design. If this
+        ever returns 'compliant' the cap has been lost."""
+        assert self._status("Validation checks run before ingestion.") == "partial"
+
+    def test_noun_is_not_mistaken_for_a_verb(self):
+        """The exact regression that reverted the base-form verb list: 'logs' is
+        a noun here. It must not read as the verb 'to log'."""
+        assert (
+            self._status(
+                "Not implemented. Embeddings and prompt logs carry no classification labels."
+            )
+            == "non_compliant"
+        )
+
+    def test_negated_predicate_inside_the_matched_span_is_discounted(self):
+        """The negator sits between subject and verb. The negation window is
+        measured from the END of a pattern match so it still catches it - the
+        phrase contributes nothing, and the explicit negation carries the
+        verdict down to non_compliant rather than leaving it a false partial."""
+        assert self._status("Quality checks do not run before promotion.") == "non_compliant"
+
+    def test_a_negated_pattern_alone_does_not_become_a_partial(self):
+        """Without the end-of-match window this reads as one implementation
+        phrase and returns 'partial' - a roadmap scored as a running control."""
+        from muraqib.llm.providers import _pattern_hits
+
+        assert _pattern_hits("quality checks do not run before promotion.") == []
+
+    def test_fail_closed_wording_counts_but_a_missing_protection_does_not(self):
+        """'X failing the check is not promoted' is the control working.
+        'Data is not encrypted' is the control missing. Both contain 'not'."""
+        assert self._status("Personal data is not encrypted at rest.") == "non_compliant"
+
+    def test_futurity_is_not_implementation(self):
+        """A roadmap scored PARTIAL before this: 'established' and 'approved'
+        both counted, and 'will be' is not a negator so the window never saw it.
+        A half-built verdict on a platform that has built nothing is the most
+        expensive error this tool can make."""
+        assert (
+            self._status(
+                "A data governance charter is planned for Q4 and the governance "
+                "committee will be established once the charter is approved."
+            )
+            == "non_compliant"
+        )
+
+    def test_futurity_is_scoped_to_its_own_clause(self):
+        """Guards the fix against over-correcting. A future commitment in one
+        clause must not discount controls running in the next: 'reviewed' is
+        disqualified by 'will be', while 'enforced' and 'logged' survive.
+
+        The overall verdict on this evidence is PARTIAL rather than COMPLIANT,
+        because the pre-existing weight-of-evidence rule still counts the future
+        commitment as a non-implementation indicator. That is the conservative
+        direction and is asserted here so the interaction stays visible.
+        """
+        from muraqib.llm.providers import _negated
+
+        text = (
+            "the charter will be reviewed annually; access is enforced with mfa "
+            "and reviews are logged."
+        )
+        assert _negated(text, text.index("reviewed")) is True
+        assert _negated(text, text.index("enforced")) is False
+        assert _negated(text, text.index("logged")) is False
+        assert self._status(text) == "partial"
+
+    def test_carry_no_is_read_as_a_negation(self):
+        """Neither 'carry' nor 'labels' is in either vocabulary, so this scored
+        0/0 and abstained on a control that had plainly failed."""
+        assert (
+            self._status(
+                "Classification labels exist in the catalogue, but embedding vectors "
+                "and prompt logs carry no labels."
+            )
+            == "non_compliant"
+        )
+
     def test_absent_evidence_abstains(self):
         import json
 

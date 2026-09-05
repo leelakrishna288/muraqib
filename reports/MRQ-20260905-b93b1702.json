@@ -1,0 +1,3590 @@
+{
+  "run_id": "MRQ-20260905-b93b1702",
+  "created_at": "2026-09-05T17:53:46.731732Z",
+  "platform_name": "Tenant Services Assistant (fictional example, post-remediation)",
+  "owner_org": "Example Real Estate Group",
+  "frameworks": [
+    "EU_AI_ACT",
+    "GDPR",
+    "ISO_IEC_42001",
+    "KSA_PDPL",
+    "NDMO",
+    "NIST_AI_RMF",
+    "SDAIA_AI_ETHICS",
+    "UAE_PDPL"
+  ],
+  "risk": {
+    "tier": "high",
+    "drivers": [
+      "Processes personal data.",
+      "Outputs affect individuals.",
+      "Makes automated decisions that affect individuals."
+    ],
+    "rationale": "Tier assigned deterministically from the declared platform configuration using Muraqib's documented rule set. This is a triage aid for prioritising controls, not a legal classification under any instrument.",
+    "deterministic": true
+  },
+  "findings": [
+    {
+      "control_id": "EUAIA.ART10.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Data governance (Art. 10)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART10.01: matched 3 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Training, validation and testing data governance is implemented. The retrieval corpus is versioned, its provenance is recorded per document, and quality checks run before any corpus version is promoted.\n[evidence source: corpus build pipeline logs; provenance manifest]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART10.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART10.01"
+        },
+        {
+          "control_id": "EUAIA.ART10.01",
+          "source": "client_evidence",
+          "quote": "Training, validation and testing data governance is implemented. The retrieval corpus is versioned, its provenance is recorded per document, and quality checks run before any corpus version is promote",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "corpus build pipeline logs; provenance manifest"
+    },
+    {
+      "control_id": "EUAIA.ART11.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Technical documentation (Art. 11)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART11.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART11.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "EUAIA.ART12.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Record-keeping (Art. 12)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART12.01: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Automatic logging is implemented over the system lifetime. Every inference records the model version, corpus version, retrieved document ids, and the decision outcome, with logs retained for the required period.\n[evidence source: inference log sample; retention policy export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART12.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART12.01"
+        },
+        {
+          "control_id": "EUAIA.ART12.01",
+          "source": "client_evidence",
+          "quote": "Automatic logging is implemented over the system lifetime. Every inference records the model version, corpus version, retrieved document ids, and the decision outcome, with logs retained for the requi",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "inference log sample; retention policy export"
+    },
+    {
+      "control_id": "EUAIA.ART13.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Transparency to deployers (Art. 13)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART13.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART13.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "EUAIA.ART14.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Human oversight (Art. 14)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART14.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Effective human oversight is designed in. A named service-desk agent reviews and approves every automated triage outcome before it takes effect, and the reviewer identity is recorded on each decision.\n[evidence source: approval queue export; reviewer audit trail]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART14.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART14.01"
+        },
+        {
+          "control_id": "EUAIA.ART14.01",
+          "source": "client_evidence",
+          "quote": "Effective human oversight is designed in. A named service-desk agent reviews and approves every automated triage outcome before it takes effect, and the reviewer identity is recorded on each decision.",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "approval queue export; reviewer audit trail"
+    },
+    {
+      "control_id": "EUAIA.ART15.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Accuracy, robustness, cybersecurity (Art. 15)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART15.01: matched 4 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Accuracy, robustness and cybersecurity levels are declared and tested. A versioned evaluation set gates every release, and adversarial robustness tests run in the pipeline with recorded pass thresholds.\n[evidence source: evaluation harness CI run; robustness suite results]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART15.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART15.01"
+        },
+        {
+          "control_id": "EUAIA.ART15.01",
+          "source": "client_evidence",
+          "quote": "Accuracy, robustness and cybersecurity levels are declared and tested. A versioned evaluation set gates every release, and adversarial robustness tests run in the pipeline with recorded pass threshold",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "evaluation harness CI run; robustness suite results"
+    },
+    {
+      "control_id": "EUAIA.ART5.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Prohibited practices (Art. 5)",
+      "status": "partial",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART5.01: matched 4 un-negated implementation term(s), 2 implementation phrase pattern(s) and 1 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Every use case is screened against the prohibited-practices list before build starts, and the screening result is recorded in the AI use-case register. The screening gate is enforced in the deployment pipeline and blocks release when the record is absent.\n[evidence source: AI use-case register export; pipeline gate run log 2026-08]"
+      ],
+      "gaps": [
+        "Evidence contains both implementation and non-implementation indicators."
+      ],
+      "recommendation": "Close the outstanding element and re-evidence the whole control.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART5.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART5.01"
+        },
+        {
+          "control_id": "EUAIA.ART5.01",
+          "source": "client_evidence",
+          "quote": "Every use case is screened against the prohibited-practices list before build starts, and the screening result is recorded in the AI use-case register. The screening gate is enforced in the deployment",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "AI use-case register export; pipeline gate run log 2026-08"
+    },
+    {
+      "control_id": "EUAIA.ART50.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Transparency obligations (Art. 50)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART50.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART50.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "EUAIA.ART53.01",
+      "framework": "EU_AI_ACT",
+      "domain": "GPAI obligations (Arts. 51-56)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART53.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART53.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "EUAIA.ART6.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Risk classification (Art. 6)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART6.01: matched 5 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A documented high-risk classification determination is completed and signed off for this system, with the reasoning recorded against each Annex III category considered.\n[evidence source: classification determination record v3]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART6.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART6.01"
+        },
+        {
+          "control_id": "EUAIA.ART6.01",
+          "source": "client_evidence",
+          "quote": "A documented high-risk classification determination is completed and signed off for this system, with the reasoning recorded against each Annex III category considered.\n[evidence source: classificatio",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "classification determination record v3"
+    },
+    {
+      "control_id": "EUAIA.ART72.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Post-market monitoring (Art. 72)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART72.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART72.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "EUAIA.ART73.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Serious incident reporting (Art. 73)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART73.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART73.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "EUAIA.ART9.01",
+      "framework": "EU_AI_ACT",
+      "domain": "Risk management (Art. 9)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of EUAIA.ART9.01: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A continuous risk management system operates across the lifecycle. Risks are reviewed at each release, residual risk is recorded, and the register is exported from the GRC platform monthly.\n[evidence source: GRC risk register export, monthly]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "EUAIA.ART9.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "EUAIA.ART9.01"
+        },
+        {
+          "control_id": "EUAIA.ART9.01",
+          "source": "client_evidence",
+          "quote": "A continuous risk management system operates across the lifecycle. Risks are reviewed at each release, residual risk is recorded, and the register is exported from the GRC platform monthly.\n[evidence ",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "GRC risk register export, monthly"
+    },
+    {
+      "control_id": "GDPR.ART13.01",
+      "framework": "GDPR",
+      "domain": "Transparency (Arts. 13-14)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART13.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART13.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "GDPR.ART15.01",
+      "framework": "GDPR",
+      "domain": "Data subject rights (Arts. 15-22)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART15.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Rights fulfilment reaches every AI store. A subject access request resolves against the source systems, the vector index and the response cache, and the coverage is verified by an automated completeness check.\n[evidence source: DSAR fulfilment run log; completeness check output]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART15.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART15.01"
+        },
+        {
+          "control_id": "GDPR.ART15.01",
+          "source": "client_evidence",
+          "quote": "Rights fulfilment reaches every AI store. A subject access request resolves against the source systems, the vector index and the response cache, and the coverage is verified by an automated completene",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "DSAR fulfilment run log; completeness check output"
+    },
+    {
+      "control_id": "GDPR.ART22.01",
+      "framework": "GDPR",
+      "domain": "Automated decision-making (Art. 22)",
+      "status": "partial",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART22.01: matched 5 un-negated implementation term(s), 0 implementation phrase pattern(s) and 1 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Safeguards for automated decisions are implemented. Maintenance priority is proposed by the system and confirmed by a human reviewer, and a documented route to contest the outcome is published to tenants.\n[evidence source: approval queue export; published contest procedure]"
+      ],
+      "gaps": [
+        "Evidence contains both implementation and non-implementation indicators."
+      ],
+      "recommendation": "Close the outstanding element and re-evidence the whole control.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART22.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART22.01"
+        },
+        {
+          "control_id": "GDPR.ART22.01",
+          "source": "client_evidence",
+          "quote": "Safeguards for automated decisions are implemented. Maintenance priority is proposed by the system and confirmed by a human reviewer, and a documented route to contest the outcome is published to tena",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "approval queue export; published contest procedure"
+    },
+    {
+      "control_id": "GDPR.ART25.01",
+      "framework": "GDPR",
+      "domain": "Data protection by design (Art. 25)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART25.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART25.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "GDPR.ART28.01",
+      "framework": "GDPR",
+      "domain": "Processors (Art. 28)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART28.01: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Model providers are governed as processors under signed data processing agreements, with the sub-processor list reviewed quarterly and change notifications tracked.\n[evidence source: DPA register export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART28.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART28.01"
+        },
+        {
+          "control_id": "GDPR.ART28.01",
+          "source": "client_evidence",
+          "quote": "Model providers are governed as processors under signed data processing agreements, with the sub-processor list reviewed quarterly and change notifications tracked.\n[evidence source: DPA register expo",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "DPA register export"
+    },
+    {
+      "control_id": "GDPR.ART30.01",
+      "framework": "GDPR",
+      "domain": "Records (Art. 30)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART30.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART30.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "GDPR.ART32.01",
+      "framework": "GDPR",
+      "domain": "Security (Art. 32)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART32.01: matched 5 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Security of processing is implemented and tested. Encryption, access control, logging and backup restoration are all verified, and penetration testing runs annually with findings tracked to closure.\n[evidence source: control test evidence pack; pen test report 2026]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART32.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART32.01"
+        },
+        {
+          "control_id": "GDPR.ART32.01",
+          "source": "client_evidence",
+          "quote": "Security of processing is implemented and tested. Encryption, access control, logging and backup restoration are all verified, and penetration testing runs annually with findings tracked to closure.\n[",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "control test evidence pack; pen test report 2026"
+    },
+    {
+      "control_id": "GDPR.ART33.01",
+      "framework": "GDPR",
+      "domain": "Breach (Arts. 33-34)",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART33.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART33.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "GDPR.ART35.01",
+      "framework": "GDPR",
+      "domain": "DPIA (Art. 35)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART35.01: matched 4 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A data protection impact assessment is completed for this high-risk AI processing, signed by the DPO, and reviewed on material change.\n[evidence source: DPIA v2 signed 2026-07]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART35.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART35.01"
+        },
+        {
+          "control_id": "GDPR.ART35.01",
+          "source": "client_evidence",
+          "quote": "A data protection impact assessment is completed for this high-risk AI processing, signed by the DPO, and reviewed on material change.\n[evidence source: DPIA v2 signed 2026-07]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "DPIA v2 signed 2026-07"
+    },
+    {
+      "control_id": "GDPR.ART44.01",
+      "framework": "GDPR",
+      "domain": "Transfers (Arts. 44-49)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART44.01: matched 1 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "No international transfer occurs. Processing, storage and model inference are all in-region, and the network policy blocks egress to out-of-region endpoints.\n[evidence source: egress policy export; network flow logs]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART44.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART44.01"
+        },
+        {
+          "control_id": "GDPR.ART44.01",
+          "source": "client_evidence",
+          "quote": "No international transfer occurs. Processing, storage and model inference are all in-region, and the network policy blocks egress to out-of-region endpoints.\n[evidence source: egress policy export; ne",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "egress policy export; network flow logs"
+    },
+    {
+      "control_id": "GDPR.ART5.01",
+      "framework": "GDPR",
+      "domain": "Principles (Art. 5)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART5.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Purpose limitation and data minimisation are enforced technically. Only the fields required for the declared purpose are retrieved, and a field allow-list is applied before any record reaches a prompt.\n[evidence source: field allow-list config; request trace sample]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART5.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART5.01"
+        },
+        {
+          "control_id": "GDPR.ART5.01",
+          "source": "client_evidence",
+          "quote": "Purpose limitation and data minimisation are enforced technically. Only the fields required for the declared purpose are retrieved, and a field allow-list is applied before any record reaches a prompt",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "field allow-list config; request trace sample"
+    },
+    {
+      "control_id": "GDPR.ART5.02",
+      "framework": "GDPR",
+      "domain": "Principles (Art. 5)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART5.02: matched 4 un-negated implementation term(s), 2 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Storage limitation is applied to derived artefacts. Embeddings, prompt logs and cached responses each carry a retention period and are purged by a scheduled job whose runs are logged.\n[evidence source: purge job run history]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART5.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART5.02"
+        },
+        {
+          "control_id": "GDPR.ART5.02",
+          "source": "client_evidence",
+          "quote": "Storage limitation is applied to derived artefacts. Embeddings, prompt logs and cached responses each carry a retention period and are purged by a scheduled job whose runs are logged.\n[evidence source",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "purge job run history"
+    },
+    {
+      "control_id": "GDPR.ART6.01",
+      "framework": "GDPR",
+      "domain": "Lawfulness (Art. 6)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART6.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A lawful basis is recorded for each AI processing purpose in the record of processing activities, and the basis is reviewed when a purpose changes.\n[evidence source: RoPA export 2026-08]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART6.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART6.01"
+        },
+        {
+          "control_id": "GDPR.ART6.01",
+          "source": "client_evidence",
+          "quote": "A lawful basis is recorded for each AI processing purpose in the record of processing activities, and the basis is reviewed when a purpose changes.\n[evidence source: RoPA export 2026-08]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "RoPA export 2026-08"
+    },
+    {
+      "control_id": "GDPR.ART9.01",
+      "framework": "GDPR",
+      "domain": "Special categories (Art. 9)",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of GDPR.ART9.01: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Special category data is excluded at ingestion by a classifier, and safeguards are applied where such data is unavoidable, including restricted access and separate retention.\n[evidence source: ingestion classifier logs]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "GDPR.ART9.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "GDPR.ART9.01"
+        },
+        {
+          "control_id": "GDPR.ART9.01",
+          "source": "client_evidence",
+          "quote": "Special category data is excluded at ingestion by a classifier, and safeguards are applied where such data is unavoidable, including restricted access and separate retention.\n[evidence source: ingesti",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "ingestion classifier logs"
+    },
+    {
+      "control_id": "ISO42001.C10.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 10 - Improvement",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C10.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C10.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C4.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 4 - Context of the organization",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C4.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C4.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C5.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 5 - Leadership",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C5.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C5.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C6.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 6 - Planning",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C6.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C6.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C6.02",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 6 - Planning",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C6.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C6.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C7.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 7 - Support",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C7.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C7.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C8.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 8 - Operation",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C8.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C8.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "ISO42001.C9.01",
+      "framework": "ISO_IEC_42001",
+      "domain": "Clause 9 - Performance evaluation",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of ISO42001.C9.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Performance of the AI management system is evaluated through internal audit and management review, and the results are recorded with actions tracked to closure."
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "ISO42001.C9.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "ISO42001.C9.01"
+        },
+        {
+          "control_id": "ISO42001.C9.01",
+          "source": "client_evidence",
+          "quote": "Performance of the AI management system is evaluated through internal audit and management review, and the results are recorded with actions tracked to closure.",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "document",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.BR.01",
+      "framework": "KSA_PDPL",
+      "domain": "Breach management",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.BR.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.BR.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.DPO.01",
+      "framework": "KSA_PDPL",
+      "domain": "Accountability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.DPO.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.DPO.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.LB.01",
+      "framework": "KSA_PDPL",
+      "domain": "Lawful basis and consent",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of KSA_PDPL.LB.01: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A lawful basis is established and recorded for each processing purpose, and consent is captured with a verifiable timestamp where consent is the basis relied upon.\n[evidence source: consent store export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.LB.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.LB.01"
+        },
+        {
+          "control_id": "KSA_PDPL.LB.01",
+          "source": "client_evidence",
+          "quote": "A lawful basis is established and recorded for each processing purpose, and consent is captured with a verifiable timestamp where consent is the basis relied upon.\n[evidence source: consent store expo",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "consent store export"
+    },
+    {
+      "control_id": "KSA_PDPL.MIN.01",
+      "framework": "KSA_PDPL",
+      "domain": "Minimisation and retention",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.MIN.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.MIN.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.NOT.01",
+      "framework": "KSA_PDPL",
+      "domain": "Notice and transparency",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.NOT.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.NOT.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.PIA.01",
+      "framework": "KSA_PDPL",
+      "domain": "Impact assessment",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.PIA.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.PIA.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.ROP.01",
+      "framework": "KSA_PDPL",
+      "domain": "Accountability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.ROP.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.ROP.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "KSA_PDPL.RTS.01",
+      "framework": "KSA_PDPL",
+      "domain": "Data subject rights",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of KSA_PDPL.RTS.01: matched 4 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Rights requests are handled through a tracked workflow with a recorded response clock, and fulfilment covers derived AI artefacts as well as source records.\n[evidence source: rights request queue export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.RTS.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.RTS.01"
+        },
+        {
+          "control_id": "KSA_PDPL.RTS.01",
+          "source": "client_evidence",
+          "quote": "Rights requests are handled through a tracked workflow with a recorded response clock, and fulfilment covers derived AI artefacts as well as source records.\n[evidence source: rights request queue expo",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "rights request queue export"
+    },
+    {
+      "control_id": "KSA_PDPL.SEC.01",
+      "framework": "KSA_PDPL",
+      "domain": "Security",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of KSA_PDPL.SEC.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Organisational and technical safeguards are implemented, tested and evidenced, covering access control, encryption, logging, and incident response.\n[evidence source: control test evidence pack]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.SEC.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.SEC.01"
+        },
+        {
+          "control_id": "KSA_PDPL.SEC.01",
+          "source": "client_evidence",
+          "quote": "Organisational and technical safeguards are implemented, tested and evidenced, covering access control, encryption, logging, and incident response.\n[evidence source: control test evidence pack]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "control test evidence pack"
+    },
+    {
+      "control_id": "KSA_PDPL.XB.01",
+      "framework": "KSA_PDPL",
+      "domain": "Cross-border transfer",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of KSA_PDPL.XB.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Transfer outside the Kingdom is assessed and no such transfer occurs for this system; the assessment is recorded and reviewed annually.\n[evidence source: transfer assessment record]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "KSA_PDPL.XB.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "KSA_PDPL.XB.01"
+        },
+        {
+          "control_id": "KSA_PDPL.XB.01",
+          "source": "client_evidence",
+          "quote": "Transfer outside the Kingdom is assessed and no such transfer occurs for this system; the assessment is recorded and reviewed annually.\n[evidence source: transfer assessment record]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "transfer assessment record"
+    },
+    {
+      "control_id": "NDMO.BI.01",
+      "framework": "NDMO",
+      "domain": "Business Intelligence and Analytics",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.BI.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.BI.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.BI.02",
+      "framework": "NDMO",
+      "domain": "Business Intelligence and Analytics",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.BI.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.BI.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.CL.01",
+      "framework": "NDMO",
+      "domain": "Data Classification",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.CL.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "The corporate classification scheme is applied to all source datasets and the labels are enforced in the catalog.\n[evidence source: catalog label export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.CL.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.CL.01"
+        },
+        {
+          "control_id": "NDMO.CL.01",
+          "source": "client_evidence",
+          "quote": "The corporate classification scheme is applied to all source datasets and the labels are enforced in the catalog.\n[evidence source: catalog label export]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "catalog label export"
+    },
+    {
+      "control_id": "NDMO.CL.02",
+      "framework": "NDMO",
+      "domain": "Data Classification",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.CL.02: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Handling controls are driven by classification. Access, encryption and retention rules are applied automatically from the label rather than configured per system.\n[evidence source: policy engine configuration; enforcement logs]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.CL.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.CL.02"
+        },
+        {
+          "control_id": "NDMO.CL.02",
+          "source": "client_evidence",
+          "quote": "Handling controls are driven by classification. Access, encryption and retention rules are applied automatically from the label rather than configured per system.\n[evidence source: policy engine confi",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "policy engine configuration; enforcement logs"
+    },
+    {
+      "control_id": "NDMO.CL.03",
+      "framework": "NDMO",
+      "domain": "Data Classification",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.CL.03: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Classification propagates to derived AI artefacts. Embeddings, prompt logs and cached responses inherit the label of their most restrictive source document, and the inheritance is verified by an automated check on every corpus build.\n[evidence source: label inheritance check output]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.CL.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.CL.03"
+        },
+        {
+          "control_id": "NDMO.CL.03",
+          "source": "client_evidence",
+          "quote": "Classification propagates to derived AI artefacts. Embeddings, prompt logs and cached responses inherit the label of their most restrictive source document, and the inheritance is verified by an autom",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "label inheritance check output"
+    },
+    {
+      "control_id": "NDMO.CM.01",
+      "framework": "NDMO",
+      "domain": "Data Catalog and Metadata",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "Deterministic assessment of NDMO.CM.01: matched 0 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "The lease datasets, the ledger, the retrieval corpus and the prompt and response logs are all registered in the enterprise catalog with owners and classifications.\n[evidence source: catalog export]"
+      ],
+      "gaps": [
+        "Supplied evidence does not clearly establish implementation."
+      ],
+      "recommendation": "Supply an artefact that demonstrates the control operating.",
+      "citations": [
+        {
+          "control_id": "NDMO.CM.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.CM.01"
+        },
+        {
+          "control_id": "NDMO.CM.01",
+          "source": "client_evidence",
+          "quote": "The lease datasets, the ledger, the retrieval corpus and the prompt and response logs are all registered in the enterprise catalog with owners and classifications.\n[evidence source: catalog export]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "config_export",
+      "evidence_source": "catalog export"
+    },
+    {
+      "control_id": "NDMO.CM.02",
+      "framework": "NDMO",
+      "domain": "Data Catalog and Metadata",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.CM.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.CM.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.CM.03",
+      "framework": "NDMO",
+      "domain": "Data Catalog and Metadata",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.CM.03: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Lineage is complete from source system to model output. Every embedding records the document version that produced it, and every answer records the embeddings it retrieved.\n[evidence source: lineage graph export; answer trace sample]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.CM.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.CM.03"
+        },
+        {
+          "control_id": "NDMO.CM.03",
+          "source": "client_evidence",
+          "quote": "Lineage is complete from source system to model output. Every embedding records the document version that produced it, and every answer records the embeddings it retrieved.\n[evidence source: lineage g",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "lineage graph export; answer trace sample"
+    },
+    {
+      "control_id": "NDMO.DA.01",
+      "framework": "NDMO",
+      "domain": "Data Architecture and Modelling",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DA.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DA.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DA.02",
+      "framework": "NDMO",
+      "domain": "Data Architecture and Modelling",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DA.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DA.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DC.01",
+      "framework": "NDMO",
+      "domain": "Document and Content Management",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DC.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DC.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DC.02",
+      "framework": "NDMO",
+      "domain": "Document and Content Management",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.DC.02: matched 4 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Retention schedules are published and enforced for source documents and for derived artefacts, with a scheduled purge job for the vector index whose runs are logged.\n[evidence source: purge job run history]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.DC.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DC.02"
+        },
+        {
+          "control_id": "NDMO.DC.02",
+          "source": "client_evidence",
+          "quote": "Retention schedules are published and enforced for source documents and for derived artefacts, with a scheduled purge job for the vector index whose runs are logged.\n[evidence source: purge job run hi",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "purge job run history"
+    },
+    {
+      "control_id": "NDMO.DG.01",
+      "framework": "NDMO",
+      "domain": "Data Governance",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.DG.01: matched 4 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A data governance operating model is approved with an executive mandate. The governance forum meets monthly, decisions are recorded, and the mandate is published in the enterprise policy register.\n[evidence source: policy register export; forum minutes]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.DG.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DG.01"
+        },
+        {
+          "control_id": "NDMO.DG.01",
+          "source": "client_evidence",
+          "quote": "A data governance operating model is approved with an executive mandate. The governance forum meets monthly, decisions are recorded, and the mandate is published in the enterprise policy register.\n[ev",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "policy register export; forum minutes"
+    },
+    {
+      "control_id": "NDMO.DG.02",
+      "framework": "NDMO",
+      "domain": "Data Governance",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.DG.02: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Data owners and stewards are assigned for every domain in scope, including maintenance, and the assignments are recorded in the catalog."
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.DG.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DG.02"
+        },
+        {
+          "control_id": "NDMO.DG.02",
+          "source": "client_evidence",
+          "quote": "Data owners and stewards are assigned for every domain in scope, including maintenance, and the assignments are recorded in the catalog.",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "document",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DG.03",
+      "framework": "NDMO",
+      "domain": "Data Governance",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DG.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DG.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DO.01",
+      "framework": "NDMO",
+      "domain": "Data Operations",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DO.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DO.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DO.02",
+      "framework": "NDMO",
+      "domain": "Data Operations",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DO.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DO.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DO.03",
+      "framework": "NDMO",
+      "domain": "Data Operations",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DO.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DO.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DQ.01",
+      "framework": "NDMO",
+      "domain": "Data Quality",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DQ.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DQ.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DQ.02",
+      "framework": "NDMO",
+      "domain": "Data Quality",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DQ.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DQ.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DQ.03",
+      "framework": "NDMO",
+      "domain": "Data Quality",
+      "status": "partial",
+      "confidence": "low",
+      "rationale": "Deterministic assessment of NDMO.DQ.03: matched 0 un-negated implementation term(s), 4 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.\n[evidence source: corpus quality gate run log]"
+      ],
+      "gaps": [
+        "Implementation is stated in the present tense and was matched by phrase pattern rather than by an explicit statement that the control has been implemented; the deterministic baseline caps this at partial."
+      ],
+      "recommendation": "Supply an artefact that states the control has been implemented and verified, not only that it runs.",
+      "citations": [
+        {
+          "control_id": "NDMO.DQ.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DQ.03"
+        },
+        {
+          "control_id": "NDMO.DQ.03",
+          "source": "client_evidence",
+          "quote": "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.\n[evidence source: corpus quality gat",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "corpus quality gate run log"
+    },
+    {
+      "control_id": "NDMO.DS.01",
+      "framework": "NDMO",
+      "domain": "Data Sharing and Interoperability",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.DS.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Data sharing agreements are in place for every external recipient, recorded in the agreement register with review dates.\n[evidence source: sharing agreement register]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.DS.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DS.01"
+        },
+        {
+          "control_id": "NDMO.DS.01",
+          "source": "client_evidence",
+          "quote": "Data sharing agreements are in place for every external recipient, recorded in the agreement register with review dates.\n[evidence source: sharing agreement register]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "sharing agreement register"
+    },
+    {
+      "control_id": "NDMO.DS.02",
+      "framework": "NDMO",
+      "domain": "Data Sharing and Interoperability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DS.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DS.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DS.03",
+      "framework": "NDMO",
+      "domain": "Data Sharing and Interoperability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DS.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DS.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.DV.01",
+      "framework": "NDMO",
+      "domain": "Data Value Realization",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.DV.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.DV.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.FI.01",
+      "framework": "NDMO",
+      "domain": "Freedom of Information",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.FI.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.FI.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.MD.01",
+      "framework": "NDMO",
+      "domain": "Reference and Master Data Management",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.MD.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.MD.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.MD.02",
+      "framework": "NDMO",
+      "domain": "Reference and Master Data Management",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.MD.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.MD.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.OD.01",
+      "framework": "NDMO",
+      "domain": "Open Data",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.OD.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.OD.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.PD.01",
+      "framework": "NDMO",
+      "domain": "Personal Data Protection",
+      "status": "partial",
+      "confidence": "low",
+      "rationale": "Deterministic assessment of NDMO.PD.01: matched 1 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Lawful basis and purpose limitation are recorded. The record of processing activities lists AI grounding and inference as distinct processing activities with their own basis.\n[evidence source: RoPA export 2026-08]"
+      ],
+      "gaps": [
+        "Only one implementation indicator found; evidence is thin."
+      ],
+      "recommendation": "Supply a second, independent artefact demonstrating the control operating.",
+      "citations": [
+        {
+          "control_id": "NDMO.PD.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.PD.01"
+        },
+        {
+          "control_id": "NDMO.PD.01",
+          "source": "client_evidence",
+          "quote": "Lawful basis and purpose limitation are recorded. The record of processing activities lists AI grounding and inference as distinct processing activities with their own basis.\n[evidence source: RoPA ex",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "RoPA export 2026-08"
+    },
+    {
+      "control_id": "NDMO.PD.02",
+      "framework": "NDMO",
+      "domain": "Personal Data Protection",
+      "status": "partial",
+      "confidence": "low",
+      "rationale": "Deterministic assessment of NDMO.PD.02: matched 1 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Data subject rights are fulfilled across AI artefacts. Erasure re-indexes the vector store and purges cached responses, and completion is verified before the request is closed.\n[evidence source: erasure run log; verification check output]"
+      ],
+      "gaps": [
+        "Only one implementation indicator found; evidence is thin."
+      ],
+      "recommendation": "Supply a second, independent artefact demonstrating the control operating.",
+      "citations": [
+        {
+          "control_id": "NDMO.PD.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.PD.02"
+        },
+        {
+          "control_id": "NDMO.PD.02",
+          "source": "client_evidence",
+          "quote": "Data subject rights are fulfilled across AI artefacts. Erasure re-indexes the vector store and purges cached responses, and completion is verified before the request is closed.\n[evidence source: erasu",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "erasure run log; verification check output"
+    },
+    {
+      "control_id": "NDMO.PD.03",
+      "framework": "NDMO",
+      "domain": "Personal Data Protection",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.PD.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.PD.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.PD.04",
+      "framework": "NDMO",
+      "domain": "Personal Data Protection",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.PD.04: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Minimisation is enforced before model invocation. Identifiers and contact details are tokenised and the redaction step is a mandatory stage in the request path.\n[evidence source: redaction stage telemetry]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.PD.04",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.PD.04"
+        },
+        {
+          "control_id": "NDMO.PD.04",
+          "source": "client_evidence",
+          "quote": "Minimisation is enforced before model invocation. Identifiers and contact details are tokenised and the redaction step is a mandatory stage in the request path.\n[evidence source: redaction stage telem",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "redaction stage telemetry"
+    },
+    {
+      "control_id": "NDMO.PD.05",
+      "framework": "NDMO",
+      "domain": "Personal Data Protection",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.PD.05: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Cross-border transfer controls are in place and no transfer occurs. Residency is enforced by policy and verified by network egress monitoring.\n[evidence source: egress policy export; flow logs]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.PD.05",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.PD.05"
+        },
+        {
+          "control_id": "NDMO.PD.05",
+          "source": "client_evidence",
+          "quote": "Cross-border transfer controls are in place and no transfer occurs. Residency is enforced by policy and verified by network egress monitoring.\n[evidence source: egress policy export; flow logs]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "egress policy export; flow logs"
+    },
+    {
+      "control_id": "NDMO.PD.06",
+      "framework": "NDMO",
+      "domain": "Personal Data Protection",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NDMO.PD.06",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.PD.06"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.SP.01",
+      "framework": "NDMO",
+      "domain": "Data Security and Protection",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.SP.01: matched 4 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Access is authenticated through Entra ID with MFA enforced, least privilege is applied through a documented RBAC matrix, and access reviews run quarterly with logged outcomes.\n[evidence source: sign-in logs; Q3 access review export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.SP.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.SP.01"
+        },
+        {
+          "control_id": "NDMO.SP.01",
+          "source": "client_evidence",
+          "quote": "Access is authenticated through Entra ID with MFA enforced, least privilege is applied through a documented RBAC matrix, and access reviews run quarterly with logged outcomes.\n[evidence source: sign-i",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "sign-in logs; Q3 access review export"
+    },
+    {
+      "control_id": "NDMO.SP.02",
+      "framework": "NDMO",
+      "domain": "Data Security and Protection",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.SP.02: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "TLS 1.3 is enforced in transit and all stores are encrypted at rest with customer-managed keys rotated annually.\n[evidence source: Key Vault policy export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.SP.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.SP.02"
+        },
+        {
+          "control_id": "NDMO.SP.02",
+          "source": "client_evidence",
+          "quote": "TLS 1.3 is enforced in transit and all stores are encrypted at rest with customer-managed keys rotated annually.\n[evidence source: Key Vault policy export]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "Key Vault policy export"
+    },
+    {
+      "control_id": "NDMO.SP.03",
+      "framework": "NDMO",
+      "domain": "Data Security and Protection",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.SP.03: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Logging and audit trail are implemented with tamper evidence. Every entry is hash-chained to its predecessor, the chain is verified on read, and logs record the model version and the documents retrieved.\n[evidence source: ledger verification output; log sample]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.SP.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.SP.03"
+        },
+        {
+          "control_id": "NDMO.SP.03",
+          "source": "client_evidence",
+          "quote": "Logging and audit trail are implemented with tamper evidence. Every entry is hash-chained to its predecessor, the chain is verified on read, and logs record the model version and the documents retriev",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "ledger verification output; log sample"
+    },
+    {
+      "control_id": "NDMO.SP.04",
+      "framework": "NDMO",
+      "domain": "Data Security and Protection",
+      "status": "partial",
+      "confidence": "low",
+      "rationale": "Deterministic assessment of NDMO.SP.04: matched 1 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "SAST, DAST and dependency scanning run on every pipeline execution and findings are remediated against documented SLAs."
+      ],
+      "gaps": [
+        "Only one implementation indicator found; evidence is thin."
+      ],
+      "recommendation": "Supply a second, independent artefact demonstrating the control operating.",
+      "citations": [
+        {
+          "control_id": "NDMO.SP.04",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.SP.04"
+        },
+        {
+          "control_id": "NDMO.SP.04",
+          "source": "client_evidence",
+          "quote": "SAST, DAST and dependency scanning run on every pipeline execution and findings are remediated against documented SLAs.",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "document",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NDMO.SP.05",
+      "framework": "NDMO",
+      "domain": "Data Security and Protection",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NDMO.SP.05: matched 2 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "AI-specific threat controls are implemented. Prompt injection, tool invocation and output handling are in the threat model, and an injection test suite runs on every release.\n[evidence source: threat model v2; injection suite CI results]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NDMO.SP.05",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NDMO.SP.05"
+        },
+        {
+          "control_id": "NDMO.SP.05",
+          "source": "client_evidence",
+          "quote": "AI-specific threat controls are implemented. Prompt injection, tool invocation and output handling are in the threat model, and an injection test suite runs on every release.\n[evidence source: threat ",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "threat model v2; injection suite CI results"
+    },
+    {
+      "control_id": "NIST.GOVERN.01",
+      "framework": "NIST_AI_RMF",
+      "domain": "GOVERN",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NIST.GOVERN.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Roles, responsibilities and escalation paths for AI risk are documented and approved, and the governance forum reviews them annually."
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NIST.GOVERN.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.GOVERN.01"
+        },
+        {
+          "control_id": "NIST.GOVERN.01",
+          "source": "client_evidence",
+          "quote": "Roles, responsibilities and escalation paths for AI risk are documented and approved, and the governance forum reviews them annually.",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "document",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.GOVERN.02",
+      "framework": "NIST_AI_RMF",
+      "domain": "GOVERN",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.GOVERN.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.GOVERN.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.GOVERN.03",
+      "framework": "NIST_AI_RMF",
+      "domain": "GOVERN",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.GOVERN.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.GOVERN.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MANAGE.01",
+      "framework": "NIST_AI_RMF",
+      "domain": "MANAGE",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MANAGE.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MANAGE.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MANAGE.02",
+      "framework": "NIST_AI_RMF",
+      "domain": "MANAGE",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of NIST.MANAGE.02: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Incident response covers AI-specific failures. Runbooks exist for hallucination, injection and model outage, and the runbooks are exercised twice a year.\n[evidence source: incident exercise records]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "NIST.MANAGE.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MANAGE.02"
+        },
+        {
+          "control_id": "NIST.MANAGE.02",
+          "source": "client_evidence",
+          "quote": "Incident response covers AI-specific failures. Runbooks exist for hallucination, injection and model outage, and the runbooks are exercised twice a year.\n[evidence source: incident exercise records]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "incident exercise records"
+    },
+    {
+      "control_id": "NIST.MANAGE.03",
+      "framework": "NIST_AI_RMF",
+      "domain": "MANAGE",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MANAGE.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MANAGE.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MAP.01",
+      "framework": "NIST_AI_RMF",
+      "domain": "MAP",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MAP.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MAP.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MAP.02",
+      "framework": "NIST_AI_RMF",
+      "domain": "MAP",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MAP.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MAP.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MAP.03",
+      "framework": "NIST_AI_RMF",
+      "domain": "MAP",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MAP.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MAP.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MEASURE.01",
+      "framework": "NIST_AI_RMF",
+      "domain": "MEASURE",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MEASURE.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MEASURE.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MEASURE.02",
+      "framework": "NIST_AI_RMF",
+      "domain": "MEASURE",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MEASURE.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MEASURE.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "NIST.MEASURE.03",
+      "framework": "NIST_AI_RMF",
+      "domain": "MEASURE",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "NIST.MEASURE.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "NIST.MEASURE.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.ACC.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Accountability and Responsibility",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of SDAIA.ACC.01: matched 3 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A named accountable owner is assigned for this AI system and recorded in the use-case register, with the accountability documented in the owner's objectives.\n[evidence source: use-case register export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "SDAIA.ACC.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.ACC.01"
+        },
+        {
+          "control_id": "SDAIA.ACC.01",
+          "source": "client_evidence",
+          "quote": "A named accountable owner is assigned for this AI system and recorded in the use-case register, with the accountability documented in the owner's objectives.\n[evidence source: use-case register export",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "use-case register export"
+    },
+    {
+      "control_id": "SDAIA.ACC.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Accountability and Responsibility",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "Deterministic assessment of SDAIA.ACC.02: matched 0 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "AI decisions are auditable. Each decision links to the prompt, the retrieved sources, the model version and the human reviewer.\n[evidence source: decision audit trail sample]"
+      ],
+      "gaps": [
+        "Supplied evidence does not clearly establish implementation."
+      ],
+      "recommendation": "Supply an artefact that demonstrates the control operating.",
+      "citations": [
+        {
+          "control_id": "SDAIA.ACC.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.ACC.02"
+        },
+        {
+          "control_id": "SDAIA.ACC.02",
+          "source": "client_evidence",
+          "quote": "AI decisions are auditable. Each decision links to the prompt, the retrieved sources, the model version and the human reviewer.\n[evidence source: decision audit trail sample]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "decision audit trail sample"
+    },
+    {
+      "control_id": "SDAIA.ACC.03",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Accountability and Responsibility",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.ACC.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.ACC.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.FAIR.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Fairness",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.FAIR.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.FAIR.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.FAIR.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Fairness",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.FAIR.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.FAIR.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.HUM.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Humanity",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.HUM.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.HUM.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.HUM.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Humanity",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.HUM.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.HUM.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.PRIV.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Privacy and Security",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of SDAIA.PRIV.01: matched 1 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Privacy is designed in. Redaction runs before model invocation and the privacy review is a mandatory gate before release.\n[evidence source: redaction telemetry; release gate log]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "SDAIA.PRIV.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.PRIV.01"
+        },
+        {
+          "control_id": "SDAIA.PRIV.01",
+          "source": "client_evidence",
+          "quote": "Privacy is designed in. Redaction runs before model invocation and the privacy review is a mandatory gate before release.\n[evidence source: redaction telemetry; release gate log]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "redaction telemetry; release gate log"
+    },
+    {
+      "control_id": "SDAIA.PRIV.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Privacy and Security",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.PRIV.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.PRIV.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.REL.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Reliability and Safety",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of SDAIA.REL.01: matched 2 un-negated implementation term(s), 1 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Answer quality is measured against a versioned evaluation set, and a release gate blocks promotion when accuracy falls below the declared threshold.\n[evidence source: evaluation harness CI run]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "SDAIA.REL.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.REL.01"
+        },
+        {
+          "control_id": "SDAIA.REL.01",
+          "source": "client_evidence",
+          "quote": "Answer quality is measured against a versioned evaluation set, and a release gate blocks promotion when accuracy falls below the declared threshold.\n[evidence source: evaluation harness CI run]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "evaluation harness CI run"
+    },
+    {
+      "control_id": "SDAIA.REL.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Reliability and Safety",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.REL.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.REL.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.REL.03",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Reliability and Safety",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.REL.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.REL.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.SOC.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Social and Environmental Benefits",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.SOC.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.SOC.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.SOC.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Social and Environmental Benefits",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.SOC.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.SOC.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.TRAN.01",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Transparency and Explainability",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of SDAIA.TRAN.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "The interface states that the tenant is chatting with an automated assistant on every session, and AI-drafted replies are labelled before an agent sends them."
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "SDAIA.TRAN.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.TRAN.01"
+        },
+        {
+          "control_id": "SDAIA.TRAN.01",
+          "source": "client_evidence",
+          "quote": "The interface states that the tenant is chatting with an automated assistant on every session, and AI-drafted replies are labelled before an agent sends them.",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "document",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.TRAN.02",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Transparency and Explainability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.TRAN.02",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.TRAN.02"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "SDAIA.TRAN.03",
+      "framework": "SDAIA_AI_ETHICS",
+      "domain": "Transparency and Explainability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "SDAIA.TRAN.03",
+          "source": "corpus",
+          "quote": "",
+          "locator": "SDAIA.TRAN.03"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "UAE_PDPL.ADM.01",
+      "framework": "UAE_PDPL",
+      "domain": "Automated processing",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.ADM.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.ADM.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "UAE_PDPL.BR.01",
+      "framework": "UAE_PDPL",
+      "domain": "Breach management",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.BR.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.BR.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "UAE_PDPL.DPO.01",
+      "framework": "UAE_PDPL",
+      "domain": "Accountability",
+      "status": "not_assessable",
+      "confidence": "high",
+      "rationale": "No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.",
+      "evidence": [],
+      "gaps": [
+        "No evidence supplied for this control."
+      ],
+      "recommendation": "Collect and attach the evidence artefacts listed for this control, then re-run the assessment.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.DPO.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.DPO.01"
+        }
+      ],
+      "critic_verdict": "not_reviewed",
+      "critic_note": "",
+      "evidence_maturity": "none",
+      "evidence_source": ""
+    },
+    {
+      "control_id": "UAE_PDPL.LB.01",
+      "framework": "UAE_PDPL",
+      "domain": "Lawful basis and consent",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of UAE_PDPL.LB.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "A lawful basis or valid consent is recorded for each purpose, with consent captured and withdrawable through the tenant portal.\n[evidence source: consent store export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.LB.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.LB.01"
+        },
+        {
+          "control_id": "UAE_PDPL.LB.01",
+          "source": "client_evidence",
+          "quote": "A lawful basis or valid consent is recorded for each purpose, with consent captured and withdrawable through the tenant portal.\n[evidence source: consent store export]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "config_export",
+      "evidence_source": "consent store export"
+    },
+    {
+      "control_id": "UAE_PDPL.RTS.01",
+      "framework": "UAE_PDPL",
+      "domain": "Data subject rights",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of UAE_PDPL.RTS.01: matched 4 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Rights fulfilment is implemented end to end and covers derived AI artefacts, with a tracked response clock and verified completion.\n[evidence source: rights request queue export]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.RTS.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.RTS.01"
+        },
+        {
+          "control_id": "UAE_PDPL.RTS.01",
+          "source": "client_evidence",
+          "quote": "Rights fulfilment is implemented end to end and covers derived AI artefacts, with a tracked response clock and verified completion.\n[evidence source: rights request queue export]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "rights request queue export"
+    },
+    {
+      "control_id": "UAE_PDPL.SEC.01",
+      "framework": "UAE_PDPL",
+      "domain": "Security",
+      "status": "compliant",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of UAE_PDPL.SEC.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 0 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Appropriate technical and organisational measures are implemented and tested, covering identity, encryption, logging, backup and incident response.\n[evidence source: control test evidence pack]"
+      ],
+      "gaps": [],
+      "recommendation": "Maintain the control and re-verify at the next review cycle.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.SEC.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.SEC.01"
+        },
+        {
+          "control_id": "UAE_PDPL.SEC.01",
+          "source": "client_evidence",
+          "quote": "Appropriate technical and organisational measures are implemented and tested, covering identity, encryption, logging, backup and incident response.\n[evidence source: control test evidence pack]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "control test evidence pack"
+    },
+    {
+      "control_id": "UAE_PDPL.XB.01",
+      "framework": "UAE_PDPL",
+      "domain": "Cross-border transfer",
+      "status": "partial",
+      "confidence": "medium",
+      "rationale": "Deterministic assessment of UAE_PDPL.XB.01: matched 2 un-negated implementation term(s), 0 implementation phrase pattern(s) and 1 negation phrase(s) in the declared evidence.",
+      "evidence": [
+        "Transfer outside the UAE is assessed and does not occur; residency is enforced technically and monitored.\n[evidence source: egress policy export]"
+      ],
+      "gaps": [
+        "Evidence contains both implementation and non-implementation indicators."
+      ],
+      "recommendation": "Close the outstanding element and re-evidence the whole control.",
+      "citations": [
+        {
+          "control_id": "UAE_PDPL.XB.01",
+          "source": "corpus",
+          "quote": "",
+          "locator": "UAE_PDPL.XB.01"
+        },
+        {
+          "control_id": "UAE_PDPL.XB.01",
+          "source": "client_evidence",
+          "quote": "Transfer outside the UAE is assessed and does not occur; residency is enforced technically and monitored.\n[evidence source: egress policy export]",
+          "locator": "declared"
+        }
+      ],
+      "critic_verdict": "upheld",
+      "critic_note": "Deterministic critic: schema and citation present.",
+      "evidence_maturity": "runtime_verified",
+      "evidence_source": "egress policy export"
+    }
+  ],
+  "coverage": [
+    {
+      "framework": "EU_AI_ACT",
+      "official_name": "Regulation (EU) 2024/1689 (Artificial Intelligence Act), as amended by Regulation (EU) 2026/1744 (Digital Omnibus)",
+      "obligation": "binding_law",
+      "total_controls": 13,
+      "assessed": 7,
+      "compliant": 6,
+      "partial": 1,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 6,
+      "coverage_pct": 53.85,
+      "weighted_score_pct": 56.03,
+      "assurance_score_pct": 54.74
+    },
+    {
+      "framework": "GDPR",
+      "official_name": "Regulation (EU) 2016/679 (General Data Protection Regulation)",
+      "obligation": "binding_law",
+      "total_controls": 14,
+      "assessed": 10,
+      "compliant": 9,
+      "partial": 1,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 4,
+      "coverage_pct": 71.43,
+      "weighted_score_pct": 73.08,
+      "assurance_score_pct": 69.62
+    },
+    {
+      "framework": "ISO_IEC_42001",
+      "official_name": "ISO/IEC 42001:2023 - Information technology - Artificial intelligence - Management system",
+      "obligation": "certifiable_standard",
+      "total_controls": 8,
+      "assessed": 1,
+      "compliant": 1,
+      "partial": 0,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 7,
+      "coverage_pct": 12.5,
+      "weighted_score_pct": 11.43,
+      "assurance_score_pct": 6.86
+    },
+    {
+      "framework": "KSA_PDPL",
+      "official_name": "Personal Data Protection Law (PDPL), Royal Decree No. M/19 dated 9/2/1443H, as amended by Royal Decree No. M/148 dated 5/9/1444H",
+      "obligation": "binding_law",
+      "total_controls": 10,
+      "assessed": 4,
+      "compliant": 4,
+      "partial": 0,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 6,
+      "coverage_pct": 40.0,
+      "weighted_score_pct": 46.51,
+      "assurance_score_pct": 43.02
+    },
+    {
+      "framework": "NDMO",
+      "official_name": "National Data Management and Personal Data Protection Standards",
+      "obligation": "binding_law",
+      "total_controls": 40,
+      "assessed": 18,
+      "compliant": 14,
+      "partial": 4,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 22,
+      "coverage_pct": 45.0,
+      "weighted_score_pct": 50.97,
+      "assurance_score_pct": 47.22
+    },
+    {
+      "framework": "NIST_AI_RMF",
+      "official_name": "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+      "obligation": "non_binding_guidance",
+      "total_controls": 12,
+      "assessed": 2,
+      "compliant": 2,
+      "partial": 0,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 10,
+      "coverage_pct": 16.67,
+      "weighted_score_pct": 19.23,
+      "assurance_score_pct": 15.38
+    },
+    {
+      "framework": "SDAIA_AI_ETHICS",
+      "official_name": "AI Ethics Principles (Version 2.0)",
+      "obligation": "non_binding_guidance",
+      "total_controls": 17,
+      "assessed": 4,
+      "compliant": 4,
+      "partial": 0,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 13,
+      "coverage_pct": 23.53,
+      "weighted_score_pct": 26.76,
+      "assurance_score_pct": 23.45
+    },
+    {
+      "framework": "UAE_PDPL",
+      "official_name": "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data",
+      "obligation": "binding_law",
+      "total_controls": 7,
+      "assessed": 4,
+      "compliant": 3,
+      "partial": 1,
+      "non_compliant": 0,
+      "not_applicable": 0,
+      "not_assessable": 3,
+      "coverage_pct": 57.14,
+      "weighted_score_pct": 56.45,
+      "assurance_score_pct": 54.03
+    }
+  ],
+  "domain_coverage": [
+    {
+      "domain": "identity",
+      "total_controls": 1,
+      "assessed": 1,
+      "not_assessable": 0,
+      "coverage_pct": 100.0,
+      "weighted_score_pct": 100.0,
+      "assurance_score_pct": 100.0,
+      "critical_failures": [],
+      "critical_unevidenced": []
+    },
+    {
+      "domain": "data",
+      "total_controls": 29,
+      "assessed": 16,
+      "not_assessable": 13,
+      "coverage_pct": 55.17,
+      "weighted_score_pct": 63.52,
+      "assurance_score_pct": 60.45,
+      "critical_failures": [],
+      "critical_unevidenced": []
+    },
+    {
+      "domain": "ai_platform",
+      "total_controls": 49,
+      "assessed": 23,
+      "not_assessable": 26,
+      "coverage_pct": 46.94,
+      "weighted_score_pct": 46.03,
+      "assurance_score_pct": 42.98,
+      "critical_failures": [],
+      "critical_unevidenced": []
+    },
+    {
+      "domain": "cross_cutting",
+      "total_controls": 42,
+      "assessed": 10,
+      "not_assessable": 32,
+      "coverage_pct": 23.81,
+      "weighted_score_pct": 28.57,
+      "assurance_score_pct": 24.58,
+      "critical_failures": [],
+      "critical_unevidenced": []
+    }
+  ],
+  "overall_coverage_pct": 41.32,
+  "overall_weighted_pct": 44.99,
+  "overall_assurance_pct": 41.66,
+  "assurance_claim": {
+    "permitted": true,
+    "blockers": [],
+    "rationale": "Every critical control is satisfied and carries production-grade evidence (runtime-verified or verified configuration export).",
+    "production_grade_controls": 45,
+    "total_assessed": 50
+  },
+  "evidence_profile": {
+    "runtime_verified": 33,
+    "config_export": 14,
+    "none": 69,
+    "document": 5
+  },
+  "blocking_gaps": [],
+  "usage": {
+    "prompt_tokens": 621306,
+    "completion_tokens": 21941,
+    "calls": 171,
+    "estimated_cost_usd": 0.0
+  },
+  "model_used": "offline:offline-deterministic",
+  "guardrail_events": [
+    {
+      "type": "prompt_injection_scan",
+      "location": "platform_config",
+      "clean": true,
+      "severity": "none",
+      "rules": []
+    },
+    {
+      "type": "pii_redaction",
+      "location": "platform_config",
+      "counts": {}
+    }
+  ],
+  "disclaimer": "This is a readiness and gap-analysis output produced by an automated system. It is not a certification, legal advice, or an attestation of compliance. Control text is paraphrased; consult the official source for authoritative wording."
+}

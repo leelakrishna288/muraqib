@@ -1,10 +1,11 @@
 {
   "_meta": {
-    "version": "1.0",
+    "version": "1.1",
     "created": "2026-09-05",
     "purpose": "Hand-labelled regression set for Muraqib's assessment engine.",
     "labelling_note": "Expected statuses were assigned by reading the declared evidence against the control's assessment question. Cases with no declared evidence are labelled not_assessable on purpose - abstention is the correct behaviour, and measuring it stops the engine drifting toward confident guessing.",
-    "how_to_extend": "Add a case with a platform config, a control id and the status a careful human reviewer would assign. Keep the ratio of not_assessable and non_compliant cases high; over-claiming is the failure mode that matters."
+    "how_to_extend": "Add a case with a platform config, a control id and the status a careful human reviewer would assign. Keep the ratio of not_assessable and non_compliant cases high; over-claiming is the failure mode that matters.",
+    "revision_note": "v1.1 (2026-09-05) added 8 cases built from the failure modes found by running the system end to end: present-tense evidence the token list was blind to, the noun/verb ambiguity that reverted the base-form verb expansion, the pattern-only partial cap, and two roadmap-as-control traps. Cases were labelled first and the engine run afterwards."
   },
   "cases": [
     {
@@ -15,9 +16,13 @@
       "platform": {
         "platform_name": "Eval Platform A",
         "owner_org": "Eval Org",
-        "jurisdiction": ["Saudi Arabia"],
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
         "deployment": "private_cloud",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "affects_individuals": true,
         "controls_documented": {
           "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
@@ -35,9 +40,13 @@
       "platform": {
         "platform_name": "Eval Platform A",
         "owner_org": "Eval Org",
-        "jurisdiction": ["Saudi Arabia"],
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
         "deployment": "private_cloud",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "affects_individuals": true,
         "controls_documented": {
           "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
@@ -55,9 +64,13 @@
       "platform": {
         "platform_name": "Eval Platform A",
         "owner_org": "Eval Org",
-        "jurisdiction": ["Saudi Arabia"],
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
         "deployment": "private_cloud",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "affects_individuals": true,
         "controls_documented": {
           "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
@@ -75,9 +88,13 @@
       "platform": {
         "platform_name": "Eval Platform A",
         "owner_org": "Eval Org",
-        "jurisdiction": ["Saudi Arabia"],
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
         "deployment": "private_cloud",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "affects_individuals": true,
         "controls_documented": {
           "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
@@ -95,9 +112,13 @@
       "platform": {
         "platform_name": "Eval Platform A",
         "owner_org": "Eval Org",
-        "jurisdiction": ["Saudi Arabia"],
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
         "deployment": "private_cloud",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "affects_individuals": true,
         "controls_documented": {
           "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
@@ -115,9 +136,13 @@
       "platform": {
         "platform_name": "Eval Platform A",
         "owner_org": "Eval Org",
-        "jurisdiction": ["Saudi Arabia"],
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
         "deployment": "private_cloud",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "affects_individuals": true,
         "controls_documented": {
           "NDMO.DG.01": "Data governance charter is documented and approved by the board; the governance committee meets monthly and minutes are retained.",
@@ -135,9 +160,13 @@
       "platform": {
         "platform_name": "Eval Platform B",
         "owner_org": "Eval Org",
-        "jurisdiction": ["European Union"],
+        "jurisdiction": [
+          "European Union"
+        ],
         "deployment": "saas",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "cross_border_transfer": true,
         "affects_individuals": true,
         "controls_documented": {
@@ -155,9 +184,13 @@
       "platform": {
         "platform_name": "Eval Platform B",
         "owner_org": "Eval Org",
-        "jurisdiction": ["European Union"],
+        "jurisdiction": [
+          "European Union"
+        ],
         "deployment": "saas",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "cross_border_transfer": true,
         "affects_individuals": true,
         "controls_documented": {
@@ -175,9 +208,13 @@
       "platform": {
         "platform_name": "Eval Platform B",
         "owner_org": "Eval Org",
-        "jurisdiction": ["European Union"],
+        "jurisdiction": [
+          "European Union"
+        ],
         "deployment": "saas",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "cross_border_transfer": true,
         "affects_individuals": true,
         "controls_documented": {
@@ -195,15 +232,216 @@
       "platform": {
         "platform_name": "Eval Platform B",
         "owner_org": "Eval Org",
-        "jurisdiction": ["European Union"],
+        "jurisdiction": [
+          "European Union"
+        ],
         "deployment": "saas",
-        "data_categories": ["personal"],
+        "data_categories": [
+          "personal"
+        ],
         "cross_border_transfer": true,
         "affects_individuals": true,
         "controls_documented": {
           "GDPR.ART44.01": "SCCs are signed with the model provider; the transfer impact assessment is planned for Q4.",
           "GDPR.ART15.01": "Erasure requests are executed against the primary database only; the vector index is not re-indexed.",
           "GDPR.ART30.01": "The record of processing activities is maintained and reviewed annually, and AI inference is listed as a processing activity."
+        }
+      }
+    },
+    {
+      "id": "present-tense-quality-gate",
+      "control_id": "NDMO.DQ.03",
+      "expected_status": "partial",
+      "note": "Evidence is entirely present tense and describes a gate operating. The token list scored it 0/0 and abstained, which was wrong. It is labelled partial rather than compliant on two independent grounds: the control also asks about training and fine-tuning data and about representativeness, neither of which the evidence covers; and grammatical role inferred from a neighbouring token is weaker than an explicit claim.",
+      "platform": {
+        "platform_name": "Eval Platform C",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
+        "deployment": "private_cloud",
+        "data_categories": [
+          "personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DQ.03": "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.",
+          "NDMO.DG.01": "A data governance charter is planned for Q4 and the governance committee will be established once the charter is approved.",
+          "NDMO.CL.03": "Classification labels exist in the catalogue, but embedding vectors and prompt logs carry no labels.",
+          "NDMO.SP.01": "Requests failing the entitlement check are not served. Entra ID SSO is enforced with MFA and quarterly access reviews are logged.",
+          "NDMO.PD.04": "Redaction runs before every prompt leaves the tenancy, and a payload failing redaction is not released."
+        }
+      }
+    },
+    {
+      "id": "roadmap-is-not-a-control",
+      "control_id": "NDMO.DG.01",
+      "expected_status": "non_compliant",
+      "note": "The single most valuable over-claim trap in the set. Reads like an implemented charter until you notice 'is planned' and 'will be established'. Present-tense phrase matching must not rescue a roadmap.",
+      "platform": {
+        "platform_name": "Eval Platform C",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
+        "deployment": "private_cloud",
+        "data_categories": [
+          "personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DQ.03": "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.",
+          "NDMO.DG.01": "A data governance charter is planned for Q4 and the governance committee will be established once the charter is approved.",
+          "NDMO.CL.03": "Classification labels exist in the catalogue, but embedding vectors and prompt logs carry no labels.",
+          "NDMO.SP.01": "Requests failing the entitlement check are not served. Entra ID SSO is enforced with MFA and quarterly access reviews are logged.",
+          "NDMO.PD.04": "Redaction runs before every prompt leaves the tenancy, and a payload failing redaction is not released."
+        }
+      }
+    },
+    {
+      "id": "noun-not-verb-logs",
+      "control_id": "NDMO.CL.03",
+      "expected_status": "non_compliant",
+      "note": "The exact regression that caused the base-form verb list to be reverted: 'logs' is a noun here. Over-claim rate went 0% -> 16.7% on this case alone.",
+      "platform": {
+        "platform_name": "Eval Platform C",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
+        "deployment": "private_cloud",
+        "data_categories": [
+          "personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DQ.03": "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.",
+          "NDMO.DG.01": "A data governance charter is planned for Q4 and the governance committee will be established once the charter is approved.",
+          "NDMO.CL.03": "Classification labels exist in the catalogue, but embedding vectors and prompt logs carry no labels.",
+          "NDMO.SP.01": "Requests failing the entitlement check are not served. Entra ID SSO is enforced with MFA and quarterly access reviews are logged.",
+          "NDMO.PD.04": "Redaction runs before every prompt leaves the tenancy, and a payload failing redaction is not released."
+        }
+      }
+    },
+    {
+      "id": "fail-closed-plus-explicit-claim",
+      "control_id": "NDMO.SP.01",
+      "expected_status": "compliant",
+      "note": "Fail-closed wording alongside explicit past participles ('enforced', 'logged'). Because the evidence is not pattern-only, the partial cap does not apply and compliant is reachable.",
+      "platform": {
+        "platform_name": "Eval Platform C",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
+        "deployment": "private_cloud",
+        "data_categories": [
+          "personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DQ.03": "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.",
+          "NDMO.DG.01": "A data governance charter is planned for Q4 and the governance committee will be established once the charter is approved.",
+          "NDMO.CL.03": "Classification labels exist in the catalogue, but embedding vectors and prompt logs carry no labels.",
+          "NDMO.SP.01": "Requests failing the entitlement check are not served. Entra ID SSO is enforced with MFA and quarterly access reviews are logged.",
+          "NDMO.PD.04": "Redaction runs before every prompt leaves the tenancy, and a payload failing redaction is not released."
+        }
+      }
+    },
+    {
+      "id": "pattern-only-is-capped-at-partial",
+      "control_id": "NDMO.PD.04",
+      "expected_status": "partial",
+      "note": "Deliberate ceiling test. The evidence is convincing prose but carries no explicit implementation term, so the baseline must stop at partial. If this ever returns compliant the cap has been lost.",
+      "platform": {
+        "platform_name": "Eval Platform C",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "Saudi Arabia"
+        ],
+        "deployment": "private_cloud",
+        "data_categories": [
+          "personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "NDMO.DQ.03": "Quality controls run on retrieval data before promotion, covering duplication, staleness and completeness, and a corpus version failing the checks is not promoted.",
+          "NDMO.DG.01": "A data governance charter is planned for Q4 and the governance committee will be established once the charter is approved.",
+          "NDMO.CL.03": "Classification labels exist in the catalogue, but embedding vectors and prompt logs carry no labels.",
+          "NDMO.SP.01": "Requests failing the entitlement check are not served. Entra ID SSO is enforced with MFA and quarterly access reviews are logged.",
+          "NDMO.PD.04": "Redaction runs before every prompt leaves the tenancy, and a payload failing redaction is not released."
+        }
+      }
+    },
+    {
+      "id": "ropa-maintained",
+      "control_id": "GDPR.ART30.01",
+      "expected_status": "compliant",
+      "note": "Maintained, reviewed and signed off - three explicit indicators, no negation.",
+      "platform": {
+        "platform_name": "Eval Platform D",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "European Union"
+        ],
+        "deployment": "saas",
+        "data_categories": [
+          "personal",
+          "sensitive_personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART30.01": "The record of processing activities is maintained for every AI processing operation, reviewed annually and signed off by the DPO.",
+          "GDPR.ART15.01": "Access requests are handled manually only. There is no automated export and no deletion from the vector indexes.",
+          "NDMO.CM.03": "Lineage capture is under way for the ingestion pipeline and is intended to cover embeddings by Q2."
+        }
+      }
+    },
+    {
+      "id": "erasure-manual-only",
+      "control_id": "GDPR.ART15.01",
+      "expected_status": "non_compliant",
+      "note": "Partial fulfilment of a data-subject right is non-fulfilment. Vector indexes are named as out of scope, which is the failure.",
+      "platform": {
+        "platform_name": "Eval Platform D",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "European Union"
+        ],
+        "deployment": "saas",
+        "data_categories": [
+          "personal",
+          "sensitive_personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART30.01": "The record of processing activities is maintained for every AI processing operation, reviewed annually and signed off by the DPO.",
+          "GDPR.ART15.01": "Access requests are handled manually only. There is no automated export and no deletion from the vector indexes.",
+          "NDMO.CM.03": "Lineage capture is under way for the ingestion pipeline and is intended to cover embeddings by Q2."
+        }
+      }
+    },
+    {
+      "id": "in-progress-is-not-in-place",
+      "control_id": "NDMO.CM.03",
+      "expected_status": "non_compliant",
+      "note": "'under way' and 'intended to' are the boundary between a control and a plan. A tool that scores work-in-progress as partial is telling a client they are further along than they are.",
+      "platform": {
+        "platform_name": "Eval Platform D",
+        "owner_org": "Eval Org",
+        "jurisdiction": [
+          "European Union"
+        ],
+        "deployment": "saas",
+        "data_categories": [
+          "personal",
+          "sensitive_personal"
+        ],
+        "affects_individuals": true,
+        "controls_documented": {
+          "GDPR.ART30.01": "The record of processing activities is maintained for every AI processing operation, reviewed annually and signed off by the DPO.",
+          "GDPR.ART15.01": "Access requests are handled manually only. There is no automated export and no deletion from the vector indexes.",
+          "NDMO.CM.03": "Lineage capture is under way for the ingestion pipeline and is intended to cover embeddings by Q2."
         }
       }
     }

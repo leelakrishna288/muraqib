@@ -1,0 +1,1526 @@
+# AI Governance Readiness Assessment - Tenant Services Assistant (fictional example, post-remediation)
+
+**Run ID:** `MRQ-20260905-cca3ecfa`  
+**Generated:** 2026-09-05 17:50 UTC  
+**Organisation:** Example Real Estate Group  
+**Assessment engine:** `offline:offline-deterministic`  
+**Model calls:** 170 · **Estimated cost:** $0.0000
+
+> This is a readiness and gap-analysis output produced by an automated system. It is not a certification, legal advice, or an attestation of compliance. Control text is paraphrased; consult the official source for authoritative wording.
+
+## 1. Headline
+
+| Measure | Value | What it means |
+|---|---|---|
+| Assessment coverage | **40.5%** | Share of applicable controls where the supplied evidence supported a usable verdict. Low coverage means the assessment is incomplete, not that the platform is bad. |
+| Weighted posture | **43.5%** | Share of available control weight satisfied. Compliant scores full, partial scores half. |
+| Assurance score | **40.2%** | Weighted posture discounted by how strong the evidence actually is. A control backed by a policy PDF does not score like one backed by production telemetry. |
+| Risk tier | **HIGH** | Deterministic triage tier (see section 2). |
+| Blocking gaps | **0** | High-weight failures on binding instruments. |
+
+### Production assurance claim: **BLOCKED**
+
+A production assurance claim requires every critical control to be satisfied AND evidenced at runtime-verified or configuration-export maturity. Missing evidence is not itself a control failure, but it does prevent the claim.
+
+Blockers:
+
+- NDMO.DQ.03 - critical control NOT EVIDENCED (Quality controls on AI training and retrieval data)
+
+_44 of 49 assessed controls carry production-grade evidence (runtime-verified or verified configuration export)._
+
+### Evidence profile
+
+| Maturity | Controls |
+|---|---:|
+| runtime verified | 33 |
+| config export | 14 |
+| document | 5 |
+| none | 69 |
+
+### Assurance domains
+
+A single view across every framework in scope. Clients want to know which part of
+the estate is weak, not which of eight documents mentions it.
+
+| Domain | Controls | Assessed | Coverage | Weighted | Assurance | Critical FAIL | Critical unevidenced |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| identity | 1 | 1 | 100% | 100% | 100% | 0 | 0 |
+| data | 29 | 16 | 55% | 59% | 56% | 0 | 0 |
+| ai platform | 49 | 22 | 45% | 45% | 42% | 0 | 1 |
+| cross cutting | 42 | 10 | 24% | 29% | 25% | 0 | 0 |
+
+### What could not be assessed (72 controls)
+
+These controls returned no usable verdict. Read this before reading the score.
+
+- **EU_AI_ACT** (6): EUAIA.ART11.01, EUAIA.ART13.01, EUAIA.ART50.01, EUAIA.ART53.01, EUAIA.ART72.01, EUAIA.ART73.01
+- **GDPR** (4): GDPR.ART13.01, GDPR.ART25.01, GDPR.ART30.01, GDPR.ART33.01
+- **ISO_IEC_42001** (7): ISO42001.C10.01, ISO42001.C4.01, ISO42001.C5.01, ISO42001.C6.01, ISO42001.C6.02, ISO42001.C7.01, ISO42001.C8.01
+- **KSA_PDPL** (6): KSA_PDPL.BR.01, KSA_PDPL.DPO.01, KSA_PDPL.MIN.01, KSA_PDPL.NOT.01, KSA_PDPL.PIA.01, KSA_PDPL.ROP.01
+- **NDMO** (23): NDMO.BI.01, NDMO.BI.02, NDMO.CM.01, NDMO.CM.02, NDMO.DA.01, NDMO.DA.02, NDMO.DC.01, NDMO.DG.03, NDMO.DO.01, NDMO.DO.02, NDMO.DO.03, NDMO.DQ.01, NDMO.DQ.02, NDMO.DQ.03, NDMO.DS.02, NDMO.DS.03, NDMO.DV.01, NDMO.FI.01, NDMO.MD.01, NDMO.MD.02, NDMO.OD.01, NDMO.PD.03, NDMO.PD.06
+- **NIST_AI_RMF** (10): NIST.GOVERN.02, NIST.GOVERN.03, NIST.MANAGE.01, NIST.MANAGE.03, NIST.MAP.01, NIST.MAP.02, NIST.MAP.03, NIST.MEASURE.01, NIST.MEASURE.02, NIST.MEASURE.03
+- **SDAIA_AI_ETHICS** (13): SDAIA.ACC.02, SDAIA.ACC.03, SDAIA.FAIR.01, SDAIA.FAIR.02, SDAIA.HUM.01, SDAIA.HUM.02, SDAIA.PRIV.02, SDAIA.REL.02, SDAIA.REL.03, SDAIA.SOC.01, SDAIA.SOC.02, SDAIA.TRAN.02, SDAIA.TRAN.03
+- **UAE_PDPL** (3): UAE_PDPL.ADM.01, UAE_PDPL.BR.01, UAE_PDPL.DPO.01
+
+## 2. Risk tier
+
+**HIGH** - assigned deterministically, not by a model.
+
+- Processes personal data.
+- Outputs affect individuals.
+- Makes automated decisions that affect individuals.
+
+_Tier assigned deterministically from the declared platform configuration using Muraqib's documented rule set. This is a triage aid for prioritising controls, not a legal classification under any instrument._
+
+## 3. Coverage by framework
+
+| Framework | Status in law | Controls | Assessed | Compliant | Partial | Non-compliant | Not assessable | Coverage | Weighted |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| EU_AI_ACT | binding law | 13 | 7 | 6 | 1 | 0 | 6 | 53.9% | 56.0% |
+| GDPR | binding law | 14 | 10 | 8 | 2 | 0 | 4 | 71.4% | 69.2% |
+| ISO_IEC_42001 | certifiable standard | 8 | 1 | 1 | 0 | 0 | 7 | 12.5% | 11.4% |
+| KSA_PDPL | binding law | 10 | 4 | 4 | 0 | 0 | 6 | 40.0% | 46.5% |
+| NDMO | binding law | 40 | 17 | 14 | 3 | 0 | 23 | 42.5% | 49.4% |
+| NIST_AI_RMF | non-binding guidance | 12 | 2 | 2 | 0 | 0 | 10 | 16.7% | 19.2% |
+| SDAIA_AI_ETHICS | non-binding guidance | 17 | 4 | 3 | 1 | 0 | 13 | 23.5% | 23.2% |
+| UAE_PDPL | binding law | 7 | 4 | 3 | 1 | 0 | 3 | 57.1% | 56.5% |
+
+## 5. Findings
+
+### EU_AI_ACT
+
+#### `EUAIA.ART10.01` - Compliant (medium confidence)
+
+Deterministic assessment of EUAIA.ART10.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: corpus build pipeline logs; provenance manifest)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART10.01` (corpus), `EUAIA.ART10.01` (client_evidence)
+
+#### `EUAIA.ART11.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `EUAIA.ART11.01` (corpus)
+
+#### `EUAIA.ART12.01` - Compliant (medium confidence)
+
+Deterministic assessment of EUAIA.ART12.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: inference log sample; retention policy export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART12.01` (corpus), `EUAIA.ART12.01` (client_evidence)
+
+#### `EUAIA.ART13.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `EUAIA.ART13.01` (corpus)
+
+#### `EUAIA.ART14.01` - Compliant (medium confidence)
+
+Deterministic assessment of EUAIA.ART14.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: approval queue export; reviewer audit trail)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART14.01` (corpus), `EUAIA.ART14.01` (client_evidence)
+
+#### `EUAIA.ART15.01` - Compliant (medium confidence)
+
+Deterministic assessment of EUAIA.ART15.01: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: evaluation harness CI run; robustness suite results)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART15.01` (corpus), `EUAIA.ART15.01` (client_evidence)
+
+#### `EUAIA.ART5.01` - Partial (medium confidence)
+
+Deterministic assessment of EUAIA.ART5.01: matched 4 un-negated implementation indicator(s) and 1 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Evidence contains both implementation and non-implementation indicators.
+
+**Recommendation:** Close the outstanding element and re-evidence the whole control.
+
+**Evidence maturity:** runtime verified (source: AI use-case register export; pipeline gate run log 2026-08)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART5.01` (corpus), `EUAIA.ART5.01` (client_evidence)
+
+#### `EUAIA.ART50.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `EUAIA.ART50.01` (corpus)
+
+#### `EUAIA.ART53.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `EUAIA.ART53.01` (corpus)
+
+#### `EUAIA.ART6.01` - Compliant (medium confidence)
+
+Deterministic assessment of EUAIA.ART6.01: matched 5 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: classification determination record v3)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART6.01` (corpus), `EUAIA.ART6.01` (client_evidence)
+
+#### `EUAIA.ART72.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `EUAIA.ART72.01` (corpus)
+
+#### `EUAIA.ART73.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `EUAIA.ART73.01` (corpus)
+
+#### `EUAIA.ART9.01` - Compliant (medium confidence)
+
+Deterministic assessment of EUAIA.ART9.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: GRC risk register export, monthly)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `EUAIA.ART9.01` (corpus), `EUAIA.ART9.01` (client_evidence)
+
+### GDPR
+
+#### `GDPR.ART13.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `GDPR.ART13.01` (corpus)
+
+#### `GDPR.ART15.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART15.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: DSAR fulfilment run log; completeness check output)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART15.01` (corpus), `GDPR.ART15.01` (client_evidence)
+
+#### `GDPR.ART22.01` - Partial (medium confidence)
+
+Deterministic assessment of GDPR.ART22.01: matched 5 un-negated implementation indicator(s) and 1 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Evidence contains both implementation and non-implementation indicators.
+
+**Recommendation:** Close the outstanding element and re-evidence the whole control.
+
+**Evidence maturity:** runtime verified (source: approval queue export; published contest procedure)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART22.01` (corpus), `GDPR.ART22.01` (client_evidence)
+
+#### `GDPR.ART25.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `GDPR.ART25.01` (corpus)
+
+#### `GDPR.ART28.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART28.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: DPA register export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART28.01` (corpus), `GDPR.ART28.01` (client_evidence)
+
+#### `GDPR.ART30.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `GDPR.ART30.01` (corpus)
+
+#### `GDPR.ART32.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART32.01: matched 5 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: control test evidence pack; pen test report 2026)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART32.01` (corpus), `GDPR.ART32.01` (client_evidence)
+
+#### `GDPR.ART33.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `GDPR.ART33.01` (corpus)
+
+#### `GDPR.ART35.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART35.01: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: DPIA v2 signed 2026-07)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART35.01` (corpus), `GDPR.ART35.01` (client_evidence)
+
+#### `GDPR.ART44.01` - Partial (low confidence)
+
+Deterministic assessment of GDPR.ART44.01: matched 1 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Only one implementation indicator found; evidence is thin.
+
+**Recommendation:** Supply a second, independent artefact demonstrating the control operating.
+
+**Evidence maturity:** runtime verified (source: egress policy export; network flow logs)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART44.01` (corpus), `GDPR.ART44.01` (client_evidence)
+
+#### `GDPR.ART5.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART5.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: field allow-list config; request trace sample)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART5.01` (corpus), `GDPR.ART5.01` (client_evidence)
+
+#### `GDPR.ART5.02` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART5.02: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: purge job run history)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART5.02` (corpus), `GDPR.ART5.02` (client_evidence)
+
+#### `GDPR.ART6.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART6.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: RoPA export 2026-08)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART6.01` (corpus), `GDPR.ART6.01` (client_evidence)
+
+#### `GDPR.ART9.01` - Compliant (medium confidence)
+
+Deterministic assessment of GDPR.ART9.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: ingestion classifier logs)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `GDPR.ART9.01` (corpus), `GDPR.ART9.01` (client_evidence)
+
+### ISO_IEC_42001
+
+#### `ISO42001.C10.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C10.01` (corpus)
+
+#### `ISO42001.C4.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C4.01` (corpus)
+
+#### `ISO42001.C5.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C5.01` (corpus)
+
+#### `ISO42001.C6.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C6.01` (corpus)
+
+#### `ISO42001.C6.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C6.02` (corpus)
+
+#### `ISO42001.C7.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C7.01` (corpus)
+
+#### `ISO42001.C8.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `ISO42001.C8.01` (corpus)
+
+#### `ISO42001.C9.01` - Compliant (medium confidence)
+
+Deterministic assessment of ISO42001.C9.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** document
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `ISO42001.C9.01` (corpus), `ISO42001.C9.01` (client_evidence)
+
+### KSA_PDPL
+
+#### `KSA_PDPL.BR.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `KSA_PDPL.BR.01` (corpus)
+
+#### `KSA_PDPL.DPO.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `KSA_PDPL.DPO.01` (corpus)
+
+#### `KSA_PDPL.LB.01` - Compliant (medium confidence)
+
+Deterministic assessment of KSA_PDPL.LB.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: consent store export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `KSA_PDPL.LB.01` (corpus), `KSA_PDPL.LB.01` (client_evidence)
+
+#### `KSA_PDPL.MIN.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `KSA_PDPL.MIN.01` (corpus)
+
+#### `KSA_PDPL.NOT.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `KSA_PDPL.NOT.01` (corpus)
+
+#### `KSA_PDPL.PIA.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `KSA_PDPL.PIA.01` (corpus)
+
+#### `KSA_PDPL.ROP.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `KSA_PDPL.ROP.01` (corpus)
+
+#### `KSA_PDPL.RTS.01` - Compliant (medium confidence)
+
+Deterministic assessment of KSA_PDPL.RTS.01: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: rights request queue export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `KSA_PDPL.RTS.01` (corpus), `KSA_PDPL.RTS.01` (client_evidence)
+
+#### `KSA_PDPL.SEC.01` - Compliant (medium confidence)
+
+Deterministic assessment of KSA_PDPL.SEC.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: control test evidence pack)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `KSA_PDPL.SEC.01` (corpus), `KSA_PDPL.SEC.01` (client_evidence)
+
+#### `KSA_PDPL.XB.01` - Compliant (medium confidence)
+
+Deterministic assessment of KSA_PDPL.XB.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: transfer assessment record)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `KSA_PDPL.XB.01` (corpus), `KSA_PDPL.XB.01` (client_evidence)
+
+### NDMO
+
+#### `NDMO.BI.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.BI.01` (corpus)
+
+#### `NDMO.BI.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.BI.02` (corpus)
+
+#### `NDMO.CL.01` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.CL.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: catalog label export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.CL.01` (corpus), `NDMO.CL.01` (client_evidence)
+
+#### `NDMO.CL.02` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.CL.02: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: policy engine configuration; enforcement logs)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.CL.02` (corpus), `NDMO.CL.02` (client_evidence)
+
+#### `NDMO.CL.03` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.CL.03: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: label inheritance check output)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.CL.03` (corpus), `NDMO.CL.03` (client_evidence)
+
+#### `NDMO.CM.01` - Not assessable (high confidence)
+
+Deterministic assessment of NDMO.CM.01: matched 0 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Supplied evidence does not clearly establish implementation.
+
+**Recommendation:** Supply an artefact that demonstrates the control operating.
+
+**Evidence maturity:** config export (source: catalog export)
+
+**Citations:** `NDMO.CM.01` (corpus), `NDMO.CM.01` (client_evidence)
+
+#### `NDMO.CM.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.CM.02` (corpus)
+
+#### `NDMO.CM.03` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.CM.03: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: lineage graph export; answer trace sample)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.CM.03` (corpus), `NDMO.CM.03` (client_evidence)
+
+#### `NDMO.DA.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DA.01` (corpus)
+
+#### `NDMO.DA.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DA.02` (corpus)
+
+#### `NDMO.DC.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DC.01` (corpus)
+
+#### `NDMO.DC.02` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.DC.02: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: purge job run history)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.DC.02` (corpus), `NDMO.DC.02` (client_evidence)
+
+#### `NDMO.DG.01` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.DG.01: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: policy register export; forum minutes)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.DG.01` (corpus), `NDMO.DG.01` (client_evidence)
+
+#### `NDMO.DG.02` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.DG.02: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** document
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.DG.02` (corpus), `NDMO.DG.02` (client_evidence)
+
+#### `NDMO.DG.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DG.03` (corpus)
+
+#### `NDMO.DO.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DO.01` (corpus)
+
+#### `NDMO.DO.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DO.02` (corpus)
+
+#### `NDMO.DO.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DO.03` (corpus)
+
+#### `NDMO.DQ.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DQ.01` (corpus)
+
+#### `NDMO.DQ.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DQ.02` (corpus)
+
+#### `NDMO.DQ.03` - Not assessable (high confidence)
+
+Deterministic assessment of NDMO.DQ.03: matched 0 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Supplied evidence does not clearly establish implementation.
+
+**Recommendation:** Supply an artefact that demonstrates the control operating.
+
+**Evidence maturity:** runtime verified (source: corpus quality gate run log)
+
+**Citations:** `NDMO.DQ.03` (corpus), `NDMO.DQ.03` (client_evidence)
+
+#### `NDMO.DS.01` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.DS.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: sharing agreement register)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.DS.01` (corpus), `NDMO.DS.01` (client_evidence)
+
+#### `NDMO.DS.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DS.02` (corpus)
+
+#### `NDMO.DS.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DS.03` (corpus)
+
+#### `NDMO.DV.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.DV.01` (corpus)
+
+#### `NDMO.FI.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.FI.01` (corpus)
+
+#### `NDMO.MD.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.MD.01` (corpus)
+
+#### `NDMO.MD.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.MD.02` (corpus)
+
+#### `NDMO.OD.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.OD.01` (corpus)
+
+#### `NDMO.PD.01` - Partial (low confidence)
+
+Deterministic assessment of NDMO.PD.01: matched 1 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Only one implementation indicator found; evidence is thin.
+
+**Recommendation:** Supply a second, independent artefact demonstrating the control operating.
+
+**Evidence maturity:** config export (source: RoPA export 2026-08)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.PD.01` (corpus), `NDMO.PD.01` (client_evidence)
+
+#### `NDMO.PD.02` - Partial (low confidence)
+
+Deterministic assessment of NDMO.PD.02: matched 1 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Only one implementation indicator found; evidence is thin.
+
+**Recommendation:** Supply a second, independent artefact demonstrating the control operating.
+
+**Evidence maturity:** runtime verified (source: erasure run log; verification check output)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.PD.02` (corpus), `NDMO.PD.02` (client_evidence)
+
+#### `NDMO.PD.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.PD.03` (corpus)
+
+#### `NDMO.PD.04` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.PD.04: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: redaction stage telemetry)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.PD.04` (corpus), `NDMO.PD.04` (client_evidence)
+
+#### `NDMO.PD.05` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.PD.05: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: egress policy export; flow logs)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.PD.05` (corpus), `NDMO.PD.05` (client_evidence)
+
+#### `NDMO.PD.06` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NDMO.PD.06` (corpus)
+
+#### `NDMO.SP.01` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.SP.01: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: sign-in logs; Q3 access review export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.SP.01` (corpus), `NDMO.SP.01` (client_evidence)
+
+#### `NDMO.SP.02` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.SP.02: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: Key Vault policy export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.SP.02` (corpus), `NDMO.SP.02` (client_evidence)
+
+#### `NDMO.SP.03` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.SP.03: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: ledger verification output; log sample)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.SP.03` (corpus), `NDMO.SP.03` (client_evidence)
+
+#### `NDMO.SP.04` - Partial (low confidence)
+
+Deterministic assessment of NDMO.SP.04: matched 1 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Only one implementation indicator found; evidence is thin.
+
+**Recommendation:** Supply a second, independent artefact demonstrating the control operating.
+
+**Evidence maturity:** document
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.SP.04` (corpus), `NDMO.SP.04` (client_evidence)
+
+#### `NDMO.SP.05` - Compliant (medium confidence)
+
+Deterministic assessment of NDMO.SP.05: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: threat model v2; injection suite CI results)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NDMO.SP.05` (corpus), `NDMO.SP.05` (client_evidence)
+
+### NIST_AI_RMF
+
+#### `NIST.GOVERN.01` - Compliant (medium confidence)
+
+Deterministic assessment of NIST.GOVERN.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** document
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NIST.GOVERN.01` (corpus), `NIST.GOVERN.01` (client_evidence)
+
+#### `NIST.GOVERN.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.GOVERN.02` (corpus)
+
+#### `NIST.GOVERN.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.GOVERN.03` (corpus)
+
+#### `NIST.MANAGE.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MANAGE.01` (corpus)
+
+#### `NIST.MANAGE.02` - Compliant (medium confidence)
+
+Deterministic assessment of NIST.MANAGE.02: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: incident exercise records)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `NIST.MANAGE.02` (corpus), `NIST.MANAGE.02` (client_evidence)
+
+#### `NIST.MANAGE.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MANAGE.03` (corpus)
+
+#### `NIST.MAP.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MAP.01` (corpus)
+
+#### `NIST.MAP.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MAP.02` (corpus)
+
+#### `NIST.MAP.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MAP.03` (corpus)
+
+#### `NIST.MEASURE.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MEASURE.01` (corpus)
+
+#### `NIST.MEASURE.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MEASURE.02` (corpus)
+
+#### `NIST.MEASURE.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `NIST.MEASURE.03` (corpus)
+
+### SDAIA_AI_ETHICS
+
+#### `SDAIA.ACC.01` - Compliant (medium confidence)
+
+Deterministic assessment of SDAIA.ACC.01: matched 3 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: use-case register export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `SDAIA.ACC.01` (corpus), `SDAIA.ACC.01` (client_evidence)
+
+#### `SDAIA.ACC.02` - Not assessable (high confidence)
+
+Deterministic assessment of SDAIA.ACC.02: matched 0 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Supplied evidence does not clearly establish implementation.
+
+**Recommendation:** Supply an artefact that demonstrates the control operating.
+
+**Evidence maturity:** runtime verified (source: decision audit trail sample)
+
+**Citations:** `SDAIA.ACC.02` (corpus), `SDAIA.ACC.02` (client_evidence)
+
+#### `SDAIA.ACC.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.ACC.03` (corpus)
+
+#### `SDAIA.FAIR.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.FAIR.01` (corpus)
+
+#### `SDAIA.FAIR.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.FAIR.02` (corpus)
+
+#### `SDAIA.HUM.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.HUM.01` (corpus)
+
+#### `SDAIA.HUM.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.HUM.02` (corpus)
+
+#### `SDAIA.PRIV.01` - Partial (low confidence)
+
+Deterministic assessment of SDAIA.PRIV.01: matched 1 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Only one implementation indicator found; evidence is thin.
+
+**Recommendation:** Supply a second, independent artefact demonstrating the control operating.
+
+**Evidence maturity:** runtime verified (source: redaction telemetry; release gate log)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `SDAIA.PRIV.01` (corpus), `SDAIA.PRIV.01` (client_evidence)
+
+#### `SDAIA.PRIV.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.PRIV.02` (corpus)
+
+#### `SDAIA.REL.01` - Compliant (medium confidence)
+
+Deterministic assessment of SDAIA.REL.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: evaluation harness CI run)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `SDAIA.REL.01` (corpus), `SDAIA.REL.01` (client_evidence)
+
+#### `SDAIA.REL.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.REL.02` (corpus)
+
+#### `SDAIA.REL.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.REL.03` (corpus)
+
+#### `SDAIA.SOC.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.SOC.01` (corpus)
+
+#### `SDAIA.SOC.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.SOC.02` (corpus)
+
+#### `SDAIA.TRAN.01` - Compliant (medium confidence)
+
+Deterministic assessment of SDAIA.TRAN.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** document
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `SDAIA.TRAN.01` (corpus), `SDAIA.TRAN.01` (client_evidence)
+
+#### `SDAIA.TRAN.02` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.TRAN.02` (corpus)
+
+#### `SDAIA.TRAN.03` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `SDAIA.TRAN.03` (corpus)
+
+### UAE_PDPL
+
+#### `UAE_PDPL.ADM.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `UAE_PDPL.ADM.01` (corpus)
+
+#### `UAE_PDPL.BR.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `UAE_PDPL.BR.01` (corpus)
+
+#### `UAE_PDPL.DPO.01` - Not assessable (high confidence)
+
+No client-declared evidence was supplied for this control and the platform configuration does not contain a fact that settles it.
+
+**Gaps**
+- No evidence supplied for this control.
+
+**Recommendation:** Collect and attach the evidence artefacts listed for this control, then re-run the assessment.
+
+**Citations:** `UAE_PDPL.DPO.01` (corpus)
+
+#### `UAE_PDPL.LB.01` - Compliant (medium confidence)
+
+Deterministic assessment of UAE_PDPL.LB.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** config export (source: consent store export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `UAE_PDPL.LB.01` (corpus), `UAE_PDPL.LB.01` (client_evidence)
+
+#### `UAE_PDPL.RTS.01` - Compliant (medium confidence)
+
+Deterministic assessment of UAE_PDPL.RTS.01: matched 4 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: rights request queue export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `UAE_PDPL.RTS.01` (corpus), `UAE_PDPL.RTS.01` (client_evidence)
+
+#### `UAE_PDPL.SEC.01` - Compliant (medium confidence)
+
+Deterministic assessment of UAE_PDPL.SEC.01: matched 2 un-negated implementation indicator(s) and 0 negation phrase(s) in the declared evidence.
+
+**Recommendation:** Maintain the control and re-verify at the next review cycle.
+
+**Evidence maturity:** runtime verified (source: control test evidence pack)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `UAE_PDPL.SEC.01` (corpus), `UAE_PDPL.SEC.01` (client_evidence)
+
+#### `UAE_PDPL.XB.01` - Partial (medium confidence)
+
+Deterministic assessment of UAE_PDPL.XB.01: matched 2 un-negated implementation indicator(s) and 1 negation phrase(s) in the declared evidence.
+
+**Gaps**
+- Evidence contains both implementation and non-implementation indicators.
+
+**Recommendation:** Close the outstanding element and re-evidence the whole control.
+
+**Evidence maturity:** runtime verified (source: egress policy export)
+
+**Adversarial review:** upheld - Deterministic critic: schema and citation present.
+
+**Citations:** `UAE_PDPL.XB.01` (corpus), `UAE_PDPL.XB.01` (client_evidence)
+
+## 6. Guardrail events
+
+| Type | Detail |
+|---|---|
+| prompt_injection_scan | location=platform_config, clean=True, severity=none, rules=[] |
+| pii_redaction | location=platform_config, counts={} |
+
+---
+
+Generated by [Muraqib](https://github.com/leelakrishna288/muraqib). 
+Control text is paraphrased by Muraqib and is not a reproduction of any official standard. Consult the official source for authoritative wording.

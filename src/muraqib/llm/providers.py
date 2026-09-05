@@ -133,15 +133,19 @@ _POSITIVE = (
     "labeled",
     "excluded",
     "complete",
-    "blocks",
-    "gates",
-    "runs",
-    "operates",
-    "covers",
-    "records",
     "occurs",
     "applied",
 )
+
+# Removed from the list above: "blocks", "gates", "runs", "operates", "covers",
+# "records". Every one is ambiguous between verb and noun - "test runs", "access
+# gates", "audit records", "policy blocks" are all noun phrases - and each was
+# counted as an implementation claim wherever it appeared. They are now handled
+# by the subject-predicate patterns below, which only fire when the word is
+# actually in predicate position. The evaluation harness caught this: evidence
+# reading "redaction runs before every prompt leaves the tenancy" scored
+# COMPLIANT off the bare token "runs", defeating the partial cap that was
+# written specifically to stop it.
 
 # A base-form verb expansion (run/runs, log/logs, record/records) was tried here
 # and reverted: "logs" matched the noun in "prompt logs carry no classification
@@ -211,6 +215,106 @@ _NEGATIVE: tuple[str, ...] = tuple(
     )
 )
 
+# ---------------------------------------------------------------------------
+# Phrase patterns - grammatical role recovered from neighbours, not a POS model.
+#
+# The single-token list above cannot tell a verb from a noun. "logs" is a verb
+# in "the gate logs every decision" and a noun in "prompt logs carry no
+# classification labels". A base-form verb expansion (run/runs, log/logs) was
+# tried here and reverted for exactly that reason: the evaluation harness
+# measured the over-claim rate going 0% -> 16.7% within a single run.
+#
+# A two-token subject-predicate pattern does not have that ambiguity. "logs"
+# alone never fires; "controls run" does, because a plural control noun
+# followed by a present-tense verb is a predicate, not a noun phrase. That
+# recovers enough grammatical role to read present-tense evidence without a
+# part-of-speech model, and the baseline stays deterministic and
+# dependency-free.
+#
+# Pattern matches are deliberately WEAKER than explicit token matches: see
+# `_assess`, where evidence carried only by patterns is capped at PARTIAL and
+# can never reach COMPLIANT. Inferring a verb from its neighbour is a weaker
+# claim than an explicit past-participle statement, and a compliance tool
+# should err on the low side of its own confidence.
+# ---------------------------------------------------------------------------
+
+_CONTROL_SUBJECT = (
+    r"(?:controls?|checks?|gates?|scans?|reviews?|validations?|tests?|filters?|"
+    r"rules?|guardrails?|pipelines?|jobs?|policies|policy|approvals?|monitors?|"
+    r"classifiers?|linters?|scanners?)"
+)
+
+_PRESENT_PREDICATE = (
+    r"(?:run|runs|apply|applies|execute|executes|block|blocks|reject|rejects|"
+    r"enforce|enforces|fire|fires|operate|operates|prevent|prevents|stop|stops|"
+    r"deny|denies|flag|flags|quarantine|quarantines)"
+)
+
+# A fail-closed statement is positive evidence that a control is operating, even
+# though it contains "not" - the blocking IS the control. It is distinguished
+# from a missing protection ("data is not encrypted") by two requirements: the
+# subject must name a failure condition, and the verb must be a RELEASE verb.
+# "a corpus version failing the checks is not promoted" qualifies;
+# "personal data is not encrypted" does not, and must not.
+_FAIL_CLOSED_SUBJECT = (
+    r"(?:fail(?:s|ing|ed)?|invalid|unapproved|untrusted|non-?compliant|stale|"
+    r"duplicate|rejected|unverified|expired|out-of-policy)"
+)
+_RELEASE_VERB = (
+    r"(?:promoted|released|published|deployed|indexed|ingested|served|returned|"
+    r"merged|shipped|exposed)"
+)
+
+_POSITIVE_PATTERNS: tuple[re.Pattern[str], ...] = (
+    # "quality controls run on retrieval data", "the gate blocks release"
+    re.compile(rf"\b{_CONTROL_SUBJECT}\s+(?:\w+\s+)?{_PRESENT_PREDICATE}\b", re.I),
+    # fail-closed: the block is the control operating
+    re.compile(
+        rf"\b{_FAIL_CLOSED_SUBJECT}\b[^.;]{{0,80}}?\b(?:is|are)\s+not\s+{_RELEASE_VERB}\b",
+        re.I,
+    ),
+    # a pre-condition gate: something happens BEFORE the thing it gates
+    re.compile(
+        r"\bbefore\s+(?:promotion|release|publication|deployment|ingestion|indexing|"
+        r"onboarding|use\b|being\s+used|it\s+is\s+used|they\s+are\s+used)",
+        re.I,
+    ),
+)
+
+# The fail-closed pattern owns its own negation - the "not" is the point - so it
+# is exempt from the negation window that every other indicator passes through.
+_NEGATION_EXEMPT_PATTERNS = frozenset({1})
+
+# Negation also has forms the token list cannot reach. "carry no labels" is a
+# flat statement that the control is absent, but neither "carry" nor "labels" is
+# in either vocabulary, so the evidence scored 0/0 and the engine abstained on a
+# control that had plainly failed. Abstention is the safe direction of error,
+# but it is still the wrong answer.
+_NEGATIVE_PATTERNS: tuple[re.Pattern[str], ...] = (
+    re.compile(
+        r"\b(?:carr(?:y|ies)|ha(?:ve|s)|contain(?:s)?|include(?:s)?|provide(?:s)?|"
+        r"hold(?:s)?|retain(?:s)?)\s+no\b",
+        re.I,
+    ),
+    re.compile(
+        r"\bwithout\s+(?:any\s+)?(?:redaction|encryption|logging|labels?|review|"
+        r"approval|controls?|checks?|consent|oversight)\b",
+        re.I,
+    ),
+)
+
+# Futurity is not negation, so the negator window never caught it: "the
+# committee will be established" contains the implementation term "established"
+# with no negator anywhere near it. Scored as written, a roadmap read as a
+# half-built control - a PARTIAL verdict on a platform that has built nothing.
+# That is the single most expensive error this tool can make, so futurity gets
+# its own window with the same clause-splitting rule.
+_FUTURITY = re.compile(
+    r"\b(?:will|shall|to\s+be|going\s+to|expected\s+to|scheduled\s+to|"
+    r"due\s+to\s+be|planned\s+to|intends?\s+to|aims?\s+to)\b",
+    re.I,
+)
+
 _NEG_WINDOW = 40  # characters before a positive term that are scanned for a negator
 _NEGATORS = re.compile(r"\b(?:no|not|never|without|lacks?|lacking|fails?|failed)\b", re.I)
 
@@ -225,11 +329,34 @@ def _word_hits(text: str, terms: tuple[str, ...]) -> list[tuple[str, int]]:
 
 
 def _negated(text: str, offset: int) -> bool:
-    """True if a negator appears shortly before this position, in the same clause."""
+    """True if this position is negated or future-tense, in the same clause.
+
+    Both markers disqualify an implementation term, for different reasons: a
+    negator says the control is absent, futurity says it does not exist yet.
+    The clause split stops "the charter will be reviewed annually; access is
+    enforced today" from discounting the second clause along with the first.
+    """
     start = max(0, offset - _NEG_WINDOW)
     window = text[start:offset]
     window = window.rsplit(";", 1)[-1].rsplit(".", 1)[-1]
-    return bool(_NEGATORS.search(window))
+    return bool(_NEGATORS.search(window) or _FUTURITY.search(window))
+
+
+def _pattern_hits(text: str) -> list[tuple[str, int]]:
+    """Return (pattern-description, offset) for each phrase pattern that fires.
+
+    Negation is checked from the END of the match, so that a negator sitting
+    inside the matched span ("checks do not run") falls inside the window and
+    discounts the hit. The fail-closed pattern is exempt because its "not" is
+    the control working, not the control missing.
+    """
+    hits: list[tuple[str, int]] = []
+    for index, pattern in enumerate(_POSITIVE_PATTERNS):
+        for m in pattern.finditer(text):
+            if index not in _NEGATION_EXEMPT_PATTERNS and _negated(text, m.end()):
+                continue
+            hits.append((m.group(0).strip(), m.start()))
+    return hits
 
 
 class OfflineProvider(LLMProvider):
@@ -343,9 +470,19 @@ class OfflineProvider(LLMProvider):
                 ],
             }
 
-        neg_hits = _word_hits(ev_low, _NEGATIVE)
-        pos_hits = [(t, o) for t, o in _word_hits(ev_low, _POSITIVE) if not _negated(ev_low, o)]
-        neg, pos = len(neg_hits), len(pos_hits)
+        neg_hits = _word_hits(ev_low, _NEGATIVE) + [
+            (m.group(0), m.start()) for p in _NEGATIVE_PATTERNS for m in p.finditer(ev_low)
+        ]
+        token_hits = [(t, o) for t, o in _word_hits(ev_low, _POSITIVE) if not _negated(ev_low, o)]
+        pattern_hits = _pattern_hits(ev_low)
+        neg = len(neg_hits)
+        tokens, patterns = len(token_hits), len(pattern_hits)
+        pos = tokens + patterns
+        # Grammatical role inferred from a neighbouring token is weaker evidence
+        # than an explicit past-participle claim. Evidence carried ONLY by
+        # patterns therefore cannot reach COMPLIANT - it stops being invisible
+        # without becoming a pass.
+        pattern_only = patterns > 0 and tokens == 0
 
         # Weight of evidence, not mere presence. A control whose evidence carries
         # more negation than implementation is not "partially" satisfied - the
@@ -362,10 +499,21 @@ class OfflineProvider(LLMProvider):
             status, conf = "partial", "medium"
             gaps = ["Evidence contains both implementation and non-implementation indicators."]
             rec = "Close the outstanding element and re-evidence the whole control."
-        elif pos >= 2:
+        elif pos >= 2 and not pattern_only:
             status, conf = "compliant", "medium"
             gaps = []
             rec = "Maintain the control and re-verify at the next review cycle."
+        elif pos >= 2:
+            status, conf = "partial", "low"
+            gaps = [
+                "Implementation is stated in the present tense and was matched by phrase "
+                "pattern rather than by an explicit statement that the control has been "
+                "implemented; the deterministic baseline caps this at partial."
+            ]
+            rec = (
+                "Supply an artefact that states the control has been implemented and "
+                "verified, not only that it runs."
+            )
         elif pos == 1:
             status, conf = "partial", "low"
             gaps = ["Only one implementation indicator found; evidence is thin."]
@@ -388,8 +536,9 @@ class OfflineProvider(LLMProvider):
             "status": status,
             "confidence": conf,
             "rationale": (
-                f"Deterministic assessment of {control_id}: matched {pos} un-negated "
-                f"implementation indicator(s) and {neg} negation phrase(s) in the declared evidence."
+                f"Deterministic assessment of {control_id}: matched {tokens} un-negated "
+                f"implementation term(s), {patterns} implementation phrase pattern(s) and "
+                f"{neg} negation phrase(s) in the declared evidence."
             ),
             "evidence": [evidence[:400]],
             "gaps": gaps,
