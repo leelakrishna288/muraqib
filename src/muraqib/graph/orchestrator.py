@@ -23,6 +23,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 from ..agents.assessor import AssessorAgent
 from ..agents.base import AgentContext
@@ -152,3 +153,27 @@ class Orchestrator:
     @staticmethod
     def resume_from_file(path: Path, ctx: AgentContext) -> RunState:
         return RunState.load(path)
+
+
+ORCHESTRATORS = ("builtin", "langgraph")
+
+
+def get_orchestrator(ctx: AgentContext, *, checkpoint: bool = True) -> Any:
+    """Return the executor named by `settings.orchestrator`.
+
+    Both executors run the same agents over the same state and are asserted
+    equivalent in `tests/test_langgraph_backend.py`. The choice is recorded in
+    the audit ledger, because "which engine produced this report" is part of how
+    the report was produced.
+    """
+    name = ctx.settings.orchestrator
+    if name == "builtin":
+        return Orchestrator(ctx, checkpoint=checkpoint)
+    if name == "langgraph":
+        from .langgraph_backend import LangGraphOrchestrator  # noqa: PLC0415
+
+        return LangGraphOrchestrator(ctx, checkpoint=checkpoint)
+    raise ValueError(
+        f"unknown orchestrator {name!r}; expected one of {', '.join(ORCHESTRATORS)}. "
+        "Set MURAQIB_ORCHESTRATOR to a supported value."
+    )

@@ -108,7 +108,7 @@ words like *access* and *process*.
   *customer* to *data subject*. That is why the run manifest records which
   embedding backend produced a report.
 - The audit ledger is **tamper-evident, not tamper-proof**.
-- The golden set is **10 hand-labelled cases** — enough to catch regressions,
+- The golden set is **18 hand-labelled cases** — enough to catch regressions,
   nowhere near enough to certify accuracy.
 - NDMO control identifiers within a domain are **Muraqib's own** numbering, not
   official control numbers.

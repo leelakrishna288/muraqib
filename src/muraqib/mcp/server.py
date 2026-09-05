@@ -281,7 +281,11 @@ class MuraqibMCPServer:
         return {"platform": config.platform_name, "risk": risk.model_dump(mode="json")}
 
     def _assess_platform(self, args: dict[str, Any]) -> dict[str, Any]:
-        from ..graph.orchestrator import Orchestrator, build_context, new_run_id  # noqa: PLC0415
+        from ..graph.orchestrator import (  # noqa: PLC0415
+            build_context,
+            get_orchestrator,
+            new_run_id,
+        )
         from ..reporting.render import render_markdown  # noqa: PLC0415
 
         config = PlatformConfig.model_validate(args.get("platform") or {})
@@ -294,7 +298,7 @@ class MuraqibMCPServer:
         run_id = new_run_id()
         ctx = build_context(self.settings, run_id=run_id, corpus=self.corpus)
         try:
-            report = Orchestrator(ctx).run(config, frameworks, run_id=run_id)
+            report = get_orchestrator(ctx).run(config, frameworks, run_id=run_id)
         except IntakeBlocked as exc:
             raise ToolError(str(exc)) from exc
 

@@ -70,6 +70,33 @@ jobs:
           cat /tmp/requirements.lock
           pip-audit -r /tmp/requirements.lock --strict
 
+  langgraph:
+    name: langgraph backend equivalence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip }
+      - name: Install with the graph extra
+        # The default `test` job deliberately does NOT install this. The
+        # built-in orchestrator must keep working with no extra dependency, so
+        # the equivalence tests skip there and run here.
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,graph]"
+      - name: Both executors must produce the same assessment
+        # If this fails, one backend is carrying behaviour that belongs to the
+        # pipeline rather than the executor.
+        run: pytest tests/test_langgraph_backend.py -v
+      - name: The full suite passes under the LangGraph executor too
+        env:
+          MURAQIB_ORCHESTRATOR: langgraph
+        run: pytest -q
+      - name: Evaluation gate under the LangGraph executor
+        env:
+          MURAQIB_ORCHESTRATOR: langgraph
+        run: muraqib evaluate
+
   docker:
     name: container build
     runs-on: ubuntu-latest

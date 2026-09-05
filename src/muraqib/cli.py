@@ -13,7 +13,7 @@ from rich.table import Table
 
 from .config import get_settings
 from .corpus import Corpus
-from .graph.orchestrator import Orchestrator, build_context, new_run_id
+from .graph.orchestrator import build_context, get_orchestrator, new_run_id
 from .models import Framework, PlatformConfig
 from .observability.audit import AuditLedger
 from .observability.logging_setup import configure_logging
@@ -143,7 +143,7 @@ def assess(
             console.print(f"  [green]done[/green] {node}")
 
     try:
-        report = Orchestrator(ctx).run(platform, chosen, run_id=run_id, on_progress=progress)
+        report = get_orchestrator(ctx).run(platform, chosen, run_id=run_id, on_progress=progress)
     except Exception as exc:  # noqa: BLE001
         console.print(f"\n[red]Assessment stopped:[/red] {exc}")
         raise typer.Exit(1) from exc

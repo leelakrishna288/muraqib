@@ -129,7 +129,7 @@ pip install -e ".[dev]"
 muraqib frameworks                      # what's loaded
 muraqib search "erasing a customer from the vector index"
 make demo                               # full assessment -> reports/
-make test                               # 140 tests, offline, no keys
+make test                               # 232 tests, offline, no keys
 make eval                               # evaluation gate
 ```
 
@@ -257,6 +257,25 @@ tiering, retrieval, coverage mathematics and reporting are deterministic.
 Putting a model where a rule will do is how agent systems become unauditable
 and expensive.
 
+**Two executors, one pipeline.** The default orchestrator is a dependency-free
+loop over an explicit `PIPELINE` tuple. The same six agents also run on a
+compiled LangGraph `StateGraph`:
+
+```bash
+pip install -e ".[graph]"
+MURAQIB_ORCHESTRATOR=langgraph muraqib assess examples/aldar_tenant_assistant.yaml
+```
+
+Both are kept because the contract is the graph, not the library — and a CI job
+asserts the two produce *identical* findings, coverage arithmetic and assurance
+verdict across all 121 controls. An equivalence test between two independent
+implementations catches what one implementation and its own tests never will.
+The built-in executor stays the default so the hermetic build needs no extra
+dependency; the executor that ran is recorded in the audit ledger, and a
+request for LangGraph when it is not installed **raises rather than falling
+back**, because a governance tool must not quietly change how a report was
+produced.
+
 ### Risk tiering is deterministic
 
 Four tiers, computed from explicit rules with every rule that fired recorded in
@@ -375,13 +394,13 @@ src/muraqib/
   rag/                 Embeddings, vector stores, hybrid BM25+dense retrieval
   guardrails/          Injection, PII, schema, citation gates
   agents/              intake · risk · retrieval · assessor · critic · reporter
-  graph/               Explicit state graph, checkpointing, resume
+  graph/               Explicit state graph, checkpointing, resume, LangGraph backend
   observability/       Hash-chained audit ledger, JSON logging, tracing
   evals/               Harness, metrics, golden set
   api/                 FastAPI + OIDC auth
   mcp/                 MCP server (JSON-RPC 2.0 over stdio)
   reporting/           Markdown, HTML, remediation plan
-tests/                 140 tests
+tests/                 232 tests
 docs/                  Architecture, security model, sources, threat model
 ```
 
@@ -405,7 +424,7 @@ its own first principle.
 - **The hashing embedder is lexical.** Semantic paraphrase retrieval needs the
   `rag` extra.
 - **The audit ledger is tamper-evident, not tamper-proof.**
-- **The eval golden set is 10 hand-labelled cases** — enough to catch
+- **The eval golden set is 18 hand-labelled cases** — enough to catch
   regressions, not enough to certify accuracy. It is designed to be extended.
 - **The identity assurance domain has one control.** These are data-protection
   and AI-governance instruments, not IAM standards. That is a true finding about

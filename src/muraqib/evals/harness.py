@@ -28,7 +28,7 @@ from typing import Any
 
 from ..config import get_settings
 from ..corpus import Corpus
-from ..graph.orchestrator import Orchestrator, build_context, new_run_id
+from ..graph.orchestrator import build_context, get_orchestrator, new_run_id
 from ..models import Framework, PlatformConfig, Status
 
 GOLDEN_PATH = Path(__file__).parent / "golden" / "golden_set.json"
@@ -135,7 +135,7 @@ def run_evaluation(path: Path | None = None) -> EvalResult:
         frameworks = sorted(framework_set)
         sub_id = new_run_id()
         sub_ctx = build_context(settings, run_id=sub_id, corpus=corpus)
-        report = Orchestrator(sub_ctx, checkpoint=False).run(
+        report = get_orchestrator(sub_ctx, checkpoint=False).run(
             config, list(frameworks) or [Framework.NDMO], run_id=sub_id
         )
         findings = {f.control_id: f for f in report.findings}

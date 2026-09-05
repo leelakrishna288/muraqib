@@ -23,7 +23,7 @@ from .. import __version__
 from ..agents.intake import IntakeBlocked
 from ..config import get_settings
 from ..corpus import Corpus
-from ..graph.orchestrator import Orchestrator, build_context, new_run_id
+from ..graph.orchestrator import build_context, get_orchestrator, new_run_id
 from ..models import AssessmentReport, Framework, PlatformConfig
 from ..observability.logging_setup import configure_logging
 from ..reporting.render import render_html, render_markdown, render_remediation_plan
@@ -192,7 +192,7 @@ def create_app() -> FastAPI:
         ctx = build_context(settings, run_id=run_id, corpus=corpus)
         ctx.ledger.record("api_request", actor=principal.audit_identity(), run_id=run_id)
         try:
-            report = Orchestrator(ctx).run(
+            report = get_orchestrator(ctx).run(
                 payload.platform, payload.frameworks or corpus.frameworks, run_id=run_id
             )
         except IntakeBlocked as exc:

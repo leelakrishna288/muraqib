@@ -72,6 +72,14 @@ class Settings:
     )
     enable_critic: bool = field(default_factory=lambda: _flag("MURAQIB_ENABLE_CRITIC", True))
 
+    # --- Orchestration ---
+    # "builtin" is the dependency-free executor and the CI default. "langgraph"
+    # runs the same six agents over the same RunState on a compiled StateGraph.
+    # An unknown value is rejected at construction rather than at run time.
+    orchestrator: str = field(
+        default_factory=lambda: os.getenv("MURAQIB_ORCHESTRATOR", "builtin").strip().lower()
+    )
+
     # --- Storage / audit ---
     data_dir: Path = field(
         default_factory=lambda: Path(os.getenv("MURAQIB_DATA_DIR", str(REPO_ROOT / "data")))
@@ -120,6 +128,7 @@ class Settings:
             "block_on_injection": self.block_on_injection,
             "require_citations": self.require_citations,
             "enable_critic": self.enable_critic,
+            "orchestrator": self.orchestrator,
             "auth_enabled": self.auth_enabled,
         }
 

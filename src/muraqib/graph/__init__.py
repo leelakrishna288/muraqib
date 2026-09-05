@@ -10,14 +10,14 @@ from typing import TYPE_CHECKING, Any
 
 from .state import RunState
 
-__all__ = ["RunState", "Orchestrator", "build_context", "new_run_id"]
+__all__ = ["RunState", "Orchestrator", "build_context", "get_orchestrator", "new_run_id"]
 
 if TYPE_CHECKING:  # pragma: no cover
-    from .orchestrator import Orchestrator, build_context, new_run_id
+    from .orchestrator import Orchestrator, build_context, get_orchestrator, new_run_id
 
 
 def __getattr__(name: str) -> Any:
-    if name in {"Orchestrator", "build_context", "new_run_id", "PIPELINE"}:
+    if name in {"Orchestrator", "build_context", "get_orchestrator", "new_run_id", "PIPELINE"}:
         from . import orchestrator  # noqa: PLC0415
 
         return getattr(orchestrator, name)
