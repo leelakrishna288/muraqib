@@ -1,0 +1,35 @@
+# BLOCK at `pre_inference`.
+#
+# Identity, entitlement and object-level source authorisation all pass. The
+# request fails because the model serving it sits outside the permitted region.
+#
+# Data residency is the requirement that turns a working AI system into a
+# non-deployable one across the Gulf - KSA PDPL and UAE PDPL both constrain
+# where personal data may be processed, and an inference call is processing.
+# A residency rule that lives in a policy document and not in the request path
+# is not a control; it is a hope. This is why the check runs before inference
+# rather than being audited afterwards.
+principal:
+  subject: "leela@corp.ae"
+  authenticated: true
+  mfa: true
+  roles: ["analyst"]
+  channel: "chat"
+  delegated_identity: true
+  issuer: "https://login.microsoftonline.com/tenant"
+prompt: "Summarise this week's tenant service requests."
+prompt_redacted: true
+requested_tools: ["document_search"]
+data_sources: ["sharepoint"]
+retrieved:
+  - source: "sharepoint"
+    owner: "leela@corp.ae"
+    classification: "internal"
+    excerpt: "Service request log for week 36"
+model:
+  name: "gpt-4o-mini"
+  provider: "azure_openai"
+  deployment: "prod-useast"
+  region: "us-east-1"
+response: "Thirty-one service requests were raised this week."
+record_count: 31

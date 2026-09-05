@@ -464,3 +464,74 @@ def test_clean_retrieved_content_still_passes(policy, analyst, approved_model):
         retrieved=[owned(excerpt="The lease renews annually unless notice is given.")],
     )
     assert decide(policy, ctx).verdict is Verdict.ALLOW
+
+
+class TestShippedScenariosBehaveAsDocumented:
+    """The five example transactions are the live demo, so they are pinned.
+
+    Three of these previously existed only inside the test suite, which meant
+    the demo could show two of the six gates and had to describe the rest. An
+    example whose comment says it blocks at `identity` and which actually blocks
+    somewhere else is worse than no example at all.
+    """
+
+    @pytest.mark.parametrize(
+        ("filename", "expected_verdict", "expected_gate"),
+        [
+            ("transaction_allowed.yaml", "allow", None),
+            ("transaction_blocked.yaml", "block", "source_authorization"),
+            ("transaction_shared_principal.yaml", "block", "identity"),
+            ("transaction_injection.yaml", "block", "pre_inference"),
+            ("transaction_region_violation.yaml", "block", "pre_inference"),
+        ],
+    )
+    def test_each_example_stops_where_its_comment_says_it_does(
+        self, filename, expected_verdict, expected_gate
+    ):
+        from pathlib import Path
+
+        import yaml
+
+        from muraqib.runtime import GovernanceEngine
+        from muraqib.runtime.models import TransactionContext
+        from muraqib.runtime.policy import load_policy
+
+        root = Path(__file__).resolve().parents[1] / "examples"
+        policy = load_policy(root / "governance_policy.yaml")
+        payload = yaml.safe_load((root / filename).read_text(encoding="utf-8"))
+        decision = GovernanceEngine(policy).evaluate(TransactionContext.model_validate(payload))
+
+        assert decision.verdict.value == expected_verdict, filename
+        if expected_gate is None:
+            assert decision.blocked_at is None, filename
+        else:
+            assert decision.blocked_at.value == expected_gate, filename
+            # Everything downstream of a block must record not_run, or the
+            # report implies checks happened that never did.
+            gates = [g.gate.value for g in decision.gates]
+            after = gates[gates.index(expected_gate) + 1 :]
+            by_name = {g.gate.value: g.verdict.value for g in decision.gates}
+            assert all(by_name[g] == "not_run" for g in after), filename
+
+    def test_the_injection_example_is_caught_in_retrieved_content_not_the_prompt(self):
+        """Guards the specific defect this example exists for. If the prompt
+        itself were what tripped the gate, the example would be proving nothing.
+        """
+        from pathlib import Path
+
+        import yaml
+
+        from muraqib.runtime import GovernanceEngine
+        from muraqib.runtime.models import TransactionContext
+        from muraqib.runtime.policy import load_policy
+
+        root = Path(__file__).resolve().parents[1] / "examples"
+        payload = yaml.safe_load((root / "transaction_injection.yaml").read_text(encoding="utf-8"))
+        assert "ignore all previous instructions" not in payload["prompt"].lower()
+
+        policy = load_policy(root / "governance_policy.yaml")
+        decision = GovernanceEngine(policy).evaluate(TransactionContext.model_validate(payload))
+        reasons = " ".join(
+            r for g in decision.gates if g.gate.value == "pre_inference" for r in g.reasons
+        ).lower()
+        assert "retrieved" in reasons, reasons

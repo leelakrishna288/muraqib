@@ -1,0 +1,35 @@
+# BLOCK at `identity`.
+#
+# The request is authenticated - but as a shared service principal, with no
+# on-behalf-of identity attached. This is the single most common way an
+# enterprise AI agent quietly becomes a privilege-escalation path: the agent
+# runs under its own service account, that account is granted broad access so
+# that it "works for everyone", and the actual human behind the request is never
+# carried through. Every downstream authorisation decision is then made about
+# the agent rather than about the person.
+#
+# Muraqib refuses to evaluate entitlement at all in that state. There is no
+# principal to evaluate it against.
+principal:
+  subject: "svc-tenant-assistant@corp.ae"
+  authenticated: true
+  mfa: true
+  roles: ["service"]
+  channel: "api"
+  delegated_identity: false
+  issuer: "https://login.microsoftonline.com/tenant"
+prompt: "Summarise the tenant complaints raised this week."
+prompt_redacted: true
+requested_tools: ["document_search"]
+data_sources: ["sharepoint"]
+retrieved:
+  - source: "sharepoint"
+    owner: "facilities@corp.ae"
+    classification: "internal"
+    excerpt: "Complaint log for week 36"
+model:
+  name: "gpt-4o-mini"
+  provider: "azure_openai"
+  region: "uae-north"
+response: "Fourteen complaints were raised, mostly about lift downtime."
+record_count: 14

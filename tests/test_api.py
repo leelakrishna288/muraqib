@@ -214,3 +214,30 @@ def test_html_report_route_is_reachable(auth_client_factory=None):
         "the .html route must be registered before the bare route or it is unreachable"
     )
     assert re.match(r"^/v1/reports/", paths[html_i])
+
+
+class TestMiddlewareDoesNotDependOnLifespan:
+    """The guard middleware runs before any route, on every request.
+
+    Found by driving the auth matrix with a TestClient built outside its context
+    manager: `app.state.rate` did not exist yet and every request - including
+    /health - returned 500. Under uvicorn the lifespan always runs, so this was
+    latent, but a health endpoint that 500s whenever startup is skipped is the
+    wrong failure mode for the thing an orchestrator uses to decide the
+    container is alive.
+    """
+
+    def test_requests_work_without_lifespan_startup(self):
+        from fastapi.testclient import TestClient
+
+        from muraqib.api.app import create_app
+
+        client = TestClient(create_app())  # deliberately NOT a context manager
+        assert client.get("/health").status_code == 200
+
+    def test_rate_state_exists_immediately_after_construction(self):
+        from muraqib.api.app import create_app
+
+        app = create_app()
+        assert app.state.rate is not None
+        assert app.state.reports == {}

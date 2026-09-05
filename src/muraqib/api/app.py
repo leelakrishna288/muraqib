@@ -85,6 +85,27 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
+    # Everything the middleware and routes read off app.state is initialised
+    # here, at construction, and REFRESHED by lifespan on startup.
+    #
+    # It used to be created only in lifespan. The guard middleware indexes
+    # app.state.rate on every request and /health reads app.state.settings, so
+    # any path that skips startup - a bare ASGI mount, a TestClient used outside
+    # its context manager, a server that does not emit lifespan events - turned
+    # every request into a 500, health check included. Under uvicorn the
+    # lifespan always runs, so this was latent rather than a live outage. It is
+    # still the wrong place for the only initialisation: a health endpoint that
+    # fails whenever startup is skipped is exactly backwards, because the health
+    # endpoint is what an orchestrator uses to decide the container is alive.
+    #
+    # Lifespan still re-reads settings and reloads the corpus, which is its
+    # actual job - picking up the environment at start time.
+    _settings = get_settings()
+    app.state.settings = _settings
+    app.state.corpus = Corpus.load(_settings.corpus_dir)
+    app.state.reports = {}
+    app.state.rate = defaultdict(deque)
+
     @app.middleware("http")
     async def guard(request: Request, call_next):  # noqa: ANN001, ANN202
         request_id = request.headers.get("x-request-id") or uuid.uuid4().hex[:12]

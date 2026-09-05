@@ -38,9 +38,12 @@ demo:      ## Run the bundled example assessment
 	$(PY) -m muraqib.cli assess examples/aldar_tenant_assistant.yaml \
 		--format md --format html --format json --format plan -o reports
 
-govern:    ## Run the two example transactions through the runtime gates
-	-$(PY) -m muraqib.cli govern examples/transaction_allowed.yaml
-	-$(PY) -m muraqib.cli govern examples/transaction_blocked.yaml
+govern:    ## Run all five example transactions through the runtime gates
+	@for t in allowed blocked shared_principal injection region_violation; do \
+		echo "\n===== $$t ====="; \
+		$(PY) -m muraqib.cli govern examples/transaction_$$t.yaml \
+			--policy examples/governance_policy.yaml || true; \
+	done
 
 serve:     ## Run the API on :8000
 	$(PY) -m muraqib.cli serve --reload
